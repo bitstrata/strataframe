@@ -19,6 +19,7 @@ geo = ["shapely>=2.0", "pyproj>=3.6"]
 dtw = ["dtaidistance>=2.3"]
 ray = ["ray>=2.10"]
 zarr = ["zarr>=2.17"]
+dev = ["pytest>=8.0"]
 
 [project.scripts]
 strataframe-backbone = "strataframe.cli.run_backbone:app"
