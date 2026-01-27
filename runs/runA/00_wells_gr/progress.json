@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "n_header_fail": 0,
+    "n_insufficient_gr": 181,
+    "n_keep": 23438,
+    "n_missing_las": 2119,
+    "n_no_depth": 40,
+    "n_no_gr": 2746,
+    "n_rows_in": 28524,
+    "n_skip_too_large": 0,
+    "n_stream_fail": 0
+  },
+  "done": 28524,
+  "keep_est": 23438,
+  "name": "step0_index_gr",
+  "num_fds": null,
+  "out_dir": "runs/runA/00_wells_gr",
+  "parts_written": 24,
+  "rss_mb": null,
+  "status": "done",
+  "step": "0",
+  "total": 28524,
+  "ts_utc": "2026-01-27T04:59:08Z"
+}

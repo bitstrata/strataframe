@@ -1,0 +1,17 @@
+{
+  "counts": {
+    "n_header_fail": 0,
+    "n_insufficient_gr": 181,
+    "n_keep": 23438,
+    "n_missing_las": 2119,
+    "n_no_depth": 40,
+    "n_no_gr": 2746,
+    "n_rows_in": 28524,
+    "n_skip_too_large": 0,
+    "n_stream_fail": 0
+  },
+  "next_row": 28524,
+  "part_idx": 24,
+  "phase": "done",
+  "ts_utc": "2026-01-27T04:59:08Z"
+}

@@ -1,0 +1,108 @@
+# config/default.yaml
+
+project:
+  name: strataframe
+  data_root: data
+
+spatial:
+  crs_epsg: 5070   # or 26914 if you prefer UTM 14N
+
+inputs:
+  ks_manifest: data/ks_las_files.txt
+  las_root: data/las
+
+run:
+  run_dir: runs/runA
+  overwrite: false
+
+pipeline:
+  steps: ["0"]   # default run subset; use ["0","1","2","3"] later
+
+step0:
+  curve_family: GR
+  min_finite: 200
+  pct: [1.0, 50.0, 99.0]
+  quiet_lasio: true
+
+step1:
+  method: grid
+  target_bins: 100
+  min_bin_size: 10
+  grid_cell_km: null
+  grid_pad_frac: 0.01
+  filter_wells_csv: null
+
+step2:
+  n_rep: 1000
+  quota_mode: equal           # equal | proportional
+  q_min: 5                    # used only if quota_mode=proportional
+  candidate_method: farthest  # farthest | random
+  seed: 42
+  max_candidates_per_cell: 25
+  require_gr: true
+
+  # Grid-only well_to_cell rebuild hints
+  grid_km: 10.0               # used only if Step2 rebuilds well_to_cell.csv
+
+  # Toggle local typewells + placement
+  build_typewells: true
+
+  # Safety valves
+  max_las_mb: 512
+
+  # Typewell workload controls
+  typewell_max_cells: 0
+  typewell_max_kernel_wells: 200
+  typewell_gc_every: 10
+  resume: true
+
+  # Local TypeWellConfig overrides (only keys supported by TypeWellConfig will be applied)
+  typewell:
+    kernel_radius: 1
+    kernel_radius_max: 3
+    min_kernel_wells: 25
+
+step3:
+  graph:
+    r_max_m: 5000
+    k_max: 12
+    ensure_one_nn: true
+
+  k_intra: 6
+  k_bin: 3
+  m_bridge_pairs: 2
+  d_max_km: 80.0
+
+  n_samples: 400
+  p_lo: 1.0
+  p_hi: 99.0
+  fill_nans: true
+  min_finite: 20
+  max_gap_depth: null
+
+  dtw:
+    alpha: 0.15
+    band_rad: null
+    min_finite: 20
+    downsample_path_to: 80
+
+  framework:
+    mode: mst_plus_topk
+    topk: 3
+    topk_extra: 3
+    sim_threshold: 0.60
+    extra_sim_min: 0.0
+    sim_scale: 0.25
+
+  rgt:
+    damping: 1e-2
+    maxiter: 500
+    tol: 1e-6
+    simplified_indexing: true
+    lambda_anchor: 1.0
+
+outputs:
+  step0_out_subdir: 00_wells_gr
+  step1_out_subdir: 01_bins
+  step2_out_subdir: 02_reps
+  step3_out_subdir: 03_corr

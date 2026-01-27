@@ -1,3 +1,4 @@
+# src/strataframe/rgt/anchored_solve.py
 from __future__ import annotations
 
 from dataclasses import dataclass

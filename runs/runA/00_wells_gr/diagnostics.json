@@ -1,0 +1,50 @@
+{
+  "step": "step0_index_gr",
+  "inputs": {
+    "ks_manifest_path": "data/ks_las_files.txt",
+    "las_root": "data/las",
+    "ks_manifest_fingerprint": "8a7fc7cb9845a4a40451e4c1c173d589630ae09f"
+  },
+  "config": {
+    "curve_family": "GR",
+    "min_finite": 200,
+    "pct": [
+      1.0,
+      50.0,
+      99.0
+    ],
+    "quiet_lasio": true,
+    "progress": true,
+    "progress_every": 250,
+    "flush_every": 1000,
+    "max_las_mb": 512,
+    "reservoir_max": 20000,
+    "gc_every": 300
+  },
+  "counts": {
+    "n_rows_in": 28524,
+    "n_missing_las": 2119,
+    "n_header_fail": 0,
+    "n_no_depth": 40,
+    "n_no_gr": 2746,
+    "n_skip_too_large": 0,
+    "n_stream_fail": 0,
+    "n_insufficient_gr": 181,
+    "n_keep": 23438
+  },
+  "gr_family_canons": [
+    "GR"
+  ],
+  "examples": {
+    "failures": []
+  },
+  "outputs": {
+    "parquet_dataset_dir": "runs/runA/00_wells_gr/wells_gr.parquet",
+    "qc_csv": "runs/runA/00_wells_gr/wells_gr_qc.csv",
+    "parquet_parts_written": 24
+  },
+  "resume": {
+    "start_row": 0,
+    "initial_part_idx": 0
+  }
+}

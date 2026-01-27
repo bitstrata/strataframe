@@ -1,0 +1,583 @@
+{
+  "step": "step1_bin_wells",
+  "inputs": {
+    "ks_manifest": "data/ks_las_files.txt",
+    "filter_wells_csv": ""
+  },
+  "params": {
+    "target_bins": 100,
+    "min_bin_size": 10,
+    "grid_cell_km": null,
+    "grid_pad_frac": 0.01
+  },
+  "outputs": {
+    "bins_csv": "runs/runA/01_bins/bins.csv",
+    "bins_meta_csv": "runs/runA/01_bins/bins_meta.csv",
+    "well_to_cell_csv": "runs/runA/01_bins/well_to_cell.csv"
+  },
+  "diagnostics": {
+    "method": "grid",
+    "grid_cell_km_proposed": null,
+    "chosen_grid_cell_km": 57.374371,
+    "chosen_grid_cell_m": 57374.371,
+    "occupancy_by_cell_km": {
+      "16.012134": 748,
+      "19.214561": 542,
+      "23.057473": 397,
+      "27.668968": 284,
+      "33.202761": 208,
+      "39.843313": 155,
+      "47.811976": 110,
+      "57.374371": 77,
+      "68.849245": 59,
+      "82.619095": 46,
+      "99.142913": 37,
+      "118.971496": 19,
+      "142.765795": 20,
+      "171.318954": 14,
+      "205.582745": 12,
+      "246.699294": 8,
+      "296.039153": 6,
+      "355.246984": 6,
+      "426.296381": 6,
+      "511.555657": 3,
+      "613.866788": 4,
+      "736.640146": 2,
+      "883.968175": 4,
+      "1060.761810": 2,
+      "1272.914172": 2,
+      "1527.497006": 2,
+      "1832.996408": 4,
+      "2199.595689": 2,
+      "2639.514827": 2,
+      "3167.417793": 2
+    },
+    "scale_selection": {
+      "area_m2_est": 228598504955.85678,
+      "base_cell_km": 47.81197600558429,
+      "chosen_occ": 77
+    },
+    "n_wells_in": 28524,
+    "n_bins_initial": 77,
+    "n_bins_final": 69,
+    "min_bin_size": 10,
+    "bin_size_stats": {
+      "min": 10,
+      "p50": 276,
+      "max": 2097
+    },
+    "radius_km_stats": {
+      "min": 8.710182695787497,
+      "p50": 42.0829886926022,
+      "max": 81.40347541119353
+    },
+    "merge_log": [
+      {
+        "src_bin_id": "g12_3",
+        "dst_bin_id": "g12_2",
+        "src_n_wells": 1,
+        "dst_n_wells_before": 20,
+        "dst_n_wells_after": 21,
+        "centroid_dist_km": 22.757958871276024
+      },
+      {
+        "src_bin_id": "g11_6",
+        "dst_bin_id": "g11_5",
+        "src_n_wells": 3,
+        "dst_n_wells_before": 34,
+        "dst_n_wells_after": 37,
+        "centroid_dist_km": 36.59664256645311
+      },
+      {
+        "src_bin_id": "g12_1",
+        "dst_bin_id": "g12_2",
+        "src_n_wells": 3,
+        "dst_n_wells_before": 21,
+        "dst_n_wells_after": 24,
+        "centroid_dist_km": 47.42743280665566
+      },
+      {
+        "src_bin_id": "g3_7",
+        "dst_bin_id": "g3_6",
+        "src_n_wells": 3,
+        "dst_n_wells_before": 279,
+        "dst_n_wells_after": 282,
+        "centroid_dist_km": 34.58935080157186
+      },
+      {
+        "src_bin_id": "g7_6",
+        "dst_bin_id": "g7_5",
+        "src_n_wells": 4,
+        "dst_n_wells_before": 5,
+        "dst_n_wells_after": 9,
+        "centroid_dist_km": 50.13609608899512
+      },
+      {
+        "src_bin_id": "g6_6",
+        "dst_bin_id": "g6_5",
+        "src_n_wells": 6,
+        "dst_n_wells_before": 36,
+        "dst_n_wells_after": 42,
+        "centroid_dist_km": 59.21090518438658
+      },
+      {
+        "src_bin_id": "g8_6",
+        "dst_bin_id": "g8_5",
+        "src_n_wells": 8,
+        "dst_n_wells_before": 9,
+        "dst_n_wells_after": 17,
+        "centroid_dist_km": 60.98396651624614
+      },
+      {
+        "src_bin_id": "g7_5",
+        "dst_bin_id": "g8_5",
+        "src_n_wells": 9,
+        "dst_n_wells_before": 17,
+        "dst_n_wells_after": 26,
+        "centroid_dist_km": 63.15102836079262
+      }
+    ],
+    "grid": {
+      "crs_epsg": 5070,
+      "cell_m": 57374.371,
+      "cell_km": 57.374371,
+      "origin_x_m": -573743.71,
+      "origin_y_m": 1491733.646,
+      "origin_lon": -102.45248029680477,
+      "origin_lat": 36.299218049983544,
+      "x_min_m": -536788.2299429704,
+      "x_max_m": 127015.09023911205,
+      "y_min_m": 1544225.5772847065,
+      "y_max_m": 1908505.7287711098,
+      "ix_min": 0,
+      "ix_max": 12,
+      "iy_min": 0,
+      "iy_max": 7
+    },
+    "bin_sources": {
+      "g0_1": {
+        "source_cells": [
+          "g0_1"
+        ],
+        "n_wells": 40
+      },
+      "g0_2": {
+        "source_cells": [
+          "g0_2"
+        ],
+        "n_wells": 10
+      },
+      "g0_3": {
+        "source_cells": [
+          "g0_3"
+        ],
+        "n_wells": 14
+      },
+      "g0_4": {
+        "source_cells": [
+          "g0_4"
+        ],
+        "n_wells": 17
+      },
+      "g10_1": {
+        "source_cells": [
+          "g10_1"
+        ],
+        "n_wells": 1728
+      },
+      "g10_2": {
+        "source_cells": [
+          "g10_2"
+        ],
+        "n_wells": 2097
+      },
+      "g10_3": {
+        "source_cells": [
+          "g10_3"
+        ],
+        "n_wells": 228
+      },
+      "g10_4": {
+        "source_cells": [
+          "g10_4"
+        ],
+        "n_wells": 31
+      },
+      "g10_5": {
+        "source_cells": [
+          "g10_5"
+        ],
+        "n_wells": 25
+      },
+      "g10_6": {
+        "source_cells": [
+          "g10_6"
+        ],
+        "n_wells": 90
+      },
+      "g11_1": {
+        "source_cells": [
+          "g11_1"
+        ],
+        "n_wells": 276
+      },
+      "g11_2": {
+        "source_cells": [
+          "g11_2"
+        ],
+        "n_wells": 1092
+      },
+      "g11_3": {
+        "source_cells": [
+          "g11_3"
+        ],
+        "n_wells": 686
+      },
+      "g11_4": {
+        "source_cells": [
+          "g11_4"
+        ],
+        "n_wells": 179
+      },
+      "g11_5": {
+        "source_cells": [
+          "g11_5",
+          "g11_6"
+        ],
+        "n_wells": 37
+      },
+      "g12_2": {
+        "source_cells": [
+          "g12_1",
+          "g12_2",
+          "g12_3"
+        ],
+        "n_wells": 24
+      },
+      "g12_4": {
+        "source_cells": [
+          "g12_4"
+        ],
+        "n_wells": 14
+      },
+      "g1_1": {
+        "source_cells": [
+          "g1_1"
+        ],
+        "n_wells": 367
+      },
+      "g1_2": {
+        "source_cells": [
+          "g1_2"
+        ],
+        "n_wells": 582
+      },
+      "g1_3": {
+        "source_cells": [
+          "g1_3"
+        ],
+        "n_wells": 223
+      },
+      "g1_4": {
+        "source_cells": [
+          "g1_4"
+        ],
+        "n_wells": 173
+      },
+      "g1_5": {
+        "source_cells": [
+          "g1_5"
+        ],
+        "n_wells": 70
+      },
+      "g1_6": {
+        "source_cells": [
+          "g1_6"
+        ],
+        "n_wells": 301
+      },
+      "g1_7": {
+        "source_cells": [
+          "g1_7"
+        ],
+        "n_wells": 79
+      },
+      "g2_1": {
+        "source_cells": [
+          "g2_1"
+        ],
+        "n_wells": 495
+      },
+      "g2_2": {
+        "source_cells": [
+          "g2_2"
+        ],
+        "n_wells": 799
+      },
+      "g2_3": {
+        "source_cells": [
+          "g2_3"
+        ],
+        "n_wells": 698
+      },
+      "g2_4": {
+        "source_cells": [
+          "g2_4"
+        ],
+        "n_wells": 1015
+      },
+      "g2_5": {
+        "source_cells": [
+          "g2_5"
+        ],
+        "n_wells": 609
+      },
+      "g2_6": {
+        "source_cells": [
+          "g2_6"
+        ],
+        "n_wells": 332
+      },
+      "g2_7": {
+        "source_cells": [
+          "g2_7"
+        ],
+        "n_wells": 123
+      },
+      "g3_1": {
+        "source_cells": [
+          "g3_1"
+        ],
+        "n_wells": 134
+      },
+      "g3_2": {
+        "source_cells": [
+          "g3_2"
+        ],
+        "n_wells": 240
+      },
+      "g3_3": {
+        "source_cells": [
+          "g3_3"
+        ],
+        "n_wells": 486
+      },
+      "g3_4": {
+        "source_cells": [
+          "g3_4"
+        ],
+        "n_wells": 1041
+      },
+      "g3_5": {
+        "source_cells": [
+          "g3_5"
+        ],
+        "n_wells": 444
+      },
+      "g3_6": {
+        "source_cells": [
+          "g3_6",
+          "g3_7"
+        ],
+        "n_wells": 282
+      },
+      "g4_1": {
+        "source_cells": [
+          "g4_1"
+        ],
+        "n_wells": 264
+      },
+      "g4_2": {
+        "source_cells": [
+          "g4_2"
+        ],
+        "n_wells": 418
+      },
+      "g4_3": {
+        "source_cells": [
+          "g4_3"
+        ],
+        "n_wells": 1205
+      },
+      "g4_4": {
+        "source_cells": [
+          "g4_4"
+        ],
+        "n_wells": 878
+      },
+      "g4_5": {
+        "source_cells": [
+          "g4_5"
+        ],
+        "n_wells": 1210
+      },
+      "g4_6": {
+        "source_cells": [
+          "g4_6"
+        ],
+        "n_wells": 454
+      },
+      "g5_1": {
+        "source_cells": [
+          "g5_1"
+        ],
+        "n_wells": 667
+      },
+      "g5_2": {
+        "source_cells": [
+          "g5_2"
+        ],
+        "n_wells": 443
+      },
+      "g5_3": {
+        "source_cells": [
+          "g5_3"
+        ],
+        "n_wells": 676
+      },
+      "g5_4": {
+        "source_cells": [
+          "g5_4"
+        ],
+        "n_wells": 1307
+      },
+      "g5_5": {
+        "source_cells": [
+          "g5_5"
+        ],
+        "n_wells": 761
+      },
+      "g5_6": {
+        "source_cells": [
+          "g5_6"
+        ],
+        "n_wells": 41
+      },
+      "g6_1": {
+        "source_cells": [
+          "g6_1"
+        ],
+        "n_wells": 735
+      },
+      "g6_2": {
+        "source_cells": [
+          "g6_2"
+        ],
+        "n_wells": 388
+      },
+      "g6_3": {
+        "source_cells": [
+          "g6_3"
+        ],
+        "n_wells": 800
+      },
+      "g6_4": {
+        "source_cells": [
+          "g6_4"
+        ],
+        "n_wells": 396
+      },
+      "g6_5": {
+        "source_cells": [
+          "g6_5",
+          "g6_6"
+        ],
+        "n_wells": 42
+      },
+      "g7_1": {
+        "source_cells": [
+          "g7_1"
+        ],
+        "n_wells": 540
+      },
+      "g7_2": {
+        "source_cells": [
+          "g7_2"
+        ],
+        "n_wells": 140
+      },
+      "g7_3": {
+        "source_cells": [
+          "g7_3"
+        ],
+        "n_wells": 208
+      },
+      "g7_4": {
+        "source_cells": [
+          "g7_4"
+        ],
+        "n_wells": 40
+      },
+      "g8_1": {
+        "source_cells": [
+          "g8_1"
+        ],
+        "n_wells": 471
+      },
+      "g8_2": {
+        "source_cells": [
+          "g8_2"
+        ],
+        "n_wells": 255
+      },
+      "g8_3": {
+        "source_cells": [
+          "g8_3"
+        ],
+        "n_wells": 143
+      },
+      "g8_4": {
+        "source_cells": [
+          "g8_4"
+        ],
+        "n_wells": 36
+      },
+      "g8_5": {
+        "source_cells": [
+          "g7_5",
+          "g7_6",
+          "g8_5",
+          "g8_6"
+        ],
+        "n_wells": 26
+      },
+      "g9_1": {
+        "source_cells": [
+          "g9_1"
+        ],
+        "n_wells": 362
+      },
+      "g9_2": {
+        "source_cells": [
+          "g9_2"
+        ],
+        "n_wells": 161
+      },
+      "g9_3": {
+        "source_cells": [
+          "g9_3"
+        ],
+        "n_wells": 157
+      },
+      "g9_4": {
+        "source_cells": [
+          "g9_4"
+        ],
+        "n_wells": 132
+      },
+      "g9_5": {
+        "source_cells": [
+          "g9_5"
+        ],
+        "n_wells": 77
+      },
+      "g9_6": {
+        "source_cells": [
+          "g9_6"
+        ],
+        "n_wells": 10
+      }
+    },
+    "grid_km": 57.374371
+  }
+}

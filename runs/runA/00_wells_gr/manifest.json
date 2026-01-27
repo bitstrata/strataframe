@@ -1,0 +1,29 @@
+{
+  "step": "step0_index_gr",
+  "inputs": {
+    "ks_manifest_path": "data/ks_las_files.txt",
+    "las_root": "data/las",
+    "ks_manifest_fingerprint": "8a7fc7cb9845a4a40451e4c1c173d589630ae09f"
+  },
+  "outputs": {
+    "wells_gr_parquet": "runs/runA/00_wells_gr/wells_gr.parquet",
+    "wells_gr_qc_csv": "runs/runA/00_wells_gr/wells_gr_qc.csv",
+    "diagnostics_json": "runs/runA/00_wells_gr/diagnostics.json"
+  },
+  "config": {
+    "curve_family": "GR",
+    "min_finite": 200,
+    "pct": [
+      1.0,
+      50.0,
+      99.0
+    ],
+    "quiet_lasio": true,
+    "progress": true,
+    "progress_every": 250,
+    "flush_every": 1000,
+    "max_las_mb": 512,
+    "reservoir_max": 20000,
+    "gc_every": 300
+  }
+}
