@@ -56,6 +56,27 @@ def _load_wells_gr(path: Path) -> pd.DataFrame:
     return out
 
 
+def _load_wells_any(path: Path) -> pd.DataFrame:
+    df = _read_parquet_any(path) if (path.is_dir() or path.suffix.lower() == ".parquet") else pd.read_csv(path)
+    cols = {c.lower(): c for c in df.columns}
+    lat_col = cols.get("lat")
+    lon_col = cols.get("lon")
+    status_col = cols.get("status")
+    if lat_col is None or lon_col is None:
+        raise ValueError(f"wells_any missing lat/lon columns. Found: {list(df.columns)}")
+
+    out = pd.DataFrame(
+        {
+            "lat": pd.to_numeric(df[lat_col], errors="coerce"),
+            "lon": pd.to_numeric(df[lon_col], errors="coerce"),
+        }
+    )
+    if status_col is not None:
+        out["status"] = df[status_col].astype(str)
+    out = out[np.isfinite(out["lat"].values) & np.isfinite(out["lon"].values)].copy()
+    return out
+
+
 def _load_reps_csv(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
     cols = {c.lower(): c for c in df.columns}
@@ -285,7 +306,7 @@ def _extent_from_well_to_cell_csv(path: Path) -> Optional[Tuple[int, int, int, i
     if not xs:
         return None
 
-    return int(min(xs)), int(max(xs)), int(min(ys)), int(max(ys)))
+    return int(min(xs)), int(max(xs)), int(min(ys)), int(max(ys))
 
 
 def _auto_step1_paths(*, reps_csv: Optional[Path], wells_gr_path: Optional[Path]) -> Tuple[Optional[Path], Optional[Path]]:
@@ -452,14 +473,20 @@ def _draw_grid_plain_axes(
 
 def main() -> int:
     ap = argparse.ArgumentParser(
-        description="Kansas map: usable GR wells (open) and optional representatives (filled). Optional legacy grid overlay if Step1 grid params are available."
+        description="Kansas map: all wells (open) and GR wells (filled). Optional legacy grid overlay if Step1 grid params are available."
     )
 
     # Core inputs
     ap.add_argument("--wells-gr", type=str, required=True, help="Path to step0 wells_gr.parquet (file or dir) or csv")
+    ap.add_argument(
+        "--wells-any",
+        type=str,
+        default="",
+        help="Optional path to wells_gr_qc.csv (all wells). If omitted, auto-detects next to wells_gr.",
+    )
 
     # Optional overlays (kept compatible with older and newer usage)
-    ap.add_argument("--reps-csv", type=str, default="", help="Optional path to step2 representatives.csv (if provided, reps are plotted filled)")
+    ap.add_argument("--reps-csv", type=str, default="", help="(Deprecated) Ignored.")
     ap.add_argument("--ks-manifest", type=str, default="", help="Optional Kansas LAS manifest/list path (for provenance only; not required)")
 
     # Outputs / display
@@ -499,19 +526,28 @@ def main() -> int:
     wells_gr_path = Path(args.wells_gr)
     df_gr = _load_wells_gr(wells_gr_path)
 
-    reps_csv = Path(args.reps_csv) if str(args.reps_csv).strip() else None
-    df_reps: Optional[pd.DataFrame] = None
-    if reps_csv is not None:
-        if not reps_csv.exists():
-            raise FileNotFoundError(reps_csv)
-        df_reps = _load_reps_csv(reps_csv)
+    wells_any_path = Path(args.wells_any) if str(args.wells_any).strip() else None
+    if wells_any_path is None:
+        # Try to auto-detect next to wells_gr path
+        parent = wells_gr_path if wells_gr_path.is_dir() else wells_gr_path.parent
+        cand = parent / "wells_gr_qc.csv"
+        if cand.exists():
+            wells_any_path = cand
+
+    df_any: Optional[pd.DataFrame] = None
+    if wells_any_path is not None and wells_any_path.exists():
+        df_any = _load_wells_any(wells_any_path)
+    else:
+        # Fallback: use GR wells only
+        df_any = df_gr.copy()
+        print("NOTE: wells_any not found; using wells_gr only for plotting.")
 
     # Resolve Step1 paths (auto if not provided)
     man_path = Path(args.step1_manifest) if str(args.step1_manifest).strip() else None
     w2c_path = Path(args.well_to_cell) if str(args.well_to_cell).strip() else None
 
     if (man_path is None or not man_path.exists()) or (w2c_path is None or not w2c_path.exists()):
-        auto_man, auto_w2c = _auto_step1_paths(reps_csv=reps_csv, wells_gr_path=wells_gr_path)
+        auto_man, auto_w2c = _auto_step1_paths(reps_csv=None, wells_gr_path=wells_gr_path)
         if man_path is None or not (man_path and man_path.exists()):
             man_path = auto_man
         if w2c_path is None or not (w2c_path and w2c_path.exists()):
@@ -542,9 +578,7 @@ def main() -> int:
     geom, _ccrs_mod = _get_kansas_geom()
 
     # Title / labels
-    base_title = "Kansas wells: usable GR (open)"
-    if df_reps is not None:
-        base_title += " + representatives (filled)"
+    base_title = "Kansas wells: all wells (open) + GR wells (filled)"
     base_title += " — StrataFrame"
 
     if geom is not None:
@@ -583,33 +617,35 @@ def main() -> int:
             # Expected for H3-based Step 1
             pass
 
-        # All GR wells: open circles
+        # All wells: open circles
         ax.scatter(
-            df_gr["lon"].values,
-            df_gr["lat"].values,
+            df_any["lon"].values,
+            df_any["lat"].values,
             s=14,
             facecolors="none",
             edgecolors="black",
             linewidths=0.5,
-            alpha=0.5,
+            alpha=0.85,
             transform=ccrs2.PlateCarree(),
-            label=f"Usable GR wells (n={len(df_gr)})",
+            label=f"All wells (n={len(df_any)})",
             zorder=4,
         )
 
-        # Selected reps: filled circles (optional)
-        if df_reps is not None and len(df_reps) > 0:
-            ax.scatter(
-                df_reps["lon"].values,
-                df_reps["lat"].values,
-                s=22,
-                alpha=0.55,
-                edgecolors="black",
-                linewidths=0.05,
-                transform=ccrs2.PlateCarree(),
-                label=f"Selected reps (n={len(df_reps)})",
-                zorder=5,
-            )
+        # GR wells: filled circles
+        df_gr_plot = df_any[df_any.get("status", "OK").astype(str).str.upper() == "OK"].copy()
+        if df_gr_plot.empty:
+            df_gr_plot = df_gr.copy()
+        ax.scatter(
+            df_gr_plot["lon"].values,
+            df_gr_plot["lat"].values,
+            s=18,
+            alpha=0.85,
+            edgecolors="black",
+            linewidths=0.05,
+            transform=ccrs2.PlateCarree(),
+            label=f"GR wells (n={len(df_gr_plot)})",
+            zorder=5,
+        )
 
         ax.set_title(base_title)
         ax.legend(loc="lower left", frameon=True)
@@ -647,28 +683,30 @@ def main() -> int:
             pass
 
         ax.scatter(
-            df_gr["lon"].values,
-            df_gr["lat"].values,
+            df_any["lon"].values,
+            df_any["lat"].values,
             s=14,
             facecolors="none",
             edgecolors="black",
             linewidths=0.5,
-            alpha=0.5,
-            label=f"Usable GR wells (n={len(df_gr)})",
+            alpha=0.85,
+            label=f"All wells (n={len(df_any)})",
             zorder=4,
         )
 
-        if df_reps is not None and len(df_reps) > 0:
-            ax.scatter(
-                df_reps["lon"].values,
-                df_reps["lat"].values,
-                s=22,
-                alpha=0.55,
-                edgecolors="black",
-                linewidths=0.2,
-                label=f"Selected reps (n={len(df_reps)})",
-                zorder=5,
-            )
+        df_gr_plot = df_any[df_any.get("status", "OK").astype(str).str.upper() == "OK"].copy()
+        if df_gr_plot.empty:
+            df_gr_plot = df_gr.copy()
+        ax.scatter(
+            df_gr_plot["lon"].values,
+            df_gr_plot["lat"].values,
+            s=18,
+            alpha=0.85,
+            edgecolors="black",
+            linewidths=0.2,
+            label=f"GR wells (n={len(df_gr_plot)})",
+            zorder=5,
+        )
 
         ax.set_xlim(lon_min, lon_max)
         ax.set_ylim(lat_min, lat_max)

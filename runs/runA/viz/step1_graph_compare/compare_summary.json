@@ -1,0 +1,15 @@
+{
+  "raw_delaunay": 60457,
+  "cut_delaunay": 56886,
+  "graph_delaunay": 56886,
+  "missing_in_graph": 0,
+  "extra_in_graph": 0,
+  "r_max_km": 8.0,
+  "paths": {
+    "delaunay_raw_edges": "runs/runA/viz/step1_graph_compare/delaunay_raw_edges.csv",
+    "delaunay_cut_edges": "runs/runA/viz/step1_graph_compare/delaunay_cut_edges.csv",
+    "graph_delaunay_edges": "runs/runA/viz/step1_graph_compare/graph_delaunay_edges.csv",
+    "missing_in_graph": "runs/runA/viz/step1_graph_compare/delaunay_missing_in_graph.csv",
+    "extra_in_graph": "runs/runA/viz/step1_graph_compare/delaunay_extra_in_graph.csv"
+  }
+}

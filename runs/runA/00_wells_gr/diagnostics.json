@@ -7,6 +7,7 @@
   },
   "config": {
     "curve_family": "GR",
+    "curve_families": null,
     "min_finite": 200,
     "pct": [
       1.0,
@@ -44,7 +45,7 @@
     "parquet_parts_written": 24
   },
   "resume": {
-    "start_row": 0,
-    "initial_part_idx": 0
+    "start_row": 28524,
+    "initial_part_idx": 24
   }
 }

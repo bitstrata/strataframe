@@ -117,7 +117,7 @@
       "quota": 14,
       "n_candidates": 25,
       "n_attempted": 50,
-      "n_scored": 49,
+      "n_scored": 50,
       "n_selected": 14
     },
     "g11_5": {
@@ -173,7 +173,7 @@
       "quota": 15,
       "n_candidates": 25,
       "n_attempted": 50,
-      "n_scored": 49,
+      "n_scored": 50,
       "n_selected": 15
     },
     "g1_3": {
@@ -618,11 +618,11 @@
     }
   },
   "skipped_missing_las": 0,
-  "skipped_read_fail": 2,
+  "skipped_read_fail": 0,
   "skipped_no_gr": 0,
-  "created_utc": "2026-01-27T05:12:02.663123+00:00",
+  "created_utc": "2026-01-28T02:29:59.238825+00:00",
   "representatives_meta": {
-    "created_utc": "2026-01-27T05:12:02.663123+00:00",
+    "created_utc": "2026-01-28T02:29:59.238825+00:00",
     "n_rep_target": 1000,
     "n_rep_effective": 1000,
     "n_rep_selected": 1000,
@@ -1104,9 +1104,12 @@
       "kept": 23438
     },
     "las_prefilter": {
-      "max_las_mb": 512,
+      "max_las_mb": 128,
+      "max_curves": 800,
       "skip_missing": 0,
       "skip_big": 0,
+      "skip_many_curves": 0,
+      "skip_bad_header": 0,
       "kept": 23438
     }
   }

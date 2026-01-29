@@ -1,0 +1,21 @@
+{
+  "step": "step1_build_graph",
+  "counts": {
+    "n_nodes": 23438,
+    "n_edges": 117849,
+    "n_delaunay": 56886,
+    "n_knn": 117032,
+    "n_both": 56069,
+    "n_cut_dist": 41523,
+    "n_pruned_k": 190770
+  },
+  "cfg": {
+    "k_max": 12,
+    "r_max_km": 8.0,
+    "knn_candidates": 24
+  },
+  "paths": {
+    "graph_nodes_csv": "/Volumes/DevDrive/Projects/strataframe/runs/runA/01_graph/graph_nodes.csv",
+    "graph_edges_csv": "/Volumes/DevDrive/Projects/strataframe/runs/runA/01_graph/graph_edges.csv"
+  }
+}

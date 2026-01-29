@@ -46,6 +46,7 @@ class Step2RepsConfig:
 
     # Safety valves
     max_las_mb: int = 512
+    max_las_curves: int = 0
 
     # Typewell workload controls
     typewell_max_cells: int = 0
@@ -88,6 +89,7 @@ def run_step2_reps(
         rows,
         las_root=Path(las_root),
         max_las_mb=int(cfg.max_las_mb),
+        max_curves=int(cfg.max_las_curves),
         allowed_names=allowed_names,
     )
     w2c_diag = dict(w2c_diag)

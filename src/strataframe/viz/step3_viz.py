@@ -9,14 +9,14 @@ from typing import Iterable, List, Optional, Sequence, Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 
-from strataframe.steps.step3b_rep_arrays import load_rep_arrays_npz
+from strataframe.pipelines.step3b_rep_arrays import load_rep_arrays_npz
 
-from .step3_common import ensure_dir, find_first, load_edges_csv, load_reps
-from .step3a_candidates_map import plot_step3a_candidates_map
-from .step3b_panel import plot_step3b_rep_arrays_panel
-from .step3c_dtw_map import plot_step3c_dtw_map
-from .step3d_fence import plot_step3d_framework_and_fence
-from .step3e_chronostrat import plot_step3e_chronostrat
+from strataframe.viz.step3_common import ensure_dir, find_first, load_edges_csv, load_reps
+from strataframe.viz.step3a_candidates_map import plot_step3a_candidates_map
+from strataframe.viz.step3b_panel import plot_step3b_rep_arrays_panel
+from strataframe.viz.step3c_dtw_map import plot_step3c_dtw_map
+from strataframe.viz.step3d_fence import plot_step3d_framework_and_fence
+from strataframe.viz.step3e_chronostrat import plot_step3e_chronostrat
 
 
 # -----------------------------------------------------------------------------

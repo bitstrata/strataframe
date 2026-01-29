@@ -1,0 +1,22 @@
+{
+  "counts": {
+    "n_nodes": 23438,
+    "n_ok": 23435,
+    "n_read_fail": 0,
+    "n_skip_size": 0,
+    "n_skip_curves": 2,
+    "n_resample_fail": 1
+  },
+  "config": {
+    "curve_mnemonic": "GR",
+    "n_samples": 1024,
+    "p_lo": 1.0,
+    "p_hi": 99.0,
+    "min_finite": 10,
+    "max_las_mb": 256.0,
+    "max_curves": 200,
+    "max_rows": 0,
+    "progress_every": 500,
+    "gc_every": 200
+  }
+}

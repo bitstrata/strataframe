@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 from pathlib import Path
 from typing import Optional, Sequence
 
@@ -58,9 +59,17 @@ def build_argparser() -> argparse.ArgumentParser:
     pr.add_argument("--no-typewells", action="store_true")
     pr.add_argument("--dry-run", action="store_true")
     pr.add_argument("--max-las-mb", type=int, default=512)
+    pr.add_argument("--max-las-curves", type=int, default=0)
     pr.add_argument("--typewell-max-cells", type=int, default=0)
     pr.add_argument("--typewell-max-kernel-wells", type=int, default=200)
     pr.add_argument("--typewell-gc-every", type=int, default=10)
+    pr.add_argument("--typewell-max-rows", type=int, default=0)
+    pr.add_argument("--typewell-subprocess", action="store_true")
+    pr.add_argument("--typewell-subprocess-min-mb", type=int, default=0)
+    pr.add_argument("--typewell-worker-timeout", type=int, default=0)
+    pr.add_argument("--typewell-worker-mem-mb", type=int, default=0)
+    pr.add_argument("--typewell-gr-cache-dir", type=Path, default=None)
+    pr.add_argument("--typewell-no-gr-cache", action="store_true")
     pr.add_argument("--no-resume", action="store_true")
 
     # -------------------------------------------------------------------------
@@ -115,6 +124,31 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = build_argparser().parse_args(argv)
 
     if args.mode == "reps":
+        tw_cfg = TypeWellConfig()
+        if int(args.typewell_max_rows) >= 0:
+            tw_cfg = replace(tw_cfg, max_las_rows=int(args.typewell_max_rows))
+        if (
+            bool(args.typewell_subprocess)
+            or int(args.typewell_subprocess_min_mb) > 0
+            or int(args.typewell_worker_timeout) != 0
+            or int(args.typewell_worker_mem_mb) != 0
+        ):
+            tw_cfg = replace(
+                tw_cfg,
+                use_subprocess=bool(args.typewell_subprocess),
+                subprocess_min_las_mb=int(args.typewell_subprocess_min_mb),
+                worker_timeout_sec=int(args.typewell_worker_timeout),
+                worker_mem_mb=int(args.typewell_worker_mem_mb),
+            )
+
+        if bool(args.typewell_no_gr_cache):
+            cache_dir = ""
+        elif args.typewell_gr_cache_dir is not None and str(args.typewell_gr_cache_dir).strip():
+            cache_dir = str(args.typewell_gr_cache_dir)
+        else:
+            cache_dir = str(Path(args.out) / "gr_cache")
+        tw_cfg = replace(tw_cfg, gr_cache_dir=str(cache_dir), gr_cache_read=True, gr_cache_write=True)
+
         cfg = Step2RepsConfig(
             n_rep=int(args.n_rep),
             quota_mode=str(args.quota_mode),
@@ -125,8 +159,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             require_gr=not bool(args.no_require_gr),
             grid_km=float(args.grid_km),
             build_typewells=not bool(args.no_typewells),
-            typewell=TypeWellConfig(),
+            typewell=tw_cfg,
             max_las_mb=int(args.max_las_mb),
+            max_las_curves=int(args.max_las_curves),
             typewell_max_cells=int(args.typewell_max_cells),
             typewell_max_kernel_wells=int(args.typewell_max_kernel_wells),
             typewell_gc_every=int(args.typewell_gc_every),

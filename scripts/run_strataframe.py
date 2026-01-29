@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -13,7 +14,7 @@ from strataframe.steps.step0_index_gr import Step0Config, run_step0_index_gr
 from strataframe.steps.step1_build_bins import Step1Config, run_step1_build_bins
 from strataframe.utils.config import deep_get, load_yaml
 
-IMPLEMENTED_STEPS = ["0", "1", "2", "3"]
+IMPLEMENTED_STEPS = ["0", "1", "2", "3", "4"]
 
 
 def _parse_steps(s: str) -> List[str]:
@@ -144,16 +145,26 @@ def main(argv: List[str] | None = None) -> int:
     d_step2_grid_km = float(deep_get(cfg, "step2.grid_km", 10.0))
     d_step2_build_typewells = bool(deep_get(cfg, "step2.build_typewells", True))
     d_step2_max_las_mb = int(deep_get(cfg, "step2.max_las_mb", 512))
+    d_step2_max_las_curves = int(deep_get(cfg, "step2.max_las_curves", 0))
     d_step2_typewell_max_cells = int(deep_get(cfg, "step2.typewell_max_cells", 0))
     d_step2_typewell_max_kernel_wells = int(deep_get(cfg, "step2.typewell_max_kernel_wells", 200))
     d_step2_typewell_gc_every = int(deep_get(cfg, "step2.typewell_gc_every", 10))
     d_step2_resume = bool(deep_get(cfg, "step2.resume", True))
     d_step2_typewell_dict = deep_get(cfg, "step2.typewell", {})  # dict for TypeWellConfig
+    d_step2_typewell_max_rows = int(deep_get(cfg, "step2.typewell.max_las_rows", 0))
+    d_step2_typewell_use_subprocess = bool(deep_get(cfg, "step2.typewell.use_subprocess", False))
+    d_step2_typewell_subprocess_min_mb = int(deep_get(cfg, "step2.typewell.subprocess_min_las_mb", 0))
+    d_step2_typewell_worker_timeout = int(deep_get(cfg, "step2.typewell.worker_timeout_sec", 0))
+    d_step2_typewell_worker_mem = int(deep_get(cfg, "step2.typewell.worker_mem_mb", 0))
+    d_step2_typewell_gr_cache_dir = str(deep_get(cfg, "step2.typewell.gr_cache_dir", ""))
+    d_step2_typewell_gr_cache_read = bool(deep_get(cfg, "step2.typewell.gr_cache_read", True))
+    d_step2_typewell_gr_cache_write = bool(deep_get(cfg, "step2.typewell.gr_cache_write", True))
 
     # -----------------------
     # Step 3 defaults (read config now; import Step3 lazily later)
     # -----------------------
     d_step3_out = deep_get(cfg, "outputs.step3_out_subdir", "03_corr")
+    d_step3_mode = str(deep_get(cfg, "step3.mode", "full"))
 
     d_step3_graph_r_max_m = float(
         deep_get(cfg, "step3.graph_r_max_m", deep_get(cfg, "step3.graph.r_max_m", 5000.0))
@@ -192,6 +203,27 @@ def main(argv: List[str] | None = None) -> int:
     d_step3_rgt_tol = float(deep_get(cfg, "step3.rgt.tol", 1e-6))
     d_step3_rgt_simplified = bool(deep_get(cfg, "step3.rgt.simplified_indexing", True))
     d_step3_rgt_lambda_anchor = float(deep_get(cfg, "step3.rgt.lambda_anchor", 1.0))
+
+    # -----------------------
+    # Step 4 defaults (read config now; import Step4 lazily later)
+    # -----------------------
+    d_step4_out = deep_get(cfg, "outputs.step4_out_subdir", "04_type_columns")
+    d_step4_kernel_radius = int(deep_get(cfg, "step4.kernel_radius", 1))
+    d_step4_kernel_radius_max = int(deep_get(cfg, "step4.kernel_radius_max", 3))
+    d_step4_min_wells_per_cell = int(deep_get(cfg, "step4.min_wells_per_cell", 5))
+    d_step4_max_wells_per_cell = int(deep_get(cfg, "step4.max_wells_per_cell", 200))
+    d_step4_seed = int(deep_get(cfg, "step4.seed", 42))
+
+    d_step4_chron_n_rgt = int(deep_get(cfg, "step4.chronostrat.n_rgt", 800))
+    d_step4_chron_pad = float(deep_get(cfg, "step4.chronostrat.rgt_pad_frac", 0.02))
+    d_step4_chron_monotonic = str(deep_get(cfg, "step4.chronostrat.monotonic_mode", "nondecreasing"))
+
+    d_step4_cwt_widths = deep_get(cfg, "step4.cwt.widths", [2, 4, 6, 8, 12, 16, 24, 32])
+    d_step4_cwt_snap = int(deep_get(cfg, "step4.cwt.snap_window", 25))
+    d_step4_cwt_include_endpoints = bool(deep_get(cfg, "step4.cwt.include_endpoints", True))
+
+    d_step4_ntg_cutoff = float(deep_get(cfg, "step4.interval_stats.ntg_cutoff", 0.40))
+    d_step4_min_finite = int(deep_get(cfg, "step4.interval_stats.min_finite", 20))
 
     ap = argparse.ArgumentParser(description="Strataframe runner (configurable; modular steps).")
     ap.add_argument("--config", type=str, default=str(cfg_path) if cfg_path else "", help="Path to YAML config.")
@@ -246,10 +278,18 @@ def main(argv: List[str] | None = None) -> int:
     ap.add_argument("--step2-grid-km", type=float, default=float(d_step2_grid_km))
     ap.add_argument("--step2-no-typewells", action="store_true", help="Skip local typewells + placement.")
     ap.add_argument("--step2-max-las-mb", type=int, default=int(d_step2_max_las_mb))
+    ap.add_argument("--step2-max-curves", type=int, default=int(d_step2_max_las_curves))
     ap.add_argument("--step2-typewell-max-cells", type=int, default=int(d_step2_typewell_max_cells))
     ap.add_argument("--step2-typewell-max-kernel-wells", type=int, default=int(d_step2_typewell_max_kernel_wells))
     ap.add_argument("--step2-typewell-gc-every", type=int, default=int(d_step2_typewell_gc_every))
     ap.add_argument("--step2-no-resume", action="store_true", help="Disable resume mode for typewell outputs.")
+    ap.add_argument("--step2-typewell-max-rows", type=int, default=int(d_step2_typewell_max_rows))
+    ap.add_argument("--step2-typewell-subprocess", action="store_true", default=bool(d_step2_typewell_use_subprocess))
+    ap.add_argument("--step2-typewell-subprocess-min-mb", type=int, default=int(d_step2_typewell_subprocess_min_mb))
+    ap.add_argument("--step2-typewell-worker-timeout", type=int, default=int(d_step2_typewell_worker_timeout))
+    ap.add_argument("--step2-typewell-worker-mem-mb", type=int, default=int(d_step2_typewell_worker_mem))
+    ap.add_argument("--step2-typewell-gr-cache-dir", type=str, default=str(d_step2_typewell_gr_cache_dir))
+    ap.add_argument("--step2-typewell-no-gr-cache", action="store_true")
 
     ap.add_argument(
         "--step2-well-to-cell-csv",
@@ -272,6 +312,13 @@ def main(argv: List[str] | None = None) -> int:
 
     # Step 3 overrides (unchanged)
     ap.add_argument("--step3-out-subdir", type=str, default=d_step3_out, help="Subdir under run-dir for Step3 outputs")
+    ap.add_argument(
+        "--step3-mode",
+        type=str,
+        default=str(d_step3_mode),
+        choices=["prep", "full"],
+        help="Step3 mode: prep (candidates + rep arrays only) or full (DTW + framework + RGT)",
+    )
 
     ap.add_argument("--step3-graph-r-max-m", type=float, default=float(d_step3_graph_r_max_m))
     ap.add_argument("--step3-graph-k-max", type=int, default=int(d_step3_graph_k_max))
@@ -315,6 +362,32 @@ def main(argv: List[str] | None = None) -> int:
     ap.add_argument("--step3-rgt-tol", type=float, default=float(d_step3_rgt_tol))
     ap.add_argument("--step3-rgt-no-simplified", action="store_true")
     ap.add_argument("--step3-rgt-lambda-anchor", type=float, default=float(d_step3_rgt_lambda_anchor))
+
+    # Step 4 overrides
+    ap.add_argument("--step4-out-subdir", type=str, default=str(d_step4_out))
+    ap.add_argument("--step4-kernel-radius", type=int, default=int(d_step4_kernel_radius))
+    ap.add_argument("--step4-kernel-radius-max", type=int, default=int(d_step4_kernel_radius_max))
+    ap.add_argument("--step4-min-wells-per-cell", type=int, default=int(d_step4_min_wells_per_cell))
+    ap.add_argument("--step4-max-wells-per-cell", type=int, default=int(d_step4_max_wells_per_cell))
+    ap.add_argument("--step4-seed", type=int, default=int(d_step4_seed))
+
+    ap.add_argument("--step4-n-rgt", type=int, default=int(d_step4_chron_n_rgt))
+    ap.add_argument("--step4-rgt-pad-frac", type=float, default=float(d_step4_chron_pad))
+    ap.add_argument("--step4-monotonic-mode", type=str, default=str(d_step4_chron_monotonic))
+
+    ap.add_argument(
+        "--step4-cwt-widths",
+        type=str,
+        default=",".join(str(x) for x in d_step4_cwt_widths),
+        help="Comma-separated CWT widths.",
+    )
+    ap.add_argument("--step4-cwt-snap-window", type=int, default=int(d_step4_cwt_snap))
+    ap.add_argument("--step4-cwt-include-endpoints", action="store_true")
+    ap.add_argument("--step4-cwt-no-include-endpoints", dest="step4_cwt_include_endpoints", action="store_false")
+    ap.set_defaults(step4_cwt_include_endpoints=bool(d_step4_cwt_include_endpoints))
+
+    ap.add_argument("--step4-ntg-cutoff", type=float, default=float(d_step4_ntg_cutoff))
+    ap.add_argument("--step4-min-finite", type=int, default=int(d_step4_min_finite))
 
     ap.add_argument("--step3-reps-csv", type=str, default="")
     ap.add_argument("--step3-wells-gr-parquet", type=str, default="")
@@ -475,6 +548,29 @@ def main(argv: List[str] | None = None) -> int:
 
         # Build TypeWellConfig from YAML (step2.typewell.*)
         tw_cfg = _build_object_from_dict(TypeWellConfig, d_step2_typewell_dict)
+        if int(args.step2_typewell_max_rows) >= 0:
+            tw_cfg = replace(tw_cfg, max_las_rows=int(args.step2_typewell_max_rows))
+        # typewell cache dir (auto default unless disabled)
+        cache_dir = ""
+        if bool(args.step2_typewell_no_gr_cache):
+            cache_dir = ""
+        elif str(args.step2_typewell_gr_cache_dir).strip():
+            cache_dir = str(args.step2_typewell_gr_cache_dir).strip()
+        elif str(d_step2_typewell_gr_cache_dir).strip():
+            cache_dir = str(d_step2_typewell_gr_cache_dir).strip()
+        else:
+            cache_dir = str(out_dir2 / "gr_cache")
+
+        tw_cfg = replace(
+            tw_cfg,
+            use_subprocess=bool(args.step2_typewell_subprocess),
+            subprocess_min_las_mb=int(args.step2_typewell_subprocess_min_mb),
+            worker_timeout_sec=int(args.step2_typewell_worker_timeout),
+            worker_mem_mb=int(args.step2_typewell_worker_mem_mb),
+            gr_cache_dir=str(cache_dir),
+            gr_cache_read=bool(d_step2_typewell_gr_cache_read),
+            gr_cache_write=bool(d_step2_typewell_gr_cache_write),
+        )
 
         # Build Step2 config defensively (tolerate field evolution)
         f2 = _dataclass_fieldnames(Step2RepsConfig)
@@ -490,6 +586,7 @@ def main(argv: List[str] | None = None) -> int:
             "build_typewells": (not bool(args.step2_no_typewells)) and bool(d_step2_build_typewells),
             "typewell": tw_cfg,
             "max_las_mb": int(args.step2_max_las_mb),
+            "max_las_curves": int(args.step2_max_curves),
             "typewell_max_cells": int(args.step2_typewell_max_cells),
             "typewell_max_kernel_wells": int(args.step2_typewell_max_kernel_wells),
             "typewell_gc_every": int(args.step2_typewell_gc_every),
@@ -521,7 +618,7 @@ def main(argv: List[str] | None = None) -> int:
     # Step 3 (lazy import here)
     # -------------------------------------------------------------------------
     if "3" in steps:
-        from strataframe.steps.step3_run_correlation import Step3Config, run_step3  # noqa: WPS433
+        from strataframe.steps.step3_run import Step3Config, run_step3  # noqa: WPS433
 
         out_dir3 = run_dir / str(args.step3_out_subdir)
 
@@ -560,23 +657,21 @@ def main(argv: List[str] | None = None) -> int:
         if int(args.step3_dtw_band_rad) >= 0:
             band_rad = int(args.step3_dtw_band_rad)
 
+        cg_ensure_one_nn = (
+            False
+            if bool(args.step3_graph_no_ensure_one_nn)
+            else True
+            if bool(args.step3_graph_ensure_one_nn)
+            else bool(d_step3_graph_ensure_one_nn)
+        )
         cfg3 = Step3Config(
             reps_csv=reps_csv,
             wells_gr_parquet=wells_gr_parquet if wells_gr_parquet.exists() else None,
             las_root=Path(args.las_root),
-            graph_r_max_m=float(args.step3_graph_r_max_m),
-            graph_k_max=int(args.step3_graph_k_max),
-            graph_ensure_one_nn=(
-                False
-                if bool(args.step3_graph_no_ensure_one_nn)
-                else True
-                if bool(args.step3_graph_ensure_one_nn)
-                else bool(d_step3_graph_ensure_one_nn)
-            ),
-            k_intra=int(args.step3_k_intra),
-            k_bin=int(args.step3_k_bin),
-            m_bridge_pairs=int(args.step3_m_bridge_pairs),
-            d_max_km=float(args.step3_d_max_km),
+            mode=str(args.step3_mode),
+            cg_k_max=int(args.step3_graph_k_max),
+            cg_r_max_km=float(args.step3_graph_r_max_m) / 1000.0,
+            cg_ensure_one_nn=bool(cg_ensure_one_nn),
             n_samples=int(args.step3_n_samples),
             p_lo=float(args.step3_p_lo),
             p_hi=float(args.step3_p_hi),
@@ -614,6 +709,71 @@ def main(argv: List[str] | None = None) -> int:
             print(f"  dtw_ok: {diag3.get('counts', {}).get('n_dtw_ok', 0)}")
             print(f"  framework_edges: {diag3.get('counts', {}).get('n_framework_edges', 0)}")
             print(f"  rgt_components: {diag3.get('counts', {}).get('n_components', 0)}")
+        except Exception:
+            pass
+
+    # -------------------------------------------------------------------------
+    # Step 4 (lazy import here)
+    # -------------------------------------------------------------------------
+    if "4" in steps:
+        from strataframe.pipelines.step4_type_columns import (  # noqa: WPS433
+            IntervalStatsConfig,
+            Step4Config,
+            run_step4_type_columns,
+        )
+        from strataframe.rgt.chronostrat import ChronostratConfig  # noqa: WPS433
+        from strataframe.rgt.monotonic import MonotonicConfig  # noqa: WPS433
+        from strataframe.rgt.wavelet_tops import CwtConfig  # noqa: WPS433
+
+        out_dir4 = run_dir / str(args.step4_out_subdir)
+
+        step3_dir = run_dir / str(args.step3_out_subdir)
+        nodes_csv = step3_dir / "framework_nodes.csv"
+        edges_csv = step3_dir / "framework_edges.csv"
+        rep_arrays_npz = step3_dir / "rep_arrays.npz"
+        shifts_npz = step3_dir / "rgt_shifts_resampled.npz"
+
+        if not nodes_csv.exists() or not edges_csv.exists() or not rep_arrays_npz.exists() or not shifts_npz.exists():
+            raise SystemExit(
+                "Step 4 requires Step 3 outputs (framework_nodes.csv, framework_edges.csv, "
+                "rep_arrays.npz, rgt_shifts_resampled.npz). Run Step 3 first."
+            )
+
+        widths = [int(x.strip()) for x in str(args.step4_cwt_widths).split(",") if x.strip() != ""]
+
+        chron = ChronostratConfig(
+            n_rgt=int(args.step4_n_rgt),
+            rgt_pad_frac=float(args.step4_rgt_pad_frac),
+            monotonic=MonotonicConfig(mode=str(args.step4_monotonic_mode)),
+        )
+        cwt = CwtConfig(
+            widths=tuple(widths),
+            snap_window=int(args.step4_cwt_snap_window),
+            include_endpoints=bool(args.step4_cwt_include_endpoints),
+        )
+        interval = IntervalStatsConfig(ntg_cutoff=float(args.step4_ntg_cutoff), min_finite=int(args.step4_min_finite))
+
+        cfg4 = Step4Config(
+            framework_nodes_csv=nodes_csv,
+            framework_edges_csv=edges_csv,
+            rep_arrays_npz=rep_arrays_npz,
+            rgt_shifts_npz=shifts_npz,
+            kernel_radius=int(args.step4_kernel_radius),
+            kernel_radius_max=int(args.step4_kernel_radius_max),
+            min_wells_per_cell=int(args.step4_min_wells_per_cell),
+            max_wells_per_cell=int(args.step4_max_wells_per_cell),
+            seed=int(args.step4_seed),
+            chronostrat=chron,
+            cwt=cwt,
+            interval_stats=interval,
+        )
+
+        diag4 = run_step4_type_columns(out_dir=out_dir4, cfg=cfg4, overwrite=bool(overwrite))
+        print("Step 4 complete:")
+        print(f"  out: {out_dir4}")
+        try:
+            print(f"  cells_ok: {diag4.get('counts', {}).get('n_cells_ok', 0)}")
+            print(f"  cells_fail: {diag4.get('counts', {}).get('n_cells_fail', 0)}")
         except Exception:
             pass
 

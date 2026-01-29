@@ -14,7 +14,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from strataframe.curves.normalize_header import aliases_for, norm_mnemonic
+from strataframe.curves.normalize_header import norm_mnemonic
+from strataframe.chronolog.shared import family_candidates_set
+from strataframe.graph.las_utils import _choose_curve_index, _iter_las_ascii_rows, _parse_las_header_minimal
 from strataframe.io.csv import to_float, read_csv_rows
 from strataframe.utils.fingerprint import sha1_file_prefix
 from strataframe.utils.las_scan import compute_percentiles
@@ -27,6 +29,8 @@ from strataframe.utils.las_scan import compute_percentiles
 @dataclass(frozen=True)
 class Step0Config:
     curve_family: str = "GR"
+    # Optional override for family -> mnemonics mapping (future multi-log support)
+    curve_families: Optional[Dict[str, Tuple[str, ...]]] = None
     min_finite: int = 200
     pct: Tuple[float, float, float] = (1.0, 50.0, 99.0)
 
@@ -144,107 +148,6 @@ def _api_nodash(api: str, api_num_nodash: str) -> str:
 
 
 # -----------------------------------------------------------------------------
-# LAS header parsing (NO lasio)
-# -----------------------------------------------------------------------------
-
-def _parse_las_header_minimal(path: Path, *, max_header_bytes: int = 2_000_000) -> Dict[str, Any]:
-    """
-    Minimal LAS header parse:
-      - WRAP (YES/NO)
-      - NULL value (float or None)
-      - curve mnemonics in order from ~C
-    Stops once ~A is reached. Uses constant memory.
-    """
-    wrap = False
-    null_value: Optional[float] = None
-    curves: List[str] = []
-
-    section = ""
-    n_read = 0
-
-    def _is_section(line: str) -> bool:
-        s = line.lstrip()
-        return s.startswith("~") and len(s) >= 2
-
-    def _section_name(line: str) -> str:
-        s = line.lstrip()
-        # "~C" / "~Curve" etc
-        t = s[1:].strip()
-        return t[:1].upper() if t else ""
-
-    with path.open("r", encoding="utf-8", errors="replace") as f:
-        for line in f:
-            n_read += len(line.encode("utf-8", errors="ignore"))
-            if n_read > max_header_bytes:
-                # header is absurdly large; bail (still safe)
-                break
-
-            s = line.strip()
-            if not s or s.startswith("#"):
-                continue
-
-            if _is_section(line):
-                sec = _section_name(line)
-                section = sec
-                if sec == "A":
-                    break
-                continue
-
-            # only parse within relevant sections
-            if section == "W":
-                # e.g. "WRAP.     YES : Wrapped"
-                #      "NULL.  -999.25 : Null value"
-                left = s.split(":", 1)[0].strip()
-                if "." in left:
-                    key, rest = left.split(".", 1)
-                    key_n = key.strip().upper()
-                    val = rest.strip().split()[0] if rest.strip() else ""
-                    if key_n == "WRAP":
-                        wrap = val.upper().startswith("Y")
-                    elif key_n == "NULL":
-                        try:
-                            null_value = float(val)
-                        except Exception:
-                            null_value = None
-
-            elif section == "C":
-                # curve line like "DEPT .M : Depth"
-                left = s.split(":", 1)[0].strip()
-                if "." in left:
-                    key = left.split(".", 1)[0].strip()
-                else:
-                    key = left.split()[0].strip()
-                if key and not key.startswith("~"):
-                    curves.append(key)
-
-    return {"wrap": wrap, "null": null_value, "curves": curves}
-
-
-def _choose_depth_index(curves: List[str]) -> Optional[int]:
-    """
-    Choose the depth curve index from header mnemonics.
-
-    Note: norm_mnemonic("DEPTH") -> "DEPT" in this codebase, so we check canonical tokens.
-    """
-    for i, mn in enumerate(curves):
-        n = norm_mnemonic(mn)
-        if n in {"DEPT", "MD"}:
-            return i
-    return None
-
-
-def _choose_gr_index(curves: List[str], fam_can: set[str]) -> Optional[int]:
-    # Prefer exact GR first, else first family match
-    for i, mn in enumerate(curves):
-        if norm_mnemonic(mn) == "GR":
-            return i
-    for i, mn in enumerate(curves):
-        if norm_mnemonic(mn) in fam_can:
-            return i
-    return None
-
-
-# -----------------------------------------------------------------------------
 # Streaming ASCII scan of ~A (supports wrapped + unwrapped)
 # -----------------------------------------------------------------------------
 
@@ -279,7 +182,6 @@ def _scan_las_ascii_depth_gr(
 
     For wrapped files, tokens are accumulated and grouped into rows of n_curves.
     """
-    in_data = False
     n_total = 0
     n_fin = 0
 
@@ -288,8 +190,6 @@ def _scan_las_ascii_depth_gr(
 
     sample: List[float] = []
     max_idx = max(depth_idx, gr_idx)
-
-    token_buf: List[str] = []
 
     def _process_row(tokens: List[str]) -> None:
         nonlocal n_total, n_fin, dmin, dmax
@@ -321,32 +221,8 @@ def _scan_las_ascii_depth_gr(
             n_fin += 1
             _reservoir_add(sample, float(g), n_fin, reservoir_max)
 
-    with path.open("r", encoding="utf-8", errors="replace") as f:
-        for line in f:
-            if not in_data:
-                s0 = line.lstrip()
-                if s0.upper().startswith("~A"):
-                    in_data = True
-                continue
-
-            s = line.strip()
-            if not s or s.startswith("#"):
-                continue
-
-            # Make splitting robust: treat commas as whitespace
-            s = s.replace(",", " ")
-            parts = s.split()
-            if not parts:
-                continue
-
-            if wrapped:
-                token_buf.extend(parts)
-                while len(token_buf) >= n_curves:
-                    row = token_buf[:n_curves]
-                    del token_buf[:n_curves]
-                    _process_row(row)
-            else:
-                _process_row(parts)
+    for row in _iter_las_ascii_rows(path, n_curves=int(n_curves), wrapped=bool(wrapped)):
+        _process_row(row)
 
     frac = float(n_fin / max(1, n_total))
 
@@ -403,8 +279,12 @@ def run_step0_index_gr(
         raise ValueError(f"No rows in ks manifest: {ks_manifest_path}")
 
     fam = norm_mnemonic(cfg.curve_family)
-    fam_aliases = aliases_for(fam) if fam else [cfg.curve_family]
-    fam_can = {norm_mnemonic(a) for a in fam_aliases if norm_mnemonic(a)}
+    fam_can = set(
+        family_candidates_set(
+            fam or cfg.curve_family,
+            custom_families=cfg.curve_families,
+        )
+    )
     if not fam_can:
         fam_can = {fam} if fam else {"GR"}
 
@@ -690,8 +570,17 @@ def run_step0_index_gr(
                             )
                         qc_w.writerow({k: qc.get(k, "") for k in qc_fields})
                     else:
-                        depth_idx = _choose_depth_index(curves)
-                        gr_idx = _choose_gr_index(curves, fam_can)
+                        depth_idx = _choose_curve_index(
+                            curves,
+                            primary=("DEPT", "DEPTH", "MD", "TVD", "Z"),
+                            prefer_curve_order=True,
+                        )
+                        gr_idx = _choose_curve_index(
+                            curves,
+                            primary=("GR",),
+                            fallback=(cfg.curve_family,),
+                            prefer_curve_order=True,
+                        )
 
                         gr_candidates = [mn for mn in curves if norm_mnemonic(mn) in fam_can]
                         qc["gr_candidates"] = " ".join(gr_candidates)

@@ -1,21 +1,18 @@
 # src/strataframe/typewell/local_typewell.py
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
+import multiprocessing as mp
 
-from strataframe.graph.las_utils import (
-    read_las_normal,
-    extract_depth_and_curve,
-    resample_and_normalize_curve,
-)
+from strataframe.graph.las_utils import read_las_curve_resampled_ascii
 from strataframe.graph.select_representatives import resolve_las_path_from_url
 from strataframe.spatial.grid import grid_cell_id
 from strataframe.typewell.subsequence_dtw import subsequence_dtw
+from strataframe.utils.hash_utils import stable_hash32
 
 
 @dataclass(frozen=True)
@@ -29,6 +26,18 @@ class TypeWellConfig:
     kernel_radius_max: int = 3        # adaptive expansion upper bound
     min_kernel_wells: int = 20
     max_kernel_wells: int = 200       # sample cap per kernel
+    max_las_rows: int = 0             # 0 disables; cap rows read from ~A
+
+    # worker isolation
+    use_subprocess: bool = False      # isolate LAS reads in worker process
+    subprocess_min_las_mb: int = 0    # auto-enable subprocess when LAS >= this size (0 disables)
+    worker_timeout_sec: int = 0       # 0 disables timeout
+    worker_mem_mb: int = 0            # 0 disables memory cap
+
+    # cache
+    gr_cache_dir: str = ""            # if set, cache per-LAS vectors here
+    gr_cache_read: bool = True
+    gr_cache_write: bool = True
 
     # QC hard gates (units are depth units from LAS; typically ft)
     qc_min_thickness: float = 50.0
@@ -124,24 +133,43 @@ def _sample_indices_farthest(lat: np.ndarray, lon: np.ndarray, k: int, seed: int
     return np.asarray(sel, dtype=int)
 
 
-def read_gr_features(
+def _set_worker_limits(mem_mb: int) -> None:
+    if int(mem_mb) <= 0:
+        return
+    try:
+        import resource  # type: ignore
+    except Exception:
+        return
+    limit = int(mem_mb) * 1024 * 1024
+    for res in ("RLIMIT_AS", "RLIMIT_DATA", "RLIMIT_RSS"):
+        try:
+            r = getattr(resource, res)
+            resource.setrlimit(r, (limit, limit))
+        except Exception:
+            continue
+
+
+def _read_gr_features_core(
     *,
     las_path: Path,
     n: int,
     ntg_cutoff: float,
+    max_rows: int,
 ) -> Dict[str, Any]:
     """
     Read GR from LAS, resample+normalize, and compute basic QC features.
     """
-    las = read_las_normal(las_path)
-    depth, gr = extract_depth_and_curve(las, curve_mnemonic="GR", depth_preferred=("DEPT", "MD"))
+    x, z_top, z_base, n_finite_raw, sample_step = read_las_curve_resampled_ascii(
+        las_path,
+        n_samples=int(n),
+        curve_candidates=("GR",),
+        depth_preferred=("DEPT", "DEPTH", "MD", "TVD", "Z"),
+        p_lo=1.0,
+        p_hi=99.0,
+        min_finite=int(10),
+        max_rows=int(max_rows),
+    )
 
-    # basic sampling step
-    order = np.argsort(depth)
-    d = depth[order]
-    step = np.nanmedian(np.diff(d)) if d.size > 3 else np.nan
-
-    x, z_top, z_base = resample_and_normalize_curve(depth, gr, n_samples=int(n))
     fin = np.isfinite(x)
     n_fin = int(np.count_nonzero(fin))
 
@@ -162,8 +190,8 @@ def read_gr_features(
         "z_top": float(z_top),
         "z_base": float(z_base),
         "thickness": float(thk),
-        "sample_step": float(step) if np.isfinite(step) else np.nan,
-        "n_finite": int(n_fin),
+        "sample_step": float(sample_step) if np.isfinite(sample_step) else np.nan,
+        "n_finite": int(n_fin) if n_fin > 0 else int(n_finite_raw),
         "p5": float(p5),
         "p95": float(p95),
         "range95": float(range95) if np.isfinite(range95) else np.nan,
@@ -171,6 +199,198 @@ def read_gr_features(
         "mean": float(mean) if np.isfinite(mean) else np.nan,
         "ntg": float(ntg) if np.isfinite(ntg) else np.nan,
     }
+
+
+def _read_gr_features_worker(
+    q: "mp.Queue",
+    las_path: Path,
+    n: int,
+    ntg_cutoff: float,
+    max_rows: int,
+    worker_mem_mb: int,
+) -> None:
+    try:
+        _set_worker_limits(int(worker_mem_mb))
+        out = _read_gr_features_core(
+            las_path=Path(las_path),
+            n=int(n),
+            ntg_cutoff=float(ntg_cutoff),
+            max_rows=int(max_rows),
+        )
+        q.put(("ok", out))
+    except Exception as e:
+        q.put(("err", f"{type(e).__name__}: {e}"))
+
+
+def read_gr_features(
+    *,
+    las_path: Path,
+    n: int,
+    ntg_cutoff: float,
+    max_rows: int = 0,
+    use_subprocess: bool = False,
+    worker_timeout_sec: int = 0,
+    worker_mem_mb: int = 0,
+    cache_dir: Optional[Path] = None,
+    cache_read: bool = True,
+    cache_write: bool = True,
+) -> Dict[str, Any]:
+    cache_path: Optional[Path] = None
+    if cache_dir and str(cache_dir).strip():
+        cache_path = _cache_path_for_las(Path(cache_dir), Path(las_path), int(n))
+        if bool(cache_read) and cache_path.exists():
+            cached = _load_gr_cache(cache_path)
+            if cached is not None:
+                x = np.asarray(cached["x"], dtype="float64")
+                z_top = float(cached["z_top"])
+                z_base = float(cached["z_base"])
+                sample_step = float(cached["sample_step"])
+                n_finite_raw = int(cached["n_finite_raw"])
+
+                fin = np.isfinite(x)
+                n_fin = int(np.count_nonzero(fin))
+                if n_fin > 0:
+                    p5 = float(np.nanpercentile(x[fin], 5))
+                    p95 = float(np.nanpercentile(x[fin], 95))
+                    iqr = float(np.nanpercentile(x[fin], 75) - np.nanpercentile(x[fin], 25))
+                    mean = float(np.nanmean(x[fin]))
+                else:
+                    p5, p95, iqr, mean = np.nan, np.nan, np.nan, np.nan
+
+                range95 = p95 - p5 if np.isfinite(p5) and np.isfinite(p95) else np.nan
+                thk = float(z_base - z_top)
+                ntg = float(np.nanmean((x[fin] < float(ntg_cutoff)).astype("float64"))) if n_fin > 0 else np.nan
+
+                return {
+                    "x": x.astype("float32", copy=False),
+                    "z_top": float(z_top),
+                    "z_base": float(z_base),
+                    "thickness": float(thk),
+                    "sample_step": float(sample_step) if np.isfinite(sample_step) else np.nan,
+                    "n_finite": int(n_fin) if n_fin > 0 else int(n_finite_raw),
+                    "p5": float(p5),
+                    "p95": float(p95),
+                    "range95": float(range95) if np.isfinite(range95) else np.nan,
+                    "iqr": float(iqr) if np.isfinite(iqr) else np.nan,
+                    "mean": float(mean) if np.isfinite(mean) else np.nan,
+                    "ntg": float(ntg) if np.isfinite(ntg) else np.nan,
+                }
+
+    if not bool(use_subprocess):
+        out = _read_gr_features_core(
+            las_path=Path(las_path),
+            n=int(n),
+            ntg_cutoff=float(ntg_cutoff),
+            max_rows=int(max_rows),
+        )
+        if cache_path is not None and bool(cache_write):
+            try:
+                _write_gr_cache(
+                    cache_path,
+                    x=np.asarray(out["x"], dtype="float64"),
+                    z_top=float(out["z_top"]),
+                    z_base=float(out["z_base"]),
+                    sample_step=float(out.get("sample_step", np.nan)),
+                    n_finite_raw=int(out.get("n_finite", 0)),
+                )
+            except Exception:
+                pass
+        return out
+
+    ctx = mp.get_context("spawn")
+    q: "mp.Queue" = ctx.Queue(maxsize=1)
+    p = ctx.Process(
+        target=_read_gr_features_worker,
+        args=(q, Path(las_path), int(n), float(ntg_cutoff), int(max_rows), int(worker_mem_mb)),
+    )
+    p.start()
+    timeout = float(worker_timeout_sec) if int(worker_timeout_sec) > 0 else None
+    p.join(timeout=timeout)
+    if p.is_alive():
+        p.terminate()
+        p.join()
+        raise RuntimeError("worker_timeout")
+
+    if not q.empty():
+        status, payload = q.get()
+        if status == "ok":
+            out = payload
+            if cache_path is not None and bool(cache_write):
+                try:
+                    _write_gr_cache(
+                        cache_path,
+                        x=np.asarray(out["x"], dtype="float64"),
+                        z_top=float(out["z_top"]),
+                        z_base=float(out["z_base"]),
+                        sample_step=float(out.get("sample_step", np.nan)),
+                        n_finite_raw=int(out.get("n_finite", 0)),
+                    )
+                except Exception:
+                    pass
+            return out
+        raise RuntimeError(str(payload))
+
+    if p.exitcode not in (0, None):
+        raise RuntimeError(f"worker_failed_exitcode={p.exitcode}")
+    raise RuntimeError("worker_failed_no_result")
+
+
+def _las_size_mb(p: Path) -> float:
+    try:
+        return float(p.stat().st_size) / (1024.0 * 1024.0)
+    except Exception:
+        return float("nan")
+
+
+def _cache_path_for_las(cache_dir: Path, las_path: Path, n: int) -> Path:
+    stem = las_path.stem or "las"
+    h = stable_hash32(str(las_path))
+    return Path(cache_dir) / f"{stem}__n{int(n)}__h{h:08x}.npz"
+
+
+def _load_gr_cache(path: Path) -> Optional[Dict[str, Any]]:
+    try:
+        with np.load(Path(path), allow_pickle=False) as npz:
+            if "x" not in npz.files:
+                return None
+            x = np.asarray(npz["x"], dtype="float64")
+            z_top = float(npz["z_top"]) if "z_top" in npz.files else float("nan")
+            z_base = float(npz["z_base"]) if "z_base" in npz.files else float("nan")
+            sample_step = float(npz["sample_step"]) if "sample_step" in npz.files else float("nan")
+            n_finite_raw = int(npz["n_finite_raw"]) if "n_finite_raw" in npz.files else int(np.count_nonzero(np.isfinite(x)))
+        if x.size < 8:
+            return None
+        return {
+            "x": x,
+            "z_top": z_top,
+            "z_base": z_base,
+            "sample_step": sample_step,
+            "n_finite_raw": n_finite_raw,
+        }
+    except Exception:
+        return None
+
+
+def _write_gr_cache(
+    path: Path,
+    *,
+    x: np.ndarray,
+    z_top: float,
+    z_base: float,
+    sample_step: float,
+    n_finite_raw: int,
+) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(
+        path,
+        x=np.asarray(x, dtype="float32", copy=False),
+        z_top=float(z_top),
+        z_base=float(z_base),
+        sample_step=float(sample_step),
+        n_finite_raw=int(n_finite_raw),
+        schema_version=np.int16(1),
+    )
 
 
 def build_cell_typewell(
@@ -199,11 +419,31 @@ def build_cell_typewell(
     feats = []
     for r in cand_rows:
         url = (r.get("url", "") or "").strip()
-        las_path = resolve_las_path_from_url(url, las_root)
+        las_path_s = (r.get("las_path", "") or "").strip()
+        las_path = Path(las_path_s) if las_path_s else None
+        if las_path is None or not las_path.exists():
+            las_path = resolve_las_path_from_url(url, las_root)
         if las_path is None:
             continue
         try:
-            f = read_gr_features(las_path=las_path, n=int(cfg.n_template), ntg_cutoff=float(cfg.ntg_cutoff))
+            use_sub = bool(getattr(cfg, "use_subprocess", False))
+            min_mb = int(getattr(cfg, "subprocess_min_las_mb", 0))
+            if (not use_sub) and min_mb > 0:
+                mb = _las_size_mb(las_path)
+                if np.isfinite(mb) and float(mb) >= float(min_mb):
+                    use_sub = True
+            f = read_gr_features(
+                las_path=las_path,
+                n=int(cfg.n_template),
+                ntg_cutoff=float(cfg.ntg_cutoff),
+                max_rows=int(getattr(cfg, "max_las_rows", 0)),
+                use_subprocess=bool(use_sub),
+                worker_timeout_sec=int(getattr(cfg, "worker_timeout_sec", 0)),
+                worker_mem_mb=int(getattr(cfg, "worker_mem_mb", 0)),
+                cache_dir=Path(str(getattr(cfg, "gr_cache_dir", "")).strip()) if str(getattr(cfg, "gr_cache_dir", "")).strip() else None,
+                cache_read=bool(getattr(cfg, "gr_cache_read", True)),
+                cache_write=bool(getattr(cfg, "gr_cache_write", True)),
+            )
         except Exception:
             continue
         f["url"] = url
@@ -348,13 +588,33 @@ def place_rep_against_template(
     For a representative well, decide whether to attempt placement and compute placement metrics.
     """
     url = (rep_row.get("url", "") or "").strip()
-    las_path = resolve_las_path_from_url(url, las_root)
+    las_path_s = (rep_row.get("las_path", "") or "").strip()
+    las_path = Path(las_path_s) if las_path_s else None
+    if las_path is None or not las_path.exists():
+        las_path = resolve_las_path_from_url(url, las_root)
     if las_path is None:
         return {"rep_id": int(rep_row.get("rep_id", 0)), "url": url, "status": "missing_las"}
 
     # Read rep GR thickness on native interval (do NOT stretch to n_template first)
     try:
-        rep_full = read_gr_features(las_path=las_path, n=int(cfg.n_template), ntg_cutoff=float(cfg.ntg_cutoff))
+        use_sub = bool(getattr(cfg, "use_subprocess", False))
+        min_mb = int(getattr(cfg, "subprocess_min_las_mb", 0))
+        if (not use_sub) and min_mb > 0:
+            mb = _las_size_mb(las_path)
+            if np.isfinite(mb) and float(mb) >= float(min_mb):
+                use_sub = True
+        rep_full = read_gr_features(
+            las_path=las_path,
+            n=int(cfg.n_template),
+            ntg_cutoff=float(cfg.ntg_cutoff),
+            max_rows=int(getattr(cfg, "max_las_rows", 0)),
+            use_subprocess=bool(use_sub),
+            worker_timeout_sec=int(getattr(cfg, "worker_timeout_sec", 0)),
+            worker_mem_mb=int(getattr(cfg, "worker_mem_mb", 0)),
+            cache_dir=Path(str(getattr(cfg, "gr_cache_dir", "")).strip()) if str(getattr(cfg, "gr_cache_dir", "")).strip() else None,
+            cache_read=bool(getattr(cfg, "gr_cache_read", True)),
+            cache_write=bool(getattr(cfg, "gr_cache_write", True)),
+        )
     except Exception as e:
         return {"rep_id": int(rep_row.get("rep_id", 0)), "url": url, "status": "read_fail", "error": str(e)}
 
@@ -411,7 +671,24 @@ def place_rep_against_template(
 
     try:
         # re-read with n=qn to avoid stretching
-        rep_q = read_gr_features(las_path=las_path, n=qn, ntg_cutoff=float(cfg.ntg_cutoff))
+        use_sub = bool(getattr(cfg, "use_subprocess", False))
+        min_mb = int(getattr(cfg, "subprocess_min_las_mb", 0))
+        if (not use_sub) and min_mb > 0:
+            mb = _las_size_mb(las_path)
+            if np.isfinite(mb) and float(mb) >= float(min_mb):
+                use_sub = True
+        rep_q = read_gr_features(
+            las_path=las_path,
+            n=qn,
+            ntg_cutoff=float(cfg.ntg_cutoff),
+            max_rows=int(getattr(cfg, "max_las_rows", 0)),
+            use_subprocess=bool(use_sub),
+            worker_timeout_sec=int(getattr(cfg, "worker_timeout_sec", 0)),
+            worker_mem_mb=int(getattr(cfg, "worker_mem_mb", 0)),
+            cache_dir=Path(str(getattr(cfg, "gr_cache_dir", "")).strip()) if str(getattr(cfg, "gr_cache_dir", "")).strip() else None,
+            cache_read=bool(getattr(cfg, "gr_cache_read", True)),
+            cache_write=bool(getattr(cfg, "gr_cache_write", True)),
+        )
         x = np.asarray(rep_q["x"], dtype="float64")
     except Exception as e:
         out.update({"status": "query_resample_fail", "error": str(e)})

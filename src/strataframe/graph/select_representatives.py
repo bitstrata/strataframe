@@ -133,8 +133,10 @@ def resolve_las_path_from_url(url: str, las_root: Path) -> Optional[Path]:
     u = (url or "").strip()
     if not u:
         return None
-    basename = u.split("/")[-1]
-    p = las_root / basename
+    name = u.split("/")[-1].split("?", 1)[0].split("#", 1)[0].strip()
+    if not name:
+        return None
+    p = las_root / name
     return p if p.exists() else None
 
 
@@ -404,9 +406,12 @@ def select_representatives(
                 break
 
             r = rows[int(i)]
-            url = (r.get("url", "") or "").strip()
-            las_path = resolve_las_path_from_url(url, las_root)
-            if las_path is None:
+            las_path_s = (r.get("las_path", "") or "").strip()
+            las_path = Path(las_path_s) if las_path_s else None
+            if las_path is None or not las_path.exists():
+                url = (r.get("url", "") or "").strip()
+                las_path = resolve_las_path_from_url(url, las_root)
+            if las_path is None or not las_path.exists():
                 diag["skipped_missing_las"] += 1
                 n_attempted += 1
                 continue

@@ -1,0 +1,9 @@
+{
+  "n_nodes": 1000,
+  "n_edges": 2887,
+  "mode": "mst_plus_topk",
+  "sim_scale": 0.25,
+  "topk": 3,
+  "topk_extra": 3,
+  "sim_threshold": 0.6
+}

@@ -7,10 +7,12 @@ from typing import Dict, List, Sequence
 import numpy as np
 
 try:
-    from scipy.signal import ricker, fftconvolve  # type: ignore
+    from scipy import signal as _signal  # type: ignore
 except Exception:  # pragma: no cover
-    ricker = None  # type: ignore
-    fftconvolve = None  # type: ignore
+    _signal = None  # type: ignore
+
+ricker = getattr(_signal, "ricker", None)
+fftconvolve = getattr(_signal, "fftconvolve", None)
 
 
 @dataclass(frozen=True)
@@ -26,8 +28,29 @@ class CwtConfig:
 
 
 def _require_scipy() -> None:
-    if ricker is None or fftconvolve is None:
-        raise RuntimeError("scipy is required for CWT. Install with: pip install scipy")
+    # Backward compatible: we can fall back to NumPy if scipy is missing.
+    return None
+
+
+def _ricker_np(M: int, a: int) -> np.ndarray:
+    """
+    Ricker (Mexican hat) wavelet implemented with NumPy.
+    """
+    M = int(M)
+    a = max(1, int(a))
+    t = np.arange(0, M, dtype="float64") - (M - 1) / 2.0
+    x = (t / float(a)) ** 2
+    return (1.0 - x) * np.exp(-0.5 * x)
+
+
+def _convolve_same(x: np.ndarray, wave: np.ndarray) -> np.ndarray:
+    """
+    Convolve and return "same" size as x. Uses scipy.signal.fftconvolve if available,
+    otherwise falls back to np.convolve (sufficient for typical n~O(10^3)).
+    """
+    if fftconvolve is not None:
+        return fftconvolve(x, wave, mode="same")  # type: ignore[misc]
+    return np.convolve(x, wave, mode="same")
 
 
 def _cwt_ricker(x: np.ndarray, widths: Sequence[int]) -> np.ndarray:
@@ -35,7 +58,6 @@ def _cwt_ricker(x: np.ndarray, widths: Sequence[int]) -> np.ndarray:
     Minimal CWT via convolution with Ricker wavelets.
     Returns array W of shape (n_scales, n_samples).
     """
-    _require_scipy()
     x = np.asarray(x, dtype="float64")
     if x.size == 0:
         return np.zeros((0, 0), dtype="float64")
@@ -48,12 +70,15 @@ def _cwt_ricker(x: np.ndarray, widths: Sequence[int]) -> np.ndarray:
         if M % 2 == 0:
             M += 1
 
-        wave = ricker(M, a)  # type: ignore[misc]
+        if ricker is not None:
+            wave = ricker(M, a)  # type: ignore[misc]
+        else:
+            wave = _ricker_np(M, a)
 
         # Normalize per-scale energy (L1 keeps response magnitudes comparable)
         wave = wave / (np.sum(np.abs(wave)) + 1e-12)
 
-        out[i, :] = fftconvolve(x, wave, mode="same")  # type: ignore[misc]
+        out[i, :] = _convolve_same(x, wave)
 
     return out
 

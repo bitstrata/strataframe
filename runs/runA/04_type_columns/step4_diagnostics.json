@@ -1,0 +1,10 @@
+{
+  "step": "step4_type_columns",
+  "counts": {
+    "n_cells_total": 76,
+    "n_cells_ok": 76,
+    "n_cells_skipped": 0,
+    "n_cells_fail": 0
+  },
+  "errors": []
+}

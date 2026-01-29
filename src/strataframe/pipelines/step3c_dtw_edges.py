@@ -132,7 +132,17 @@ def run_dtw_on_candidate_edges(
                 }
             )
 
-    dtw_edges = pd.DataFrame(rows)
+    # Ensure expected columns even if no rows were produced.
+    cols = [
+        "src_rep_id",
+        "dst_rep_id",
+        "dtw_cost",
+        "dtw_steps",
+        "dtw_cost_per_step",
+        "dtw_status",
+        "dtw_error",
+    ]
+    dtw_edges = pd.DataFrame(rows, columns=cols)
     return dtw_edges, edge_ids, paths
 
 

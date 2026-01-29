@@ -12,6 +12,7 @@
   },
   "config": {
     "curve_family": "GR",
+    "curve_families": null,
     "min_finite": 200,
     "pct": [
       1.0,

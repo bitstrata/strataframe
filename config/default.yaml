@@ -49,6 +49,7 @@ step2:
 
   # Safety valves
   max_las_mb: 512
+  max_las_curves: 0        # 0 disables; set >0 to skip LAS with too many curves
 
   # Typewell workload controls
   typewell_max_cells: 0
@@ -61,8 +62,17 @@ step2:
     kernel_radius: 1
     kernel_radius_max: 3
     min_kernel_wells: 25
+    max_las_rows: 0        # 0 disables; cap rows read from ~A
+    use_subprocess: false     # isolate LAS reads in worker process
+    subprocess_min_las_mb: 128 # auto-enable subprocess for large LAS (0 disables)
+    worker_timeout_sec: 0     # 0 disables timeout
+    worker_mem_mb: 0          # 0 disables memory cap
+    gr_cache_dir: ""          # if set, cache per-LAS vectors here
+    gr_cache_read: true
+    gr_cache_write: true
 
 step3:
+  mode: full  # prep (no DTW/RGT) or full
   graph:
     r_max_m: 5000
     k_max: 12
@@ -101,8 +111,30 @@ step3:
     simplified_indexing: true
     lambda_anchor: 1.0
 
+step4:
+  kernel_radius: 1
+  kernel_radius_max: 3
+  min_wells_per_cell: 5
+  max_wells_per_cell: 200
+  seed: 42
+
+  chronostrat:
+    n_rgt: 800
+    rgt_pad_frac: 0.02
+    monotonic_mode: nondecreasing
+
+  cwt:
+    widths: [2, 4, 6, 8, 12, 16, 24, 32]
+    snap_window: 25
+    include_endpoints: true
+
+  interval_stats:
+    ntg_cutoff: 0.40
+    min_finite: 20
+
 outputs:
   step0_out_subdir: 00_wells_gr
   step1_out_subdir: 01_bins
   step2_out_subdir: 02_reps
   step3_out_subdir: 03_corr
+  step4_out_subdir: 04_type_columns

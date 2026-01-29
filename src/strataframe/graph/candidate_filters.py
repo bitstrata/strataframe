@@ -6,6 +6,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
+from strataframe.graph.las_utils import _parse_las_header_minimal
+
 
 def url_to_local_path(url: str, las_root: Path) -> Optional[Path]:
     u = (url or "").strip()
@@ -32,6 +34,7 @@ def prefilter_rows_for_las(
     *,
     las_root: Path,
     max_las_mb: int,
+    max_curves: int = 0,
     allowed_names: Optional[set[str]],
 ) -> Tuple[List[Dict[str, str]], Dict[str, Any]]:
     """
@@ -58,6 +61,8 @@ def prefilter_rows_for_las(
     kept2: List[Dict[str, str]] = []
     skip_missing = 0
     skip_big = 0
+    skip_many_curves = 0
+    skip_bad_header = 0
 
     for r in rows:
         lp = url_to_local_path((r.get("url") or ""), las_root)
@@ -68,14 +73,29 @@ def prefilter_rows_for_las(
         if np.isfinite(mb) and float(mb) > float(max_las_mb):
             skip_big += 1
             continue
+        if int(max_curves) > 0:
+            try:
+                hdr = _parse_las_header_minimal(lp)
+                n_curves = int(len(hdr.get("curves", []) or []))
+            except Exception:
+                n_curves = 0
+            if n_curves <= 0:
+                skip_bad_header += 1
+                continue
+            if n_curves > int(max_curves):
+                skip_many_curves += 1
+                continue
         rr = dict(r)
         rr["las_path"] = str(lp)
         kept2.append(rr)
 
     diag["las_prefilter"] = {
         "max_las_mb": int(max_las_mb),
+        "max_curves": int(max_curves),
         "skip_missing": int(skip_missing),
         "skip_big": int(skip_big),
+        "skip_many_curves": int(skip_many_curves),
+        "skip_bad_header": int(skip_bad_header),
         "kept": int(len(kept2)),
     }
     return kept2, diag

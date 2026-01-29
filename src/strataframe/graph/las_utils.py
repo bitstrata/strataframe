@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -35,6 +35,85 @@ def normalize_mnemonic(m: str) -> str:
     Backward-compatible wrapper returning the CANONICAL mnemonic.
     """
     return _norm_mnemonic(m)
+
+
+# =============================================================================
+# Minimal header parsing (text only; safe on wrapped files)
+# =============================================================================
+
+def _parse_las_header_minimal(path: Path, *, max_header_bytes: int = 2_000_000) -> dict:
+    """
+    Text-only LAS header parse:
+      - WRAP (YES/NO)
+      - NULL value (float or None)
+      - curve mnemonics in order from ~C
+    Stops once ~A is reached. Constant memory. Works on wrapped/unwrapped because it
+    never parses ~A.
+    """
+    wrap = False
+    null_value: Optional[float] = None
+    curves: List[str] = []
+
+    section = ""
+    n_read = 0
+
+    def _is_section(line: str) -> bool:
+        s = line.lstrip()
+        return s.startswith("~") and len(s) >= 2
+
+    def _section_name(line: str) -> str:
+        s = line.lstrip()
+        t = s[1:].strip()  # "~C" / "~Curve" etc
+        return t[:1].upper() if t else ""
+
+    with path.open("r", encoding="utf-8", errors="replace") as f:
+        for line in f:
+            n_read += len(line.encode("utf-8", errors="ignore"))
+            if n_read > max_header_bytes:
+                break
+
+            s = line.strip()
+            if not s or s.startswith("#"):
+                continue
+
+            if _is_section(line):
+                sec = _section_name(line)
+                section = sec
+                if sec == "A":
+                    break
+                continue
+
+            if section == "W":
+                left = s.split(":", 1)[0].strip()
+                if "." in left:
+                    key, rest = left.split(".", 1)
+                    key_n = key.strip().upper()
+                    val = rest.strip().split()[0] if rest.strip() else ""
+                    if key_n == "WRAP":
+                        wrap = val.upper().startswith("Y")
+                    elif key_n == "NULL":
+                        try:
+                            null_value = float(val)
+                        except Exception:
+                            null_value = None
+
+            elif section == "C":
+                left = s.split(":", 1)[0].strip()
+                if "." in left:
+                    key = left.split(".", 1)[0].strip()
+                else:
+                    key = left.split()[0].strip()
+                if key and not key.startswith("~"):
+                    curves.append(key)
+
+    return {"wrap": wrap, "null": null_value, "curves": curves}
+
+
+def read_las_header_only(path: Path) -> dict:
+    """
+    Replacement for any lasio-based header reader. Returns a small dict.
+    """
+    return _parse_las_header_minimal(Path(path))
 
 
 # =============================================================================
@@ -144,22 +223,23 @@ def read_las_normal(las_path: Path):
     return _read_lasio(Path(las_path), ignore_data=False)
 
 
-def read_las_header_only(las_path: Path):
-    """
-    Read LAS headers only (fast), wrapped-file tolerant.
-    """
-    return _read_lasio(Path(las_path), ignore_data=True)
-
-
 # =============================================================================
 # Curve discovery + resolution
 # =============================================================================
 
-def list_curve_mnemonics(las) -> List[str]:
+def list_curve_mnemonics(las: Any) -> List[str]:
     """
     Returns RAW curve mnemonics as they appear in the LAS (trimmed).
     These raw names are what you can safely use to index las[raw].
+
+    Supports:
+      - dict objects returned by read_las_header_only()
+      - lasio LASFile objects
     """
+    if isinstance(las, dict):
+        c = las.get("curves", [])
+        return [str(x).strip() for x in (c or []) if str(x).strip()]
+
     out: List[str] = []
     for c in getattr(las, "curves", []) or []:
         try:
@@ -169,6 +249,404 @@ def list_curve_mnemonics(las) -> List[str]:
         except Exception:
             continue
     return out
+
+
+def _find_curve_index(
+    curves: Sequence[str],
+    preferred: Sequence[str],
+    *,
+    prefer_exact_raw: bool = True,
+    prefer_curve_order: bool = False,
+) -> Optional[int]:
+    """
+    Return index into curves for the first preferred mnemonic match.
+
+    Matching strategy:
+      1) Exact (case-insensitive) raw mnemonic match
+      2) Canonical match via normalize_mnemonic()
+    """
+    if not curves:
+        return None
+    if not preferred:
+        return None
+
+    curves_u = [str(c or "").strip().upper() for c in curves]
+    # Exact raw match first (optional)
+    if bool(prefer_exact_raw):
+        for p in preferred:
+            pu = str(p or "").strip().upper()
+            if not pu:
+                continue
+            for i, cu in enumerate(curves_u):
+                if cu == pu:
+                    return int(i)
+
+    # Canonical match fallback
+    pref_norm = [normalize_mnemonic(p) for p in preferred if str(p or "").strip()]
+    if bool(prefer_curve_order):
+        pref_set = {p for p in pref_norm if p}
+        for i, raw in enumerate(curves):
+            if normalize_mnemonic(raw) in pref_set:
+                return int(i)
+    else:
+        for p in pref_norm:
+            for i, raw in enumerate(curves):
+                if normalize_mnemonic(raw) == p:
+                    return int(i)
+    return None
+
+
+def _iter_las_ascii_rows(
+    path: Path,
+    *,
+    n_curves: int,
+    wrapped: bool,
+) -> "Iterable[List[str]]":
+    """
+    Yield tokenized rows from the ~A section of a LAS file.
+
+    - For wrapped files, tokens are buffered and emitted in groups of n_curves.
+    - For unwrapped files, each non-empty, non-comment line is yielded as-is.
+    """
+    in_data = False
+    token_buf: List[str] = []
+
+    with Path(path).open("r", encoding="utf-8", errors="replace") as f:
+        for line in f:
+            if not in_data:
+                if line.lstrip().upper().startswith("~A"):
+                    in_data = True
+                continue
+
+            s = line.strip()
+            if not s or s.startswith("#"):
+                continue
+
+            # Make splitting robust: treat commas as whitespace
+            s = s.replace(",", " ")
+            parts = s.split()
+            if not parts:
+                continue
+
+            if wrapped:
+                token_buf.extend(parts)
+                while len(token_buf) >= int(n_curves):
+                    row = token_buf[:n_curves]
+                    del token_buf[:n_curves]
+                    yield row
+            else:
+                yield parts
+
+
+def _choose_curve_index(
+    curves: Sequence[str],
+    *,
+    primary: Sequence[str],
+    fallback: Sequence[str] = (),
+    prefer_curve_order: bool = True,
+) -> Optional[int]:
+    """
+    Choose a curve index with a simple priority:
+      1) First match from `primary` (canonical match, header order optional)
+      2) If none, first match from `fallback`
+    """
+    idx = _find_curve_index(
+        curves,
+        primary,
+        prefer_exact_raw=False,
+        prefer_curve_order=bool(prefer_curve_order),
+    )
+    if idx is not None:
+        return idx
+    if fallback:
+        return _find_curve_index(
+            curves,
+            fallback,
+            prefer_exact_raw=False,
+            prefer_curve_order=bool(prefer_curve_order),
+        )
+    return None
+
+
+def read_las_depth_and_curve_ascii(
+    path: Path,
+    *,
+    curve_candidates: Sequence[str] = ("GR",),
+    depth_preferred: Sequence[str] = ("DEPT", "DEPTH", "MD", "TVD", "Z"),
+    max_rows: int = 0,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Streaming ASCII reader for depth + one curve from ~A (wrapped or unwrapped).
+
+    Uses header-only parse to locate curve indices, then scans ~A without lasio.
+    Returns (depth, curve) as float64 arrays.
+    """
+    p = Path(path)
+    hdr = _parse_las_header_minimal(p)
+    curves = [str(c or "").strip() for c in (hdr.get("curves", []) or []) if str(c or "").strip()]
+    if not curves:
+        raise RuntimeError("LAS header has no curve mnemonics (~C not found).")
+
+    depth_idx = _choose_curve_index(curves, primary=depth_preferred)
+    if depth_idx is None:
+        raise RuntimeError(f"Depth curve not found. Preferred={list(depth_preferred)}")
+
+    curve_idx = _choose_curve_index(curves, primary=("GR",), fallback=curve_candidates)
+    if curve_idx is None:
+        raise RuntimeError(f"Target curve not found. Candidates={list(curve_candidates)}")
+
+    n_curves = int(len(curves))
+    wrapped = bool(hdr.get("wrap", False))
+    null_value = hdr.get("null", None)
+
+    depth: List[float] = []
+    curve: List[float] = []
+
+    max_idx = max(int(depth_idx), int(curve_idx))
+    def _to_float(tok: str) -> float:
+        try:
+            return float(tok)
+        except Exception:
+            return float("nan")
+
+    def _process_row(tokens: Sequence[str]) -> None:
+        if len(tokens) <= max_idx:
+            return
+        d = _to_float(tokens[depth_idx])
+        v = _to_float(tokens[curve_idx])
+
+        if null_value is not None:
+            try:
+                nv = float(null_value)
+            except Exception:
+                nv = None
+            if nv is not None:
+                if np.isfinite(d) and d == nv:
+                    d = float("nan")
+                if np.isfinite(v) and v == nv:
+                    v = float("nan")
+
+        depth.append(float(d))
+        curve.append(float(v))
+
+    n_rows = 0
+    for row in _iter_las_ascii_rows(p, n_curves=n_curves, wrapped=wrapped):
+        n_rows += 1
+        if int(max_rows) > 0 and n_rows > int(max_rows):
+            raise RuntimeError(f"LAS exceeds max_rows={int(max_rows)}")
+        _process_row(row)
+
+    if not depth:
+        raise RuntimeError("No data rows parsed from ~A section.")
+
+    return np.asarray(depth, dtype="float64"), np.asarray(curve, dtype="float64")
+
+
+def read_las_curve_resampled_ascii(
+    path: Path,
+    *,
+    n_samples: int,
+    curve_candidates: Sequence[str] = ("GR",),
+    depth_preferred: Sequence[str] = ("DEPT", "DEPTH", "MD", "TVD", "Z"),
+    p_lo: float = 1.0,
+    p_hi: float = 99.0,
+    min_finite: int = 10,
+    max_rows: int = 0,
+    step_sample_size: int = 10000,
+    window_min: Optional[float] = None,
+    window_max: Optional[float] = None,
+) -> Tuple[np.ndarray, float, float, int, float]:
+    """
+    Streaming ASCII resampler for depth + one curve from ~A (wrapped or unwrapped).
+
+    Returns:
+      x_norm (n_samples,), z_top, z_base, n_finite_raw, sample_step
+    """
+    n_samples_i = int(n_samples)
+    if n_samples_i < 8:
+        raise ValueError("n_samples too small; use >= 8")
+    if not (0.0 <= float(p_lo) < float(p_hi) <= 100.0):
+        raise ValueError("Percentiles must satisfy 0 <= p_lo < p_hi <= 100")
+
+    p = Path(path)
+    hdr = _parse_las_header_minimal(p)
+    curves = [str(c or "").strip() for c in (hdr.get("curves", []) or []) if str(c or "").strip()]
+    if not curves:
+        raise RuntimeError("LAS header has no curve mnemonics (~C not found).")
+
+    depth_idx = _choose_curve_index(curves, primary=depth_preferred)
+    if depth_idx is None:
+        raise RuntimeError(f"Depth curve not found. Preferred={list(depth_preferred)}")
+
+    curve_idx = _choose_curve_index(curves, primary=("GR",), fallback=curve_candidates)
+    if curve_idx is None:
+        raise RuntimeError(f"Target curve not found. Candidates={list(curve_candidates)}")
+
+    n_curves = int(len(curves))
+    wrapped = bool(hdr.get("wrap", False))
+    null_value = hdr.get("null", None)
+    null_f: Optional[float] = None
+    if null_value is not None:
+        try:
+            null_f = float(null_value)
+        except Exception:
+            null_f = None
+
+    def _to_float(tok: str) -> float:
+        try:
+            return float(tok)
+        except Exception:
+            return float("nan")
+
+    if window_min is not None and window_max is not None:
+        if float(window_max) <= float(window_min):
+            raise ValueError("window_max must be greater than window_min")
+
+    # Pass 1: depth range + step sampling
+    z_top = float("inf")
+    z_base = float("-inf")
+    diffs: List[float] = []
+    prev_d: Optional[float] = None
+    n_rows = 0
+
+    for row in _iter_las_ascii_rows(p, n_curves=n_curves, wrapped=wrapped):
+        n_rows += 1
+        if int(max_rows) > 0 and n_rows > int(max_rows):
+            raise RuntimeError(f"LAS exceeds max_rows={int(max_rows)}")
+        if len(row) <= max(depth_idx, curve_idx):
+            continue
+        d = _to_float(row[depth_idx])
+        if null_f is not None and np.isfinite(d) and d == null_f:
+            d = float("nan")
+        if not np.isfinite(d):
+            continue
+        if window_min is not None and d < float(window_min):
+            continue
+        if window_max is not None and d > float(window_max):
+            continue
+        if d < z_top:
+            z_top = d
+        if d > z_base:
+            z_base = d
+        if prev_d is not None:
+            dd = float(d - prev_d)
+            if np.isfinite(dd) and dd != 0.0:
+                if len(diffs) < int(max(1, step_sample_size)):
+                    diffs.append(float(dd))
+        prev_d = d
+
+    if not np.isfinite(z_top) or not np.isfinite(z_base) or z_base <= z_top:
+        raise RuntimeError("Invalid depth range (no data in window).")
+
+    sample_step = float(np.nanmedian(diffs)) if diffs else float("nan")
+
+    # Pass 2: streaming interpolation onto uniform grid
+    z = np.linspace(z_top, z_base, n_samples_i, dtype="float64")
+    x = np.full((n_samples_i,), np.nan, dtype="float64")
+
+    i = 0
+    prev_depth: Optional[float] = None
+    prev_val: Optional[float] = None
+    cur_depth: Optional[float] = None
+    cur_sum = 0.0
+    cur_count = 0
+    n_finite_raw = 0
+
+    def _emit_point(d: float, v: float) -> None:
+        nonlocal i, prev_depth, prev_val
+        if prev_depth is None:
+            prev_depth = float(d)
+            prev_val = float(v)
+            # fill any grid points before first depth
+            while i < n_samples_i and z[i] < prev_depth:
+                x[i] = float(prev_val)
+                i += 1
+            return
+
+        d0 = float(prev_depth)
+        v0 = float(prev_val) if prev_val is not None else float(v)
+        d1 = float(d)
+        v1 = float(v)
+        if d1 <= d0:
+            # non-increasing depth; skip segment
+            prev_depth = d1
+            prev_val = v1
+            return
+
+        while i < n_samples_i and z[i] <= d1:
+            t = (float(z[i]) - d0) / (d1 - d0)
+            x[i] = v0 + t * (v1 - v0)
+            i += 1
+
+        prev_depth = d1
+        prev_val = v1
+
+    n_rows = 0
+    for row in _iter_las_ascii_rows(p, n_curves=n_curves, wrapped=wrapped):
+        n_rows += 1
+        if int(max_rows) > 0 and n_rows > int(max_rows):
+            raise RuntimeError(f"LAS exceeds max_rows={int(max_rows)}")
+        if len(row) <= max(depth_idx, curve_idx):
+            continue
+        d = _to_float(row[depth_idx])
+        v = _to_float(row[curve_idx])
+        if null_f is not None:
+            if np.isfinite(d) and d == null_f:
+                d = float("nan")
+            if np.isfinite(v) and v == null_f:
+                v = float("nan")
+        if not np.isfinite(d) or not np.isfinite(v):
+            continue
+        if window_min is not None and d < float(window_min):
+            continue
+        if window_max is not None and d > float(window_max):
+            continue
+        n_finite_raw += 1
+        if cur_depth is None:
+            cur_depth = float(d)
+            cur_sum = float(v)
+            cur_count = 1
+            continue
+        if d == cur_depth:
+            cur_sum += float(v)
+            cur_count += 1
+            continue
+
+        # finalize previous depth point and emit
+        _emit_point(float(cur_depth), float(cur_sum) / float(max(1, cur_count)))
+        cur_depth = float(d)
+        cur_sum = float(v)
+        cur_count = 1
+
+    if cur_depth is not None and cur_count > 0:
+        _emit_point(float(cur_depth), float(cur_sum) / float(max(1, cur_count)))
+
+    # Fill any remaining grid points with last value
+    if prev_val is not None:
+        while i < n_samples_i:
+            x[i] = float(prev_val)
+            i += 1
+
+    if int(n_finite_raw) < int(min_finite):
+        raise RuntimeError("Too few finite curve samples to resample.")
+
+    # If still NaNs, fallback to zeros to keep downstream stable
+    if not np.any(np.isfinite(x)):
+        return np.zeros((n_samples_i,), dtype="float64"), float(z_top), float(z_base), int(n_finite_raw), float(sample_step)
+
+    # Normalize to [0,1] using robust percentiles
+    fin = np.isfinite(x)
+    plo = float(np.percentile(x[fin], float(p_lo)))
+    phi = float(np.percentile(x[fin], float(p_hi)))
+    if (not np.isfinite(plo)) or (not np.isfinite(phi)) or (phi <= plo):
+        plo = float(np.nanmin(x[fin]))
+        phi = float(np.nanmax(x[fin]))
+        if (not np.isfinite(plo)) or (not np.isfinite(phi)) or (phi <= plo):
+            return np.zeros((n_samples_i,), dtype="float64"), float(z_top), float(z_base), int(n_finite_raw), float(sample_step)
+
+    x_norm = (x - plo) / (phi - plo)
+    x_norm = np.clip(x_norm, 0.0, 1.0)
+    return x_norm.astype("float64", copy=False), float(z_top), float(z_base), int(n_finite_raw), float(sample_step)
 
 
 def available_canonical_curves(las) -> Dict[str, List[str]]:

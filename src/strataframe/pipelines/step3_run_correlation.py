@@ -18,10 +18,7 @@ try:
 except Exception:  # pragma: no cover
     nx = None  # type: ignore
 
-try:
-    import lasio  # type: ignore
-except Exception:  # pragma: no cover
-    lasio = None  # type: ignore
+from strataframe.graph.las_utils import read_las_depth_and_curve_ascii
 
 from strataframe.correlation.dtw import DtwConfig
 from strataframe.correlation.framework import FrameworkConfig
@@ -52,8 +49,6 @@ def _require() -> None:
         raise RuntimeError("pandas is required for Step 3. Install with: pip install pandas")
     if nx is None:
         raise RuntimeError("networkx is required for Step 3. Install with: pip install networkx")
-    if lasio is None:
-        raise RuntimeError("lasio is required for Step 3. Install with: pip install lasio")
 
 
 @dataclass(frozen=True)
@@ -103,6 +98,10 @@ class Step3Config:
     reps_csv: Path
     las_root: Path
     wells_gr_parquet: Optional[Path] = None  # used to resolve LAS paths if reps_csv lacks them
+
+    # Mode: "prep" builds candidates + rep arrays only (no DTW / framework / RGT)
+    #       "full" runs the entire correlation + RGT pipeline (default)
+    mode: str = "full"
 
     # Candidate graph (preferred knobs)
     cg_k_max: int = 12
@@ -187,49 +186,13 @@ def _normalize_reps_columns(df: "pd.DataFrame") -> "pd.DataFrame":
     return df
 
 
-def _pick_curve_mnemonic(las: "lasio.LASFile", candidates: Sequence[str]) -> Optional[str]:
-    names = [str(c.mnemonic).strip() for c in las.curves]
-    upper = {n.upper(): n for n in names}
-    for c in candidates:
-        if str(c).upper() in upper:
-            return upper[str(c).upper()]
-    for n in names:
-        if n.upper().startswith("GR"):
-            return n
-    for n in names:
-        if "GAM" in n.upper():
-            return n
-    return None
-
-
 def _read_las_depth_and_gr(las_path: Path) -> Tuple[np.ndarray, np.ndarray]:
-    try:
-        las = lasio.read(str(las_path), engine="normal")
-    except TypeError:
-        las = lasio.read(str(las_path))
-
-    # depth axis
-    try:
-        depth = np.asarray(las.index, dtype="float64")
-    except Exception:
-        depth = np.array([], dtype="float64")
-    if depth.size == 0:
-        for nm in ("DEPT", "DEPTH", "Z"):
-            if nm in las.curvesdict:
-                depth = np.asarray(las[nm], dtype="float64")
-                break
-    if depth.size == 0:
-        raise ValueError(f"no_depth_axis_in_las: {las_path.name}")
-
-    gr_mn = _pick_curve_mnemonic(las, _GR_CANDIDATES)
-    if not gr_mn:
-        raise ValueError(f"no_gr_curve_in_las: {las_path.name}")
-
-    gr = np.asarray(las[gr_mn], dtype="float64")
-    if gr.size != depth.size:
-        n = int(min(gr.size, depth.size))
-        depth = depth[:n]
-        gr = gr[:n]
+    # Stream parse ~A (wrapped/unwrapped) without lasio.
+    depth, gr = read_las_depth_and_curve_ascii(
+        Path(las_path),
+        curve_candidates=_GR_CANDIDATES,
+        depth_preferred=("DEPT", "DEPTH", "MD", "TVD", "Z"),
+    )
     return depth, gr
 
 
@@ -259,9 +222,20 @@ def _resolve_las_paths(
         if not s or s.lower() == "nan":
             return ""
         pp = Path(s)
-        if not pp.is_absolute():
-            pp = (las_root / pp)
-        return str(pp.resolve())
+        if pp.is_absolute():
+            return str(pp.resolve())
+
+        # If the relative path already exists from CWD, keep it.
+        if pp.exists():
+            return str(pp.resolve())
+
+        # Otherwise, resolve relative to las_root.
+        cand = las_root / pp
+        if cand.exists():
+            return str(cand.resolve())
+
+        # Fall back to las_root join even if missing (helps diagnostics).
+        return str(cand.resolve())
 
     # direct
     if "las_path" in reps.columns:
@@ -454,6 +428,44 @@ def run_step3(
     # Filter reps to usable
     reps_use = reps[reps[cfg.rep_id_col].astype(str).isin(sorted(usable_rep_ids))].copy()
 
+    mode = str(getattr(cfg, "mode", "full") or "full").strip().lower()
+    if mode not in {"prep", "full"}:
+        raise ValueError(f"Step3Config.mode must be 'prep' or 'full', got: {cfg.mode!r}")
+
+    # -------------------------
+    # Prep-only early exit (skip DTW/framework/RGT)
+    # -------------------------
+    if mode == "prep":
+        n_candidates_usable = 0
+        try:
+            if cand.shape[0] > 0 and "src_rep_id" in cand.columns and "dst_rep_id" in cand.columns:
+                n_candidates_usable = int(
+                    (cand["src_rep_id"].astype(str).isin(usable_rep_ids) & cand["dst_rep_id"].astype(str).isin(usable_rep_ids)).sum()
+                )
+        except Exception:
+            n_candidates_usable = 0
+
+        counts = {
+            "n_reps_in_csv": int(reps0.shape[0]),
+            "n_reps_with_latlon": int(reps.shape[0]),
+            "n_reps_usable": int(len(usable_rep_ids)),
+            "n_candidates": int(cand.shape[0]),
+            "n_candidates_usable": int(n_candidates_usable),
+            "n_dtw_ok": 0,
+            "n_framework_edges": 0,
+            "n_components": 0,
+            "mode": "prep",
+        }
+
+        out_paths = {
+            "out_dir": str(paths.out_dir),
+            "candidates_csv": str(paths.candidates_csv),
+            "rep_arrays_npz": str(paths.rep_arrays_npz),
+            "rep_arrays_meta_csv": str(paths.rep_arrays_meta_csv),
+        }
+
+        return {"counts": counts, "paths": out_paths}
+
     # -------------------------
     # 3c DTW over candidate edges
     # -------------------------
@@ -591,6 +603,7 @@ def run_step3(
         "n_dtw_ok": int(n_dtw_ok),
         "n_framework_edges": int(H.number_of_edges()),
         "n_components": int(nx.number_connected_components(H)) if H.number_of_nodes() > 0 else 0,
+        "mode": mode,
     }
 
     out_paths = {

@@ -1,0 +1,6082 @@
+[
+  {
+    "key": "g0_1|L0|I0",
+    "cell_id": "g0_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L1|I0",
+    "cell_id": "g0_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L2|I0",
+    "cell_id": "g0_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L3|I0",
+    "cell_id": "g0_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L4|I0",
+    "cell_id": "g0_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L5|I0",
+    "cell_id": "g0_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L6|I0",
+    "cell_id": "g0_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_1|L7|I0",
+    "cell_id": "g0_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g0_2|L0|I0",
+    "cell_id": "g0_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L1|I0",
+    "cell_id": "g0_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L2|I0",
+    "cell_id": "g0_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L3|I0",
+    "cell_id": "g0_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L4|I0",
+    "cell_id": "g0_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L5|I0",
+    "cell_id": "g0_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L6|I0",
+    "cell_id": "g0_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_2|L7|I0",
+    "cell_id": "g0_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L0|I0",
+    "cell_id": "g0_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L1|I0",
+    "cell_id": "g0_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L2|I0",
+    "cell_id": "g0_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L3|I0",
+    "cell_id": "g0_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L4|I0",
+    "cell_id": "g0_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L5|I0",
+    "cell_id": "g0_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L6|I0",
+    "cell_id": "g0_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_3|L7|I0",
+    "cell_id": "g0_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L0|I0",
+    "cell_id": "g0_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L1|I0",
+    "cell_id": "g0_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L2|I0",
+    "cell_id": "g0_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L3|I0",
+    "cell_id": "g0_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L4|I0",
+    "cell_id": "g0_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L5|I0",
+    "cell_id": "g0_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L6|I0",
+    "cell_id": "g0_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g0_4|L7|I0",
+    "cell_id": "g0_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g10_1|L0|I0",
+    "cell_id": "g10_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L1|I0",
+    "cell_id": "g10_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L2|I0",
+    "cell_id": "g10_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L3|I0",
+    "cell_id": "g10_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L4|I0",
+    "cell_id": "g10_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L5|I0",
+    "cell_id": "g10_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L6|I0",
+    "cell_id": "g10_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_1|L7|I0",
+    "cell_id": "g10_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L0|I0",
+    "cell_id": "g10_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L1|I0",
+    "cell_id": "g10_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L2|I0",
+    "cell_id": "g10_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L3|I0",
+    "cell_id": "g10_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L4|I0",
+    "cell_id": "g10_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L5|I0",
+    "cell_id": "g10_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L6|I0",
+    "cell_id": "g10_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_2|L7|I0",
+    "cell_id": "g10_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6700.174093296601,
+    "rgt_base": 17341.151152787545
+  },
+  {
+    "key": "g10_3|L0|I0",
+    "cell_id": "g10_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L1|I0",
+    "cell_id": "g10_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L2|I0",
+    "cell_id": "g10_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L3|I0",
+    "cell_id": "g10_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L4|I0",
+    "cell_id": "g10_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L5|I0",
+    "cell_id": "g10_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L6|I0",
+    "cell_id": "g10_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_3|L7|I0",
+    "cell_id": "g10_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g10_4|L0|I0",
+    "cell_id": "g10_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L1|I0",
+    "cell_id": "g10_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L2|I0",
+    "cell_id": "g10_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L3|I0",
+    "cell_id": "g10_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L4|I0",
+    "cell_id": "g10_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L5|I0",
+    "cell_id": "g10_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L6|I0",
+    "cell_id": "g10_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_4|L7|I0",
+    "cell_id": "g10_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L0|I0",
+    "cell_id": "g10_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L1|I0",
+    "cell_id": "g10_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L2|I0",
+    "cell_id": "g10_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L3|I0",
+    "cell_id": "g10_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L4|I0",
+    "cell_id": "g10_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L5|I0",
+    "cell_id": "g10_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L6|I0",
+    "cell_id": "g10_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_5|L7|I0",
+    "cell_id": "g10_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L0|I0",
+    "cell_id": "g10_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L1|I0",
+    "cell_id": "g10_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L2|I0",
+    "cell_id": "g10_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L3|I0",
+    "cell_id": "g10_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L4|I0",
+    "cell_id": "g10_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L5|I0",
+    "cell_id": "g10_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L6|I0",
+    "cell_id": "g10_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g10_6|L7|I0",
+    "cell_id": "g10_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2994.495324051136,
+    "rgt_base": 18884.510459796016
+  },
+  {
+    "key": "g11_1|L0|I0",
+    "cell_id": "g11_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L1|I0",
+    "cell_id": "g11_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L2|I0",
+    "cell_id": "g11_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L3|I0",
+    "cell_id": "g11_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L4|I0",
+    "cell_id": "g11_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L5|I0",
+    "cell_id": "g11_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L6|I0",
+    "cell_id": "g11_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_1|L7|I0",
+    "cell_id": "g11_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L0|I0",
+    "cell_id": "g11_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L1|I0",
+    "cell_id": "g11_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L2|I0",
+    "cell_id": "g11_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L3|I0",
+    "cell_id": "g11_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L4|I0",
+    "cell_id": "g11_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L5|I0",
+    "cell_id": "g11_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L6|I0",
+    "cell_id": "g11_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_2|L7|I0",
+    "cell_id": "g11_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1918.0413622135588,
+    "rgt_base": 9037.772973573949
+  },
+  {
+    "key": "g11_3|L0|I0",
+    "cell_id": "g11_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L1|I0",
+    "cell_id": "g11_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L2|I0",
+    "cell_id": "g11_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L3|I0",
+    "cell_id": "g11_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L4|I0",
+    "cell_id": "g11_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L5|I0",
+    "cell_id": "g11_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L6|I0",
+    "cell_id": "g11_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_3|L7|I0",
+    "cell_id": "g11_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1554.9500557379554,
+    "rgt_base": 8898.887304008775
+  },
+  {
+    "key": "g11_4|L0|I0",
+    "cell_id": "g11_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L1|I0",
+    "cell_id": "g11_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L2|I0",
+    "cell_id": "g11_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L3|I0",
+    "cell_id": "g11_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L4|I0",
+    "cell_id": "g11_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L5|I0",
+    "cell_id": "g11_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L6|I0",
+    "cell_id": "g11_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_4|L7|I0",
+    "cell_id": "g11_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2799.1771564831224,
+    "rgt_base": 8923.283913827308
+  },
+  {
+    "key": "g11_5|L0|I0",
+    "cell_id": "g11_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L1|I0",
+    "cell_id": "g11_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L2|I0",
+    "cell_id": "g11_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L3|I0",
+    "cell_id": "g11_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L4|I0",
+    "cell_id": "g11_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L5|I0",
+    "cell_id": "g11_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L6|I0",
+    "cell_id": "g11_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_5|L7|I0",
+    "cell_id": "g11_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L0|I0",
+    "cell_id": "g11_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L1|I0",
+    "cell_id": "g11_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L2|I0",
+    "cell_id": "g11_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L3|I0",
+    "cell_id": "g11_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L4|I0",
+    "cell_id": "g11_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L5|I0",
+    "cell_id": "g11_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L6|I0",
+    "cell_id": "g11_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g11_6|L7|I0",
+    "cell_id": "g11_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2807.3085565444794,
+    "rgt_base": 9337.985316956536
+  },
+  {
+    "key": "g12_1|L0|I0",
+    "cell_id": "g12_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L1|I0",
+    "cell_id": "g12_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L2|I0",
+    "cell_id": "g12_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L3|I0",
+    "cell_id": "g12_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L4|I0",
+    "cell_id": "g12_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L5|I0",
+    "cell_id": "g12_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L6|I0",
+    "cell_id": "g12_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_1|L7|I0",
+    "cell_id": "g12_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L0|I0",
+    "cell_id": "g12_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L1|I0",
+    "cell_id": "g12_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L2|I0",
+    "cell_id": "g12_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L3|I0",
+    "cell_id": "g12_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L4|I0",
+    "cell_id": "g12_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L5|I0",
+    "cell_id": "g12_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L6|I0",
+    "cell_id": "g12_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_2|L7|I0",
+    "cell_id": "g12_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1899.0755083210574,
+    "rgt_base": 8070.514425056384
+  },
+  {
+    "key": "g12_4|L0|I0",
+    "cell_id": "g12_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L1|I0",
+    "cell_id": "g12_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L2|I0",
+    "cell_id": "g12_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L3|I0",
+    "cell_id": "g12_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L4|I0",
+    "cell_id": "g12_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L5|I0",
+    "cell_id": "g12_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L6|I0",
+    "cell_id": "g12_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g12_4|L7|I0",
+    "cell_id": "g12_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2775.105758831672,
+    "rgt_base": 7695.642633603353
+  },
+  {
+    "key": "g1_1|L0|I0",
+    "cell_id": "g1_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L1|I0",
+    "cell_id": "g1_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L2|I0",
+    "cell_id": "g1_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L3|I0",
+    "cell_id": "g1_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L4|I0",
+    "cell_id": "g1_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L5|I0",
+    "cell_id": "g1_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L6|I0",
+    "cell_id": "g1_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_1|L7|I0",
+    "cell_id": "g1_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1620.1858996268088,
+    "rgt_base": 18106.569071951566
+  },
+  {
+    "key": "g1_2|L0|I0",
+    "cell_id": "g1_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L1|I0",
+    "cell_id": "g1_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L2|I0",
+    "cell_id": "g1_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L3|I0",
+    "cell_id": "g1_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L4|I0",
+    "cell_id": "g1_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L5|I0",
+    "cell_id": "g1_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L6|I0",
+    "cell_id": "g1_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_2|L7|I0",
+    "cell_id": "g1_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L0|I0",
+    "cell_id": "g1_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L1|I0",
+    "cell_id": "g1_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L2|I0",
+    "cell_id": "g1_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L3|I0",
+    "cell_id": "g1_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L4|I0",
+    "cell_id": "g1_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L5|I0",
+    "cell_id": "g1_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L6|I0",
+    "cell_id": "g1_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_3|L7|I0",
+    "cell_id": "g1_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L0|I0",
+    "cell_id": "g1_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L1|I0",
+    "cell_id": "g1_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L2|I0",
+    "cell_id": "g1_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L3|I0",
+    "cell_id": "g1_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L4|I0",
+    "cell_id": "g1_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L5|I0",
+    "cell_id": "g1_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L6|I0",
+    "cell_id": "g1_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_4|L7|I0",
+    "cell_id": "g1_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g1_5|L0|I0",
+    "cell_id": "g1_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L1|I0",
+    "cell_id": "g1_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L2|I0",
+    "cell_id": "g1_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L3|I0",
+    "cell_id": "g1_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L4|I0",
+    "cell_id": "g1_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L5|I0",
+    "cell_id": "g1_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L6|I0",
+    "cell_id": "g1_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_5|L7|I0",
+    "cell_id": "g1_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2891.4682694242356,
+    "rgt_base": 12084.137245514145
+  },
+  {
+    "key": "g1_6|L0|I0",
+    "cell_id": "g1_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L1|I0",
+    "cell_id": "g1_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L2|I0",
+    "cell_id": "g1_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L3|I0",
+    "cell_id": "g1_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L4|I0",
+    "cell_id": "g1_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L5|I0",
+    "cell_id": "g1_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L6|I0",
+    "cell_id": "g1_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_6|L7|I0",
+    "cell_id": "g1_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L0|I0",
+    "cell_id": "g1_7",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L1|I0",
+    "cell_id": "g1_7",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L2|I0",
+    "cell_id": "g1_7",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L3|I0",
+    "cell_id": "g1_7",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L4|I0",
+    "cell_id": "g1_7",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L5|I0",
+    "cell_id": "g1_7",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L6|I0",
+    "cell_id": "g1_7",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g1_7|L7|I0",
+    "cell_id": "g1_7",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_1|L0|I0",
+    "cell_id": "g2_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L1|I0",
+    "cell_id": "g2_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L2|I0",
+    "cell_id": "g2_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L3|I0",
+    "cell_id": "g2_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L4|I0",
+    "cell_id": "g2_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L5|I0",
+    "cell_id": "g2_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L6|I0",
+    "cell_id": "g2_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_1|L7|I0",
+    "cell_id": "g2_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -1187.190428398256,
+    "rgt_base": 10684.577064415615
+  },
+  {
+    "key": "g2_2|L0|I0",
+    "cell_id": "g2_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L1|I0",
+    "cell_id": "g2_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L2|I0",
+    "cell_id": "g2_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L3|I0",
+    "cell_id": "g2_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L4|I0",
+    "cell_id": "g2_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L5|I0",
+    "cell_id": "g2_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L6|I0",
+    "cell_id": "g2_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_2|L7|I0",
+    "cell_id": "g2_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L0|I0",
+    "cell_id": "g2_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L1|I0",
+    "cell_id": "g2_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L2|I0",
+    "cell_id": "g2_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L3|I0",
+    "cell_id": "g2_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L4|I0",
+    "cell_id": "g2_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L5|I0",
+    "cell_id": "g2_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L6|I0",
+    "cell_id": "g2_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_3|L7|I0",
+    "cell_id": "g2_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L0|I0",
+    "cell_id": "g2_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L1|I0",
+    "cell_id": "g2_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L2|I0",
+    "cell_id": "g2_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L3|I0",
+    "cell_id": "g2_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L4|I0",
+    "cell_id": "g2_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L5|I0",
+    "cell_id": "g2_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L6|I0",
+    "cell_id": "g2_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_4|L7|I0",
+    "cell_id": "g2_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8925.357789036785,
+    "rgt_base": 39660.79254383798
+  },
+  {
+    "key": "g2_5|L0|I0",
+    "cell_id": "g2_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L1|I0",
+    "cell_id": "g2_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L2|I0",
+    "cell_id": "g2_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L3|I0",
+    "cell_id": "g2_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L4|I0",
+    "cell_id": "g2_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L5|I0",
+    "cell_id": "g2_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L6|I0",
+    "cell_id": "g2_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_5|L7|I0",
+    "cell_id": "g2_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2556.112122358407,
+    "rgt_base": 9627.172456054457
+  },
+  {
+    "key": "g2_6|L0|I0",
+    "cell_id": "g2_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L1|I0",
+    "cell_id": "g2_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L2|I0",
+    "cell_id": "g2_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L3|I0",
+    "cell_id": "g2_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L4|I0",
+    "cell_id": "g2_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L5|I0",
+    "cell_id": "g2_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L6|I0",
+    "cell_id": "g2_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_6|L7|I0",
+    "cell_id": "g2_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2419.1366787960196,
+    "rgt_base": 9875.506669438704
+  },
+  {
+    "key": "g2_7|L0|I0",
+    "cell_id": "g2_7",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L1|I0",
+    "cell_id": "g2_7",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L2|I0",
+    "cell_id": "g2_7",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L3|I0",
+    "cell_id": "g2_7",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L4|I0",
+    "cell_id": "g2_7",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L5|I0",
+    "cell_id": "g2_7",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L6|I0",
+    "cell_id": "g2_7",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g2_7|L7|I0",
+    "cell_id": "g2_7",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2331.7700822820552,
+    "rgt_base": 9873.793598918823
+  },
+  {
+    "key": "g3_1|L0|I0",
+    "cell_id": "g3_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L1|I0",
+    "cell_id": "g3_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L2|I0",
+    "cell_id": "g3_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L3|I0",
+    "cell_id": "g3_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L4|I0",
+    "cell_id": "g3_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L5|I0",
+    "cell_id": "g3_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L6|I0",
+    "cell_id": "g3_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_1|L7|I0",
+    "cell_id": "g3_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3230.6572145599016,
+    "rgt_base": 11685.138820514587
+  },
+  {
+    "key": "g3_2|L0|I0",
+    "cell_id": "g3_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L1|I0",
+    "cell_id": "g3_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L2|I0",
+    "cell_id": "g3_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L3|I0",
+    "cell_id": "g3_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L4|I0",
+    "cell_id": "g3_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L5|I0",
+    "cell_id": "g3_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L6|I0",
+    "cell_id": "g3_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_2|L7|I0",
+    "cell_id": "g3_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3356.970798795365,
+    "rgt_base": 18127.13161652324
+  },
+  {
+    "key": "g3_3|L0|I0",
+    "cell_id": "g3_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L1|I0",
+    "cell_id": "g3_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L2|I0",
+    "cell_id": "g3_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L3|I0",
+    "cell_id": "g3_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L4|I0",
+    "cell_id": "g3_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L5|I0",
+    "cell_id": "g3_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L6|I0",
+    "cell_id": "g3_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_3|L7|I0",
+    "cell_id": "g3_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L0|I0",
+    "cell_id": "g3_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L1|I0",
+    "cell_id": "g3_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L2|I0",
+    "cell_id": "g3_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L3|I0",
+    "cell_id": "g3_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L4|I0",
+    "cell_id": "g3_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L5|I0",
+    "cell_id": "g3_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L6|I0",
+    "cell_id": "g3_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_4|L7|I0",
+    "cell_id": "g3_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2722.5340679382034,
+    "rgt_base": 18114.691680624077
+  },
+  {
+    "key": "g3_5|L0|I0",
+    "cell_id": "g3_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L1|I0",
+    "cell_id": "g3_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L2|I0",
+    "cell_id": "g3_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L3|I0",
+    "cell_id": "g3_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L4|I0",
+    "cell_id": "g3_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L5|I0",
+    "cell_id": "g3_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L6|I0",
+    "cell_id": "g3_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_5|L7|I0",
+    "cell_id": "g3_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L0|I0",
+    "cell_id": "g3_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L1|I0",
+    "cell_id": "g3_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L2|I0",
+    "cell_id": "g3_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L3|I0",
+    "cell_id": "g3_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L4|I0",
+    "cell_id": "g3_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L5|I0",
+    "cell_id": "g3_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L6|I0",
+    "cell_id": "g3_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_6|L7|I0",
+    "cell_id": "g3_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L0|I0",
+    "cell_id": "g3_7",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L1|I0",
+    "cell_id": "g3_7",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L2|I0",
+    "cell_id": "g3_7",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L3|I0",
+    "cell_id": "g3_7",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L4|I0",
+    "cell_id": "g3_7",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L5|I0",
+    "cell_id": "g3_7",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L6|I0",
+    "cell_id": "g3_7",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g3_7|L7|I0",
+    "cell_id": "g3_7",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_1|L0|I0",
+    "cell_id": "g4_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L1|I0",
+    "cell_id": "g4_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L2|I0",
+    "cell_id": "g4_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L3|I0",
+    "cell_id": "g4_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L4|I0",
+    "cell_id": "g4_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L5|I0",
+    "cell_id": "g4_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L6|I0",
+    "cell_id": "g4_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_1|L7|I0",
+    "cell_id": "g4_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L0|I0",
+    "cell_id": "g4_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L1|I0",
+    "cell_id": "g4_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L2|I0",
+    "cell_id": "g4_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L3|I0",
+    "cell_id": "g4_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L4|I0",
+    "cell_id": "g4_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L5|I0",
+    "cell_id": "g4_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L6|I0",
+    "cell_id": "g4_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_2|L7|I0",
+    "cell_id": "g4_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3319.3902204245396,
+    "rgt_base": 16210.522119611123
+  },
+  {
+    "key": "g4_3|L0|I0",
+    "cell_id": "g4_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L1|I0",
+    "cell_id": "g4_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L2|I0",
+    "cell_id": "g4_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L3|I0",
+    "cell_id": "g4_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L4|I0",
+    "cell_id": "g4_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L5|I0",
+    "cell_id": "g4_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L6|I0",
+    "cell_id": "g4_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_3|L7|I0",
+    "cell_id": "g4_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2602.82351612783,
+    "rgt_base": 12009.453538295027
+  },
+  {
+    "key": "g4_4|L0|I0",
+    "cell_id": "g4_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L1|I0",
+    "cell_id": "g4_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L2|I0",
+    "cell_id": "g4_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L3|I0",
+    "cell_id": "g4_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L4|I0",
+    "cell_id": "g4_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L5|I0",
+    "cell_id": "g4_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L6|I0",
+    "cell_id": "g4_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_4|L7|I0",
+    "cell_id": "g4_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2593.666393687689,
+    "rgt_base": 11542.440293847836
+  },
+  {
+    "key": "g4_5|L0|I0",
+    "cell_id": "g4_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L1|I0",
+    "cell_id": "g4_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L2|I0",
+    "cell_id": "g4_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L3|I0",
+    "cell_id": "g4_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L4|I0",
+    "cell_id": "g4_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L5|I0",
+    "cell_id": "g4_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L6|I0",
+    "cell_id": "g4_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_5|L7|I0",
+    "cell_id": "g4_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L0|I0",
+    "cell_id": "g4_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L1|I0",
+    "cell_id": "g4_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L2|I0",
+    "cell_id": "g4_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L3|I0",
+    "cell_id": "g4_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L4|I0",
+    "cell_id": "g4_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L5|I0",
+    "cell_id": "g4_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L6|I0",
+    "cell_id": "g4_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g4_6|L7|I0",
+    "cell_id": "g4_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3168.2547791423362,
+    "rgt_base": 12841.149450707386
+  },
+  {
+    "key": "g5_1|L0|I0",
+    "cell_id": "g5_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L1|I0",
+    "cell_id": "g5_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L2|I0",
+    "cell_id": "g5_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L3|I0",
+    "cell_id": "g5_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L4|I0",
+    "cell_id": "g5_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L5|I0",
+    "cell_id": "g5_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L6|I0",
+    "cell_id": "g5_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_1|L7|I0",
+    "cell_id": "g5_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L0|I0",
+    "cell_id": "g5_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L1|I0",
+    "cell_id": "g5_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L2|I0",
+    "cell_id": "g5_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L3|I0",
+    "cell_id": "g5_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L4|I0",
+    "cell_id": "g5_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L5|I0",
+    "cell_id": "g5_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L6|I0",
+    "cell_id": "g5_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_2|L7|I0",
+    "cell_id": "g5_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g5_3|L0|I0",
+    "cell_id": "g5_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L1|I0",
+    "cell_id": "g5_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L2|I0",
+    "cell_id": "g5_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L3|I0",
+    "cell_id": "g5_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L4|I0",
+    "cell_id": "g5_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L5|I0",
+    "cell_id": "g5_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L6|I0",
+    "cell_id": "g5_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_3|L7|I0",
+    "cell_id": "g5_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2539.1019238943927,
+    "rgt_base": 12008.204095310059
+  },
+  {
+    "key": "g5_4|L0|I0",
+    "cell_id": "g5_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L1|I0",
+    "cell_id": "g5_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L2|I0",
+    "cell_id": "g5_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L3|I0",
+    "cell_id": "g5_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L4|I0",
+    "cell_id": "g5_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L5|I0",
+    "cell_id": "g5_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L6|I0",
+    "cell_id": "g5_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_4|L7|I0",
+    "cell_id": "g5_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2174.285305701432,
+    "rgt_base": 15127.151715957112
+  },
+  {
+    "key": "g5_5|L0|I0",
+    "cell_id": "g5_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L1|I0",
+    "cell_id": "g5_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L2|I0",
+    "cell_id": "g5_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L3|I0",
+    "cell_id": "g5_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L4|I0",
+    "cell_id": "g5_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L5|I0",
+    "cell_id": "g5_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L6|I0",
+    "cell_id": "g5_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_5|L7|I0",
+    "cell_id": "g5_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L0|I0",
+    "cell_id": "g5_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L1|I0",
+    "cell_id": "g5_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L2|I0",
+    "cell_id": "g5_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L3|I0",
+    "cell_id": "g5_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L4|I0",
+    "cell_id": "g5_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L5|I0",
+    "cell_id": "g5_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L6|I0",
+    "cell_id": "g5_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g5_6|L7|I0",
+    "cell_id": "g5_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -3213.4778887581733,
+    "rgt_base": 15147.528041115087
+  },
+  {
+    "key": "g6_1|L0|I0",
+    "cell_id": "g6_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L1|I0",
+    "cell_id": "g6_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L2|I0",
+    "cell_id": "g6_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L3|I0",
+    "cell_id": "g6_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L4|I0",
+    "cell_id": "g6_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L5|I0",
+    "cell_id": "g6_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L6|I0",
+    "cell_id": "g6_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_1|L7|I0",
+    "cell_id": "g6_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L0|I0",
+    "cell_id": "g6_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L1|I0",
+    "cell_id": "g6_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L2|I0",
+    "cell_id": "g6_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L3|I0",
+    "cell_id": "g6_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L4|I0",
+    "cell_id": "g6_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L5|I0",
+    "cell_id": "g6_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L6|I0",
+    "cell_id": "g6_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_2|L7|I0",
+    "cell_id": "g6_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8481.972683526412,
+    "rgt_base": 24356.409606429246
+  },
+  {
+    "key": "g6_3|L0|I0",
+    "cell_id": "g6_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L1|I0",
+    "cell_id": "g6_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L2|I0",
+    "cell_id": "g6_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L3|I0",
+    "cell_id": "g6_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L4|I0",
+    "cell_id": "g6_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L5|I0",
+    "cell_id": "g6_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L6|I0",
+    "cell_id": "g6_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_3|L7|I0",
+    "cell_id": "g6_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2595.5884406198893,
+    "rgt_base": 14889.01644831039
+  },
+  {
+    "key": "g6_4|L0|I0",
+    "cell_id": "g6_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L1|I0",
+    "cell_id": "g6_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L2|I0",
+    "cell_id": "g6_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L3|I0",
+    "cell_id": "g6_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L4|I0",
+    "cell_id": "g6_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L5|I0",
+    "cell_id": "g6_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L6|I0",
+    "cell_id": "g6_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_4|L7|I0",
+    "cell_id": "g6_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g6_5|L0|I0",
+    "cell_id": "g6_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L1|I0",
+    "cell_id": "g6_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L2|I0",
+    "cell_id": "g6_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L3|I0",
+    "cell_id": "g6_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L4|I0",
+    "cell_id": "g6_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L5|I0",
+    "cell_id": "g6_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L6|I0",
+    "cell_id": "g6_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_5|L7|I0",
+    "cell_id": "g6_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L0|I0",
+    "cell_id": "g6_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L1|I0",
+    "cell_id": "g6_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L2|I0",
+    "cell_id": "g6_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L3|I0",
+    "cell_id": "g6_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L4|I0",
+    "cell_id": "g6_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L5|I0",
+    "cell_id": "g6_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L6|I0",
+    "cell_id": "g6_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g6_6|L7|I0",
+    "cell_id": "g6_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2211.802578710318,
+    "rgt_base": 15127.887348761207
+  },
+  {
+    "key": "g7_1|L0|I0",
+    "cell_id": "g7_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L1|I0",
+    "cell_id": "g7_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L2|I0",
+    "cell_id": "g7_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L3|I0",
+    "cell_id": "g7_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L4|I0",
+    "cell_id": "g7_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L5|I0",
+    "cell_id": "g7_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L6|I0",
+    "cell_id": "g7_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_1|L7|I0",
+    "cell_id": "g7_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L0|I0",
+    "cell_id": "g7_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L1|I0",
+    "cell_id": "g7_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L2|I0",
+    "cell_id": "g7_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L3|I0",
+    "cell_id": "g7_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L4|I0",
+    "cell_id": "g7_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L5|I0",
+    "cell_id": "g7_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L6|I0",
+    "cell_id": "g7_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_2|L7|I0",
+    "cell_id": "g7_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -8531.599349251588,
+    "rgt_base": 26887.36955841328
+  },
+  {
+    "key": "g7_3|L0|I0",
+    "cell_id": "g7_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L1|I0",
+    "cell_id": "g7_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L2|I0",
+    "cell_id": "g7_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L3|I0",
+    "cell_id": "g7_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L4|I0",
+    "cell_id": "g7_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L5|I0",
+    "cell_id": "g7_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L6|I0",
+    "cell_id": "g7_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_3|L7|I0",
+    "cell_id": "g7_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2023.5783217598303,
+    "rgt_base": 14877.800563626859
+  },
+  {
+    "key": "g7_4|L0|I0",
+    "cell_id": "g7_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L1|I0",
+    "cell_id": "g7_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L2|I0",
+    "cell_id": "g7_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L3|I0",
+    "cell_id": "g7_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L4|I0",
+    "cell_id": "g7_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L5|I0",
+    "cell_id": "g7_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L6|I0",
+    "cell_id": "g7_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_4|L7|I0",
+    "cell_id": "g7_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2028.4114762924846,
+    "rgt_base": 15124.29144479223
+  },
+  {
+    "key": "g7_5|L0|I0",
+    "cell_id": "g7_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L1|I0",
+    "cell_id": "g7_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L2|I0",
+    "cell_id": "g7_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L3|I0",
+    "cell_id": "g7_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L4|I0",
+    "cell_id": "g7_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L5|I0",
+    "cell_id": "g7_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L6|I0",
+    "cell_id": "g7_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_5|L7|I0",
+    "cell_id": "g7_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L0|I0",
+    "cell_id": "g7_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L1|I0",
+    "cell_id": "g7_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L2|I0",
+    "cell_id": "g7_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L3|I0",
+    "cell_id": "g7_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L4|I0",
+    "cell_id": "g7_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L5|I0",
+    "cell_id": "g7_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L6|I0",
+    "cell_id": "g7_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g7_6|L7|I0",
+    "cell_id": "g7_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_1|L0|I0",
+    "cell_id": "g8_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L1|I0",
+    "cell_id": "g8_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L2|I0",
+    "cell_id": "g8_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L3|I0",
+    "cell_id": "g8_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L4|I0",
+    "cell_id": "g8_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L5|I0",
+    "cell_id": "g8_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L6|I0",
+    "cell_id": "g8_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_1|L7|I0",
+    "cell_id": "g8_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L0|I0",
+    "cell_id": "g8_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L1|I0",
+    "cell_id": "g8_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L2|I0",
+    "cell_id": "g8_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L3|I0",
+    "cell_id": "g8_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L4|I0",
+    "cell_id": "g8_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L5|I0",
+    "cell_id": "g8_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L6|I0",
+    "cell_id": "g8_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_2|L7|I0",
+    "cell_id": "g8_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g8_3|L0|I0",
+    "cell_id": "g8_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L1|I0",
+    "cell_id": "g8_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L2|I0",
+    "cell_id": "g8_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L3|I0",
+    "cell_id": "g8_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L4|I0",
+    "cell_id": "g8_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L5|I0",
+    "cell_id": "g8_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L6|I0",
+    "cell_id": "g8_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_3|L7|I0",
+    "cell_id": "g8_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2473.621509503957,
+    "rgt_base": 14886.624939857136
+  },
+  {
+    "key": "g8_4|L0|I0",
+    "cell_id": "g8_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L1|I0",
+    "cell_id": "g8_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L2|I0",
+    "cell_id": "g8_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L3|I0",
+    "cell_id": "g8_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L4|I0",
+    "cell_id": "g8_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L5|I0",
+    "cell_id": "g8_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L6|I0",
+    "cell_id": "g8_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_4|L7|I0",
+    "cell_id": "g8_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g8_5|L0|I0",
+    "cell_id": "g8_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L1|I0",
+    "cell_id": "g8_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L2|I0",
+    "cell_id": "g8_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L3|I0",
+    "cell_id": "g8_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L4|I0",
+    "cell_id": "g8_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L5|I0",
+    "cell_id": "g8_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L6|I0",
+    "cell_id": "g8_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_5|L7|I0",
+    "cell_id": "g8_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L0|I0",
+    "cell_id": "g8_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L1|I0",
+    "cell_id": "g8_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L2|I0",
+    "cell_id": "g8_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L3|I0",
+    "cell_id": "g8_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L4|I0",
+    "cell_id": "g8_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L5|I0",
+    "cell_id": "g8_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L6|I0",
+    "cell_id": "g8_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g8_6|L7|I0",
+    "cell_id": "g8_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_1|L0|I0",
+    "cell_id": "g9_1",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L1|I0",
+    "cell_id": "g9_1",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L2|I0",
+    "cell_id": "g9_1",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L3|I0",
+    "cell_id": "g9_1",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L4|I0",
+    "cell_id": "g9_1",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L5|I0",
+    "cell_id": "g9_1",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L6|I0",
+    "cell_id": "g9_1",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_1|L7|I0",
+    "cell_id": "g9_1",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L0|I0",
+    "cell_id": "g9_2",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L1|I0",
+    "cell_id": "g9_2",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L2|I0",
+    "cell_id": "g9_2",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L3|I0",
+    "cell_id": "g9_2",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L4|I0",
+    "cell_id": "g9_2",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L5|I0",
+    "cell_id": "g9_2",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L6|I0",
+    "cell_id": "g9_2",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_2|L7|I0",
+    "cell_id": "g9_2",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -6886.7224446162,
+    "rgt_base": 26855.117070087097
+  },
+  {
+    "key": "g9_3|L0|I0",
+    "cell_id": "g9_3",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L1|I0",
+    "cell_id": "g9_3",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L2|I0",
+    "cell_id": "g9_3",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L3|I0",
+    "cell_id": "g9_3",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L4|I0",
+    "cell_id": "g9_3",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L5|I0",
+    "cell_id": "g9_3",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L6|I0",
+    "cell_id": "g9_3",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_3|L7|I0",
+    "cell_id": "g9_3",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2365.4433381275926,
+    "rgt_base": 9369.538199662536
+  },
+  {
+    "key": "g9_4|L0|I0",
+    "cell_id": "g9_4",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L1|I0",
+    "cell_id": "g9_4",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L2|I0",
+    "cell_id": "g9_4",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L3|I0",
+    "cell_id": "g9_4",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L4|I0",
+    "cell_id": "g9_4",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L5|I0",
+    "cell_id": "g9_4",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L6|I0",
+    "cell_id": "g9_4",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_4|L7|I0",
+    "cell_id": "g9_4",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2551.841235543317,
+    "rgt_base": 18875.83096786449
+  },
+  {
+    "key": "g9_5|L0|I0",
+    "cell_id": "g9_5",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L1|I0",
+    "cell_id": "g9_5",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L2|I0",
+    "cell_id": "g9_5",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L3|I0",
+    "cell_id": "g9_5",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L4|I0",
+    "cell_id": "g9_5",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L5|I0",
+    "cell_id": "g9_5",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L6|I0",
+    "cell_id": "g9_5",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_5|L7|I0",
+    "cell_id": "g9_5",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L0|I0",
+    "cell_id": "g9_6",
+    "level": 0,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L1|I0",
+    "cell_id": "g9_6",
+    "level": 1,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L2|I0",
+    "cell_id": "g9_6",
+    "level": 2,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L3|I0",
+    "cell_id": "g9_6",
+    "level": 3,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L4|I0",
+    "cell_id": "g9_6",
+    "level": 4,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L5|I0",
+    "cell_id": "g9_6",
+    "level": 5,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L6|I0",
+    "cell_id": "g9_6",
+    "level": 6,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  },
+  {
+    "key": "g9_6|L7|I0",
+    "cell_id": "g9_6",
+    "level": 7,
+    "interval_idx": 0,
+    "idx_top": 0,
+    "idx_base": 799,
+    "rgt_top": -2726.4694601264437,
+    "rgt_base": 20349.975010757356
+  }
+]
