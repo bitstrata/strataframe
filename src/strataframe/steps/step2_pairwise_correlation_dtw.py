@@ -7,9 +7,10 @@ import json
 import math
 import os
 from collections import OrderedDict
+import heapq
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -19,6 +20,12 @@ from strataframe.graph.las_utils import (
     read_las_curve_resampled_ascii,
     read_las_header_only,
     dtw_cost_and_path,
+)
+from strataframe.chronolog.dtw import (
+    compute_overlap_window,
+    load_gr_vectors_cache,
+    pad_for_distance,
+    resample_from_cache,
 )
 
 
@@ -40,6 +47,22 @@ class Step2DtwConfig:
     guard_min_samples: int = 16
     guard_min_slope: float = 0.5
     guard_max_slope: float = 2.0
+    band_max_frac: float = 0.2
+    band_min_samples: int = 16
+    nan_cost: float = 1.0e6
+    imputed_penalty: float = 0.35
+    scan_windows: bool = True
+    scan_scales: Tuple[float, ...] = (0.7, 0.85, 1.0, 1.15, 1.3, 1.5)
+    scan_stride_frac: float = 0.25
+    scan_top_k: int = 4
+    scan_downsample: int = 128
+    scan_min_finite_frac: float = 0.9
+    scan_min_samples: int = 16
+    scan_corr_min: float = 0.0
+    scan_min_len_frac: float = 0.85
+    scan_min_len_frac_imputed: float = 0.95
+    scan_imputed_frac: float = 0.2
+    scan_window_max_imputed_frac: float = 0.95
 
     max_las_mb: float = 256.0
     max_curves: int = 0
@@ -109,23 +132,6 @@ def _safe_float(x: Any) -> Optional[float]:
         return None
 
 
-def _compute_overlap(
-    zmin1: float, zmax1: float, zmin2: float, zmax2: float, pad_ft: float
-) -> Tuple[float, float, float, float]:
-    overlap_min = max(zmin1, zmin2)
-    overlap_max = min(zmax1, zmax2)
-    overlap_ft = max(0.0, overlap_max - overlap_min)
-
-    win_min = overlap_min - float(pad_ft)
-    win_max = overlap_max + float(pad_ft)
-
-    len1 = max(0.0, zmax1 - zmin1)
-    len2 = max(0.0, zmax2 - zmin2)
-    denom = min(len1, len2) if min(len1, len2) > 0 else 0.0
-    overlap_frac = float(overlap_ft / denom) if denom > 0 else 0.0
-    return win_min, win_max, overlap_ft, overlap_frac
-
-
 def _guard_slope_ok(path: np.ndarray, n_samples: int, cfg: Step2DtwConfig) -> bool:
     if path.ndim != 2 or path.shape[1] != 2:
         return True
@@ -161,6 +167,231 @@ def _guard_slope_ok(path: np.ndarray, n_samples: int, cfg: Step2DtwConfig) -> bo
 
 def _cache_key(node_id: int, win_min: float, win_max: float) -> Tuple[int, float, float]:
     return (int(node_id), round(float(win_min), 3), round(float(win_max), 3))
+
+
+def _longest_finite_segment(mask: np.ndarray) -> Optional[Tuple[int, int]]:
+    if mask.size == 0:
+        return None
+    best_start = 0
+    best_len = 0
+    cur_start: Optional[int] = None
+    for i, m in enumerate(mask.tolist()):
+        if m and cur_start is None:
+            cur_start = int(i)
+        elif (not m) and cur_start is not None:
+            cur_len = int(i) - int(cur_start)
+            if cur_len > best_len:
+                best_len = cur_len
+                best_start = int(cur_start)
+            cur_start = None
+    if cur_start is not None:
+        cur_len = int(mask.size) - int(cur_start)
+        if cur_len > best_len:
+            best_len = cur_len
+            best_start = int(cur_start)
+    if best_len < 2:
+        return None
+    return int(best_start), int(best_start + best_len)
+
+
+def _fill_nan_linear(x: np.ndarray) -> Optional[np.ndarray]:
+    x = np.asarray(x, dtype="float64").reshape(-1)
+    if np.all(np.isfinite(x)):
+        return x
+    idx = np.arange(x.size, dtype="float64")
+    m = np.isfinite(x)
+    if int(m.sum()) < 2:
+        return None
+    return np.interp(idx, idx[m], x[m]).astype("float64", copy=False)
+
+
+def _resample_to_n(x: np.ndarray, n: int) -> np.ndarray:
+    x = np.asarray(x, dtype="float64").reshape(-1)
+    n = int(n)
+    if n <= 0:
+        return x
+    if x.size == n:
+        return x
+    t_src = np.linspace(0.0, 1.0, x.size, dtype="float64")
+    t_dst = np.linspace(0.0, 1.0, n, dtype="float64")
+    return np.interp(t_dst, t_src, x).astype("float64", copy=False)
+
+
+def _corrcoef_fast(a: np.ndarray, b: np.ndarray) -> Optional[float]:
+    a = np.asarray(a, dtype="float64").reshape(-1)
+    b = np.asarray(b, dtype="float64").reshape(-1)
+    if a.size != b.size or a.size < 2:
+        return None
+    a = a - float(np.mean(a))
+    b = b - float(np.mean(b))
+    sa = float(np.std(a))
+    sb = float(np.std(b))
+    if sa <= 1.0e-12 or sb <= 1.0e-12:
+        return None
+    return float(np.dot(a, b) / (float(a.size) * sa * sb))
+
+
+def _scan_long_for_short(
+    *,
+    x_short: np.ndarray,
+    x_long: np.ndarray,
+    long_mask: np.ndarray,
+    long_imputed: Optional[np.ndarray],
+    min_len_frac: float,
+    max_imputed_frac: float,
+    cfg: Step2DtwConfig,
+) -> List[Tuple[int, int, float]]:
+    n_short = int(x_short.size)
+    if n_short < int(cfg.scan_min_samples):
+        return []
+    if not cfg.scan_scales:
+        return []
+
+    stride = max(1, int(round(float(cfg.scan_stride_frac) * float(n_short))))
+    fin = long_mask.astype(np.int32, copy=False)
+    imp = None
+    if long_imputed is not None:
+        imp = np.asarray(long_imputed, dtype=bool).reshape(-1)
+    fin_cum = np.concatenate([[0], np.cumsum(fin)], axis=0)
+    n_ds = int(min(int(cfg.scan_downsample), n_short))
+    if n_ds < 8:
+        n_ds = n_short
+
+    x_short_fill = _fill_nan_linear(x_short)
+    if x_short_fill is None:
+        return []
+    x_short_ds = _resample_to_n(x_short_fill, n_ds)
+
+    heap: List[Tuple[float, int, int]] = []
+    min_frac = float(cfg.scan_min_finite_frac)
+    corr_min = float(cfg.scan_corr_min)
+    min_len = int(math.ceil(float(min_len_frac) * float(n_short)))
+    min_len = max(int(cfg.scan_min_samples), int(min_len))
+    max_imp = float(max_imputed_frac)
+
+    for s in cfg.scan_scales:
+        try:
+            scale = float(s)
+        except Exception:
+            continue
+        if scale <= 0.0:
+            continue
+        Lw = int(round(float(n_short) * scale))
+        if Lw < int(min_len) or Lw > int(x_long.size):
+            continue
+
+        for start in range(0, int(x_long.size) - Lw + 1, stride):
+            fin_cnt = int(fin_cum[start + Lw] - fin_cum[start])
+            if fin_cnt < int(math.ceil(min_frac * Lw)):
+                continue
+            if imp is not None:
+                imp_seg = imp[start : start + Lw]
+                if imp_seg.size and float(np.mean(imp_seg)) > max_imp:
+                    continue
+            seg = x_long[start : start + Lw]
+            seg_fill = _fill_nan_linear(seg)
+            if seg_fill is None:
+                continue
+            seg_ds = _resample_to_n(seg_fill, n_ds)
+            corr = _corrcoef_fast(x_short_ds, seg_ds)
+            if corr is None:
+                continue
+            if corr < corr_min:
+                continue
+            if len(heap) < int(cfg.scan_top_k):
+                heapq.heappush(heap, (float(corr), int(start), int(Lw)))
+            else:
+                if corr > heap[0][0]:
+                    heapq.heapreplace(heap, (float(corr), int(start), int(Lw)))
+
+    if not heap:
+        return []
+    heap.sort(key=lambda t: t[0], reverse=True)
+    return [(int(s), int(L), float(c)) for (c, s, L) in heap]
+
+
+def _scan_window_candidates(
+    *,
+    x1: np.ndarray,
+    x2: np.ndarray,
+    imputed1: Optional[np.ndarray],
+    imputed2: Optional[np.ndarray],
+    cfg: Step2DtwConfig,
+) -> List[Tuple[int, int, int, int, float]]:
+    min_len_frac = float(cfg.scan_min_len_frac)
+    max_imputed = float(cfg.scan_window_max_imputed_frac)
+    imp_thresh = float(cfg.scan_imputed_frac)
+    if imputed1 is not None:
+        imp1 = float(np.mean(np.asarray(imputed1, dtype=bool))) if imputed1.size else 0.0
+        if imp1 >= imp_thresh:
+            min_len_frac = max(min_len_frac, float(cfg.scan_min_len_frac_imputed))
+            max_imputed = 1.01
+    if imputed2 is not None:
+        imp2 = float(np.mean(np.asarray(imputed2, dtype=bool))) if imputed2.size else 0.0
+        if imp2 >= imp_thresh:
+            min_len_frac = max(min_len_frac, float(cfg.scan_min_len_frac_imputed))
+            max_imputed = 1.01
+
+    m1 = np.isfinite(x1)
+    m2 = np.isfinite(x2)
+    seg1 = _longest_finite_segment(m1)
+    seg2 = _longest_finite_segment(m2)
+    if seg1 is None or seg2 is None:
+        return []
+    s1, e1 = seg1
+    s2, e2 = seg2
+    L1 = int(e1 - s1)
+    L2 = int(e2 - s2)
+    if L1 < int(cfg.scan_min_samples) or L2 < int(cfg.scan_min_samples):
+        return []
+
+    if L1 <= L2:
+        x_short = x1[s1:e1]
+        long_candidates = _scan_long_for_short(
+            x_short=x_short,
+            x_long=x2,
+            long_mask=m2,
+            long_imputed=imputed2,
+            min_len_frac=min_len_frac,
+            max_imputed_frac=max_imputed,
+            cfg=cfg,
+        )
+        return [(int(s1), int(L1), int(s), int(Lw), float(c)) for (s, Lw, c) in long_candidates]
+
+    x_short = x2[s2:e2]
+    long_candidates = _scan_long_for_short(
+        x_short=x_short,
+        x_long=x1,
+        long_mask=m1,
+        long_imputed=imputed1,
+        min_len_frac=min_len_frac,
+        max_imputed_frac=max_imputed,
+        cfg=cfg,
+    )
+    return [(int(s), int(Lw), int(s2), int(L2), float(c)) for (s, Lw, c) in long_candidates]
+
+def _mask_outside_valid_range(
+    x: np.ndarray,
+    *,
+    win_min: float,
+    win_max: float,
+    valid_min: Optional[float],
+    valid_max: Optional[float],
+) -> np.ndarray:
+    if valid_min is None or valid_max is None:
+        return x
+    vmin = float(valid_min)
+    vmax = float(valid_max)
+    if not (np.isfinite(vmin) and np.isfinite(vmax)) or vmax <= vmin:
+        return x
+    z_win = np.linspace(float(win_min), float(win_max), int(x.size), dtype="float64")
+    m = (z_win < vmin) | (z_win > vmax)
+    if not np.any(m):
+        return x
+    out = np.asarray(x, dtype="float64").copy()
+    out[m] = np.nan
+    return out
+
 
 def _load_curve_resampled_windowed(
     node_id: int,
@@ -198,7 +429,7 @@ def _load_curve_resampled_windowed(
             # If size check fails, continue to attempt read.
             pass
 
-    x_norm, _, _, _, _ = read_las_curve_resampled_ascii(
+    x_norm, _, _, _, _, z_valid_min, z_valid_max = read_las_curve_resampled_ascii(
         las_path,
         n_samples=int(cfg.n_samples),
         curve_candidates=(str(cfg.curve_mnemonic),),
@@ -208,61 +439,36 @@ def _load_curve_resampled_windowed(
         max_rows=int(cfg.max_rows),
         window_min=float(win_min),
         window_max=float(win_max),
+        return_valid_depths=True,
+    )
+    x_norm = _mask_outside_valid_range(
+        x_norm,
+        win_min=float(win_min),
+        win_max=float(win_max),
+        valid_min=z_valid_min,
+        valid_max=z_valid_max,
     )
     cache.put(key, x_norm)
     return x_norm
 
 
-def _load_gr_vectors_cache(path: Path) -> Dict[str, Any]:
-    data = np.load(path, allow_pickle=False)
-    required = {"node_id", "z_top", "z_base", "x_norm"}
-    if not required.issubset(set(data.files)):
-        raise ValueError(f"gr_vectors cache missing required arrays: {required}")
-    node_id = data["node_id"].astype("int64", copy=False)
-    z_top = data["z_top"].astype("float64", copy=False)
-    z_base = data["z_base"].astype("float64", copy=False)
-    x_norm = data["x_norm"]
-    if x_norm.ndim != 2:
-        raise ValueError("x_norm must be 2D (n_wells, n_samples)")
-    index = {int(n): i for i, n in enumerate(node_id.tolist())}
-    meta = {}
-    if "meta_json" in data.files:
-        try:
-            meta = json.loads(str(data["meta_json"].item()))
-        except Exception:
-            meta = {}
-    return {"node_id": node_id, "z_top": z_top, "z_base": z_base, "x_norm": x_norm, "index": index, "meta": meta}
-
-
-def _resample_from_cache(
-    x_full: np.ndarray,
+def _resample_mask_from_cache(
+    mask_full: np.ndarray,
+    *,
     z_top: float,
     z_base: float,
     win_min: float,
     win_max: float,
-    *,
     n_samples: int,
-    p_lo: float,
-    p_hi: float,
 ) -> np.ndarray:
-    n_full = int(x_full.shape[0])
+    mask_full = np.asarray(mask_full, dtype="float64").reshape(-1)
+    n_full = int(mask_full.size)
     if n_full < 2:
-        raise RuntimeError("Cached vector too short")
+        return np.zeros((int(n_samples),), dtype=bool)
     z_full = np.linspace(float(z_top), float(z_base), n_full, dtype="float64")
     z_win = np.linspace(float(win_min), float(win_max), int(n_samples), dtype="float64")
-    x_win = np.interp(z_win, z_full, x_full, left=float(x_full[0]), right=float(x_full[-1]))
-    fin = np.isfinite(x_win)
-    if not np.any(fin):
-        return np.zeros((int(n_samples),), dtype="float64")
-    plo = float(np.percentile(x_win[fin], float(p_lo)))
-    phi = float(np.percentile(x_win[fin], float(p_hi)))
-    if (not np.isfinite(plo)) or (not np.isfinite(phi)) or (phi <= plo):
-        plo = float(np.nanmin(x_win[fin]))
-        phi = float(np.nanmax(x_win[fin]))
-        if (not np.isfinite(plo)) or (not np.isfinite(phi)) or (phi <= plo):
-            return np.zeros((int(n_samples),), dtype="float64")
-    x_norm = (x_win - plo) / (phi - plo)
-    return np.clip(x_norm, 0.0, 1.0).astype("float64", copy=False)
+    m = np.interp(z_win, z_full, mask_full, left=1.0, right=1.0)
+    return (m >= 0.5).astype(bool)
 
 
 def run_step2_pairwise_correlation_dtw(
@@ -272,6 +478,7 @@ def run_step2_pairwise_correlation_dtw(
     out_dir: Path,
     cfg: Step2DtwConfig,
     overwrite: bool = False,
+    exclude_nodes_csv: Optional[Path] = None,
 ) -> Dict[str, Any]:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -300,13 +507,21 @@ def run_step2_pairwise_correlation_dtw(
         edges[col] = pd.to_numeric(edges[col], errors="coerce").astype("Int64")
     edges = edges[edges["src_id"].notna() & edges["dst_id"].notna()].copy()
 
+    if exclude_nodes_csv is not None and Path(exclude_nodes_csv).exists():
+        ex = pd.read_csv(exclude_nodes_csv)
+        if "node_id" in ex.columns:
+            ex_ids = pd.to_numeric(ex["node_id"], errors="coerce").astype("Int64")
+            ex_ids = ex_ids[ex_ids.notna()].astype(int).tolist()
+            if ex_ids:
+                edges = edges[~edges["src_id"].isin(ex_ids) & ~edges["dst_id"].isin(ex_ids)].copy()
+
     if cfg.max_edges and cfg.max_edges > 0 and len(edges) > int(cfg.max_edges):
         edges = edges.sample(n=int(cfg.max_edges), random_state=42).reset_index(drop=True)
 
     # Optional gr_vectors cache
     cache_data: Optional[Dict[str, Any]] = None
     if cfg.gr_vectors_npz:
-        cache_data = _load_gr_vectors_cache(Path(cfg.gr_vectors_npz))
+        cache_data = load_gr_vectors_cache(Path(cfg.gr_vectors_npz))
 
     # Stream writers
     edges_f = paths.dtw_edges_csv.open("w", encoding="utf-8", newline="")
@@ -327,6 +542,13 @@ def run_step2_pairwise_correlation_dtw(
 
     cache = _WellCache(int(cfg.cache_max_wells))
     header_cache: Dict[int, int] = {}
+    cache_z_gr_top = None
+    cache_z_gr_base = None
+    cache_imputed = None
+    if cache_data is not None:
+        cache_z_gr_top = cache_data.get("z_gr_top", cache_data.get("z_top"))
+        cache_z_gr_base = cache_data.get("z_gr_base", cache_data.get("z_base"))
+        cache_imputed = cache_data.get("imputed_mask")
 
     counts = {
         "n_edges": int(len(edges)),
@@ -389,10 +611,14 @@ def run_step2_pairwise_correlation_dtw(
             )
             continue
 
-        pad_ft = float(cfg.base_pad_ft) + float(cfg.pad_slope_ft_per_km) * float(dist_km)
-        pad_ft = max(0.0, min(float(cfg.max_pad_ft), pad_ft))
+        pad_ft = pad_for_distance(
+            base_pad_ft=float(cfg.base_pad_ft),
+            pad_slope_ft_per_km=float(cfg.pad_slope_ft_per_km),
+            max_pad_ft=float(cfg.max_pad_ft),
+            dist_km=float(dist_km),
+        )
 
-        win_min, win_max, overlap_ft, overlap_frac = _compute_overlap(
+        win_min, win_max, overlap_ft, overlap_frac = compute_overlap_window(
             zmin1, zmax1, zmin2, zmax2, pad_ft
         )
 
@@ -430,13 +656,16 @@ def run_step2_pairwise_correlation_dtw(
             )
             continue
 
+        imputed1 = None
+        imputed2 = None
         try:
             if cache_data is not None:
                 idx_map = cache_data["index"]
                 if (src_id in idx_map) and (dst_id in idx_map):
                     i1 = idx_map[src_id]
                     i2 = idx_map[dst_id]
-                    x1 = _resample_from_cache(
+                    use_mask_outside = cache_imputed is None
+                    x1 = resample_from_cache(
                         cache_data["x_norm"][i1],
                         cache_data["z_top"][i1],
                         cache_data["z_base"][i1],
@@ -445,8 +674,11 @@ def run_step2_pairwise_correlation_dtw(
                         n_samples=int(cfg.n_samples),
                         p_lo=float(cfg.p_lo),
                         p_hi=float(cfg.p_hi),
+                        valid_min=cache_z_gr_top[i1] if cache_z_gr_top is not None else None,
+                        valid_max=cache_z_gr_base[i1] if cache_z_gr_base is not None else None,
+                        mask_outside=bool(use_mask_outside),
                     )
-                    x2 = _resample_from_cache(
+                    x2 = resample_from_cache(
                         cache_data["x_norm"][i2],
                         cache_data["z_top"][i2],
                         cache_data["z_base"][i2],
@@ -455,7 +687,27 @@ def run_step2_pairwise_correlation_dtw(
                         n_samples=int(cfg.n_samples),
                         p_lo=float(cfg.p_lo),
                         p_hi=float(cfg.p_hi),
+                        valid_min=cache_z_gr_top[i2] if cache_z_gr_top is not None else None,
+                        valid_max=cache_z_gr_base[i2] if cache_z_gr_base is not None else None,
+                        mask_outside=bool(use_mask_outside),
                     )
+                    if cache_imputed is not None:
+                        imputed1 = _resample_mask_from_cache(
+                            cache_imputed[i1],
+                            z_top=cache_data["z_top"][i1],
+                            z_base=cache_data["z_base"][i1],
+                            win_min=win_min,
+                            win_max=win_max,
+                            n_samples=int(cfg.n_samples),
+                        )
+                        imputed2 = _resample_mask_from_cache(
+                            cache_imputed[i2],
+                            z_top=cache_data["z_top"][i2],
+                            z_base=cache_data["z_base"][i2],
+                            win_min=win_min,
+                            win_max=win_max,
+                            n_samples=int(cfg.n_samples),
+                        )
                 else:
                     if bool(cfg.cache_only):
                         counts["n_read_fail"] += 1
@@ -527,26 +779,87 @@ def run_step2_pairwise_correlation_dtw(
             )
             continue
 
-        try:
-            cost_total, cost_per_step, path = dtw_cost_and_path(
-                x1, x2, alpha=float(cfg.alpha), backtrack=True
-            )
-        except Exception:
-            counts["n_dtw_fail"] += 1
-            _write_edge_row(
-                {
-                    "src_id": src_id,
-                    "dst_id": dst_id,
-                    "dist_km": dist_km,
-                    "pad_ft": pad_ft,
-                    "overlap_ft": overlap_ft,
-                    "overlap_frac": overlap_frac,
-                    "status": "dtw_fail",
-                    "dtw_cost": "",
-                    "dtw_cost_per_step": "",
-                }
-            )
-            continue
+        def _band_for_len(n1: int, n2: int) -> Optional[int]:
+            if float(cfg.band_max_frac) <= 0.0 and int(cfg.band_min_samples) <= 0:
+                return None
+            band = int(math.ceil(float(cfg.band_max_frac) * float(max(n1, n2))))
+            if int(cfg.band_min_samples) > 0:
+                band = max(int(cfg.band_min_samples), int(band))
+            return int(band)
+
+        cost_total = float("nan")
+        cost_per_step = float("nan")
+        path = None
+
+        candidates: List[Tuple[int, int, int, int, float]] = []
+        if bool(cfg.scan_windows):
+            candidates = _scan_window_candidates(x1=x1, x2=x2, imputed1=imputed1, imputed2=imputed2, cfg=cfg)
+
+        tried = 0
+        if candidates:
+            for s1, L1, s2, L2, _ in candidates:
+                try:
+                    xs = x1[s1 : s1 + L1]
+                    ys = x2[s2 : s2 + L2]
+                    imp_x = imputed1[s1 : s1 + L1] if imputed1 is not None else None
+                    imp_y = imputed2[s2 : s2 + L2] if imputed2 is not None else None
+                    band_rad = _band_for_len(int(xs.size), int(ys.size))
+                    ct, cps, p = dtw_cost_and_path(
+                        xs,
+                        ys,
+                        alpha=float(cfg.alpha),
+                        backtrack=True,
+                        band_rad=band_rad,
+                        nan_cost=float(cfg.nan_cost),
+                        trim_invalid=True,
+                        imputed_x=imp_x,
+                        imputed_y=imp_y,
+                        imputed_penalty=float(cfg.imputed_penalty),
+                    )
+                except Exception:
+                    continue
+                tried += 1
+                if p is not None:
+                    p = np.asarray(p, dtype="int64")
+                    if p.ndim == 2 and p.shape[1] == 2:
+                        p[:, 0] += int(s1)
+                        p[:, 1] += int(s2)
+                if (not np.isfinite(cost_per_step)) or (float(cps) < float(cost_per_step)):
+                    cost_total = float(ct)
+                    cost_per_step = float(cps)
+                    path = p
+
+        if not np.isfinite(cost_per_step):
+            try:
+                band_rad = _band_for_len(int(x1.size), int(x2.size))
+                cost_total, cost_per_step, path = dtw_cost_and_path(
+                    x1,
+                    x2,
+                    alpha=float(cfg.alpha),
+                    backtrack=True,
+                    band_rad=band_rad,
+                    nan_cost=float(cfg.nan_cost),
+                    trim_invalid=True,
+                    imputed_x=imputed1,
+                    imputed_y=imputed2,
+                    imputed_penalty=float(cfg.imputed_penalty),
+                )
+            except Exception:
+                counts["n_dtw_fail"] += 1
+                _write_edge_row(
+                    {
+                        "src_id": src_id,
+                        "dst_id": dst_id,
+                        "dist_km": dist_km,
+                        "pad_ft": pad_ft,
+                        "overlap_ft": overlap_ft,
+                        "overlap_frac": overlap_frac,
+                        "status": "dtw_fail",
+                        "dtw_cost": "",
+                        "dtw_cost_per_step": "",
+                    }
+                )
+                continue
 
         if path is not None and (not _guard_slope_ok(path, int(cfg.n_samples), cfg)):
             counts["n_guard_fail"] += 1
@@ -608,7 +921,7 @@ def run_step2_pairwise_correlation_dtw(
     paths.manifest_json.write_text(
         json.dumps(
             {
-                "step": "step2_pairwise_correlation_dtw",
+                "step": "step2d_pairwise_correlation_dtw",
                 "inputs": {"nodes_csv": str(nodes_csv), "edges_csv": str(edges_csv)},
                 "outputs": {
                     "dtw_edges_csv": str(paths.dtw_edges_csv),
@@ -624,7 +937,7 @@ def run_step2_pairwise_correlation_dtw(
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Step2: depth-windowed DTW over graph edges.")
+    ap = argparse.ArgumentParser(description="Step2d: depth-windowed DTW over graph edges.")
     ap.add_argument("--nodes-csv", required=True, help="graph_nodes.csv")
     ap.add_argument("--edges-csv", required=True, help="graph_edges.csv")
     ap.add_argument("--out-dir", required=True, help="Output directory")
@@ -646,6 +959,22 @@ def main() -> None:
     ap.add_argument("--guard-min-samples", type=int, default=16)
     ap.add_argument("--guard-min-slope", type=float, default=0.5)
     ap.add_argument("--guard-max-slope", type=float, default=2.0)
+    ap.add_argument("--band-max-frac", type=float, default=0.2)
+    ap.add_argument("--band-min-samples", type=int, default=16)
+    ap.add_argument("--nan-cost", type=float, default=1.0e6)
+    ap.add_argument("--imputed-penalty", type=float, default=0.35)
+    ap.add_argument("--no-scan-windows", action="store_true", help="Disable sliding-window scan.")
+    ap.add_argument("--scan-scales", type=str, default="0.7,0.85,1.0,1.15,1.3,1.5")
+    ap.add_argument("--scan-stride-frac", type=float, default=0.25)
+    ap.add_argument("--scan-top-k", type=int, default=4)
+    ap.add_argument("--scan-downsample", type=int, default=128)
+    ap.add_argument("--scan-min-finite-frac", type=float, default=0.9)
+    ap.add_argument("--scan-min-samples", type=int, default=16)
+    ap.add_argument("--scan-corr-min", type=float, default=0.0)
+    ap.add_argument("--scan-min-len-frac", type=float, default=0.85)
+    ap.add_argument("--scan-min-len-frac-imputed", type=float, default=0.95)
+    ap.add_argument("--scan-imputed-frac", type=float, default=0.2)
+    ap.add_argument("--scan-window-max-imputed-frac", type=float, default=0.95)
 
     ap.add_argument("--max-las-mb", type=float, default=256.0)
     ap.add_argument("--cache-max-wells", type=int, default=8)
@@ -656,8 +985,21 @@ def main() -> None:
     ap.add_argument("--max-curves", type=int, default=0)
     ap.add_argument("--gr-vectors-npz", type=str, default="")
     ap.add_argument("--cache-only", action="store_true")
+    ap.add_argument("--exclude-nodes-csv", type=str, default="", help="Optional list of node_id to exclude.")
 
     args = ap.parse_args()
+
+    def _parse_scales(s: str) -> Tuple[float, ...]:
+        out: List[float] = []
+        for tok in str(s).replace(";", ",").split(","):
+            t = tok.strip()
+            if not t:
+                continue
+            try:
+                out.append(float(t))
+            except Exception:
+                continue
+        return tuple(out)
 
     cfg = Step2DtwConfig(
         curve_mnemonic=str(args.curve_mnemonic),
@@ -674,6 +1016,22 @@ def main() -> None:
         guard_min_samples=int(args.guard_min_samples),
         guard_min_slope=float(args.guard_min_slope),
         guard_max_slope=float(args.guard_max_slope),
+        band_max_frac=float(args.band_max_frac),
+        band_min_samples=int(args.band_min_samples),
+        nan_cost=float(args.nan_cost),
+        imputed_penalty=float(args.imputed_penalty),
+        scan_windows=not bool(args.no_scan_windows),
+        scan_scales=_parse_scales(args.scan_scales),
+        scan_stride_frac=float(args.scan_stride_frac),
+        scan_top_k=int(args.scan_top_k),
+        scan_downsample=int(args.scan_downsample),
+        scan_min_finite_frac=float(args.scan_min_finite_frac),
+        scan_min_samples=int(args.scan_min_samples),
+        scan_corr_min=float(args.scan_corr_min),
+        scan_min_len_frac=float(args.scan_min_len_frac),
+        scan_min_len_frac_imputed=float(args.scan_min_len_frac_imputed),
+        scan_imputed_frac=float(args.scan_imputed_frac),
+        scan_window_max_imputed_frac=float(args.scan_window_max_imputed_frac),
         max_las_mb=float(args.max_las_mb),
         max_curves=int(args.max_curves),
         cache_max_wells=int(args.cache_max_wells),
@@ -691,6 +1049,7 @@ def main() -> None:
         out_dir=Path(args.out_dir),
         cfg=cfg,
         overwrite=bool(args.overwrite),
+        exclude_nodes_csv=Path(args.exclude_nodes_csv) if str(args.exclude_nodes_csv).strip() else None,
     )
 
 

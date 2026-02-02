@@ -62,6 +62,8 @@ def run_step2_build_gr_vectors_cache(
     keep_ids: List[int] = []
     z_tops: List[float] = []
     z_bases: List[float] = []
+    z_gr_tops: List[float] = []
+    z_gr_bases: List[float] = []
     x_list: List[np.ndarray] = []
 
     qc_rows: List[Dict[str, Any]] = []
@@ -105,7 +107,7 @@ def run_step2_build_gr_vectors_cache(
                 pass
 
         try:
-            x_norm, z_top, z_base, n_finite_raw, _ = read_las_curve_resampled_ascii(
+            x_norm, z_top, z_base, n_finite_raw, _, z_gr_top, z_gr_base = read_las_curve_resampled_ascii(
                 las_path,
                 n_samples=int(cfg.n_samples),
                 curve_candidates=(str(cfg.curve_mnemonic),),
@@ -113,6 +115,7 @@ def run_step2_build_gr_vectors_cache(
                 p_hi=float(cfg.p_hi),
                 min_finite=int(cfg.min_finite),
                 max_rows=int(cfg.max_rows),
+                return_valid_depths=True,
             )
         except Exception:
             counts["n_resample_fail"] += 1
@@ -122,6 +125,8 @@ def run_step2_build_gr_vectors_cache(
         keep_ids.append(int(node_id))
         z_tops.append(float(z_top))
         z_bases.append(float(z_base))
+        z_gr_tops.append(float(z_gr_top))
+        z_gr_bases.append(float(z_gr_base))
         x_list.append(x_norm.astype("float32", copy=False))
         counts["n_ok"] += 1
 
@@ -132,6 +137,8 @@ def run_step2_build_gr_vectors_cache(
                 "las_path": str(las_path),
                 "z_top": float(z_top),
                 "z_base": float(z_base),
+                "z_gr_top": float(z_gr_top),
+                "z_gr_base": float(z_gr_base),
                 "n_finite_raw": int(n_finite_raw),
             }
         )
@@ -151,6 +158,8 @@ def run_step2_build_gr_vectors_cache(
         node_id=np.asarray(keep_ids, dtype="int64"),
         z_top=np.asarray(z_tops, dtype="float32"),
         z_base=np.asarray(z_bases, dtype="float32"),
+        z_gr_top=np.asarray(z_gr_tops, dtype="float32"),
+        z_gr_base=np.asarray(z_gr_bases, dtype="float32"),
         x_norm=x_mat,
         meta_json=json.dumps(asdict(cfg)),
     )

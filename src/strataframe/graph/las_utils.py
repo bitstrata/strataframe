@@ -455,12 +455,15 @@ def read_las_curve_resampled_ascii(
     step_sample_size: int = 10000,
     window_min: Optional[float] = None,
     window_max: Optional[float] = None,
-) -> Tuple[np.ndarray, float, float, int, float]:
+    return_valid_depths: bool = False,
+) -> Tuple[np.ndarray, float, float, int, float] | Tuple[np.ndarray, float, float, int, float, float, float]:
     """
     Streaming ASCII resampler for depth + one curve from ~A (wrapped or unwrapped).
 
     Returns:
       x_norm (n_samples,), z_top, z_base, n_finite_raw, sample_step
+    If return_valid_depths is True, also returns:
+      z_valid_min, z_valid_max (depth range of finite curve samples)
     """
     n_samples_i = int(n_samples)
     if n_samples_i < 8:
@@ -551,6 +554,8 @@ def read_las_curve_resampled_ascii(
     cur_sum = 0.0
     cur_count = 0
     n_finite_raw = 0
+    z_valid_min = float("inf")
+    z_valid_max = float("-inf")
 
     def _emit_point(d: float, v: float) -> None:
         nonlocal i, prev_depth, prev_val
@@ -602,6 +607,10 @@ def read_las_curve_resampled_ascii(
         if window_max is not None and d > float(window_max):
             continue
         n_finite_raw += 1
+        if d < z_valid_min:
+            z_valid_min = float(d)
+        if d > z_valid_max:
+            z_valid_max = float(d)
         if cur_depth is None:
             cur_depth = float(d)
             cur_sum = float(v)
@@ -646,6 +655,19 @@ def read_las_curve_resampled_ascii(
 
     x_norm = (x - plo) / (phi - plo)
     x_norm = np.clip(x_norm, 0.0, 1.0)
+    if return_valid_depths:
+        if not (np.isfinite(z_valid_min) and np.isfinite(z_valid_max)):
+            z_valid_min = float(z_top)
+            z_valid_max = float(z_base)
+        return (
+            x_norm.astype("float64", copy=False),
+            float(z_top),
+            float(z_base),
+            int(n_finite_raw),
+            float(sample_step),
+            float(z_valid_min),
+            float(z_valid_max),
+        )
     return x_norm.astype("float64", copy=False), float(z_top), float(z_base), int(n_finite_raw), float(sample_step)
 
 
@@ -908,9 +930,21 @@ def dtw_cost_and_path(
     *,
     alpha: float = 0.15,
     backtrack: bool = True,
+    band_rad: Optional[int] = None,
+    nan_cost: float = 1.0e6,
+    trim_invalid: bool = False,
+    imputed_x: Optional[np.ndarray] = None,
+    imputed_y: Optional[np.ndarray] = None,
+    imputed_penalty: float = 0.0,
 ) -> Tuple[float, float, Optional[np.ndarray]]:
     """
-    DTW with local distance d = |x_i - y_j|^alpha (alpha < 1 de-emphasizes outliers)
+    DTW with local distance d = |x_i - y_j|^alpha (alpha < 1 de-emphasizes outliers).
+    Optional:
+      - band_rad: restrict warping to |i-j| <= band_rad (in sample indices).
+      - trim_invalid: trim leading/trailing NaNs before DTW, preserving index offsets.
+      - nan_cost: penalty used for NaN cells or band violations.
+      - imputed_x/imputed_y: boolean masks (same length as x/y) to penalize imputed segments.
+      - imputed_penalty: additive penalty applied where either side is imputed.
 
     Returns:
       cost_total, cost_per_step, path (optional; shape [L,2] with (i,j))
@@ -920,12 +954,73 @@ def dtw_cost_and_path(
     x = np.asarray(x, dtype="float64").reshape(-1)
     y = np.asarray(y, dtype="float64").reshape(-1)
 
+    x_offset = 0
+    y_offset = 0
+    if bool(trim_invalid):
+        mx = np.isfinite(x)
+        my = np.isfinite(y)
+        if not np.any(mx) or not np.any(my):
+            raise ValueError("x or y contains no finite samples after trimming.")
+        ix0 = int(np.argmax(mx))
+        ix1 = int(len(mx) - 1 - np.argmax(mx[::-1]))
+        iy0 = int(np.argmax(my))
+        iy1 = int(len(my) - 1 - np.argmax(my[::-1]))
+        x = x[ix0 : ix1 + 1]
+        y = y[iy0 : iy1 + 1]
+        if imputed_x is not None:
+            imputed_x = np.asarray(imputed_x, dtype=bool).reshape(-1)[ix0 : ix1 + 1]
+        if imputed_y is not None:
+            imputed_y = np.asarray(imputed_y, dtype=bool).reshape(-1)[iy0 : iy1 + 1]
+        x_offset = ix0
+        y_offset = iy0
+
     if x.size < 8 or y.size < 8:
         raise ValueError("x and y too short for DTW (use >= 8 samples each).")
     if float(alpha) <= 0.0:
         raise ValueError("alpha must be > 0")
 
     C = np.abs(x[:, None] - y[None, :]) ** float(alpha)
+
+    if imputed_penalty > 0.0 and (imputed_x is not None or imputed_y is not None):
+        mx = np.asarray(imputed_x, dtype=bool).reshape(-1) if imputed_x is not None else None
+        my = np.asarray(imputed_y, dtype=bool).reshape(-1) if imputed_y is not None else None
+        if mx is not None and mx.size != x.size:
+            raise ValueError("imputed_x length must match x")
+        if my is not None and my.size != y.size:
+            raise ValueError("imputed_y length must match y")
+        if mx is None:
+            mx = np.zeros((x.size,), dtype=bool)
+        if my is None:
+            my = np.zeros((y.size,), dtype=bool)
+        imp = mx[:, None] | my[None, :]
+        if np.any(imp):
+            C = C + float(imputed_penalty) * imp.astype("float64")
+
+    if np.any(~np.isfinite(x)) or np.any(~np.isfinite(y)):
+        bad = (~np.isfinite(x))[:, None] | (~np.isfinite(y))[None, :]
+        if np.any(bad):
+            C = np.where(bad, float(nan_cost), C)
+
+    if band_rad is not None and int(band_rad) >= 0:
+        band = int(band_rad)
+        x_start = x_offset
+        x_end = x_offset + int(x.size) - 1
+        y_start = y_offset
+        y_end = y_offset + int(y.size) - 1
+        if x_end < y_start:
+            min_diff = y_start - x_end
+        elif y_end < x_start:
+            min_diff = x_start - y_end
+        else:
+            min_diff = 0
+        if min_diff > band:
+            raise RuntimeError("No feasible DTW path within band constraint.")
+
+        ii = (np.arange(int(x.size))[:, None] + int(x_offset)).astype("int64", copy=False)
+        jj = (np.arange(int(y.size))[None, :] + int(y_offset)).astype("int64", copy=False)
+        mask = np.abs(ii - jj) > band
+        if np.any(mask):
+            C = np.where(mask, float(nan_cost), C)
 
     # librosa API is stable here, but keep return handling defensive
     res = librosa.sequence.dtw(C=C, backtrack=bool(backtrack))  # type: ignore[attr-defined]
@@ -943,6 +1038,9 @@ def dtw_cost_and_path(
         return float(cost_total), float(cost_total / denom), None
 
     path = np.asarray(wp[::-1], dtype="int64")
+    if bool(trim_invalid) and path.size:
+        path[:, 0] += int(x_offset)
+        path[:, 1] += int(y_offset)
     L = int(path.shape[0]) if path.ndim == 2 else 0
     cost_per_step = float(cost_total) / float(max(1, L))
     return float(cost_total), float(cost_per_step), path
