@@ -25,7 +25,7 @@ except Exception:  # pragma: no cover
 class Step1GraphConfig:
     k_max: int = 12
     r_max_km: float = 8.0
-    knn_candidates: int = 24  # candidate neighbors to consider per node
+    knn_candidates: int = 24  # legacy (unused for radius graph; kept for CLI compatibility)
 
 
 @dataclass(frozen=True)
@@ -53,25 +53,21 @@ def _edge_key(i: int, j: int) -> Tuple[int, int]:
     return (i, j) if i < j else (j, i)
 
 
-def _build_knn_edges(xy: np.ndarray, *, k: int) -> set[Tuple[int, int]]:
+def _build_radius_edges(xy: np.ndarray, *, r_km: float) -> set[Tuple[int, int]]:
     if cKDTree is None:
-        raise RuntimeError("scipy is required for kNN graph. Install with: pip install scipy")
+        raise RuntimeError("scipy is required for radius graph. Install with: pip install scipy")
     n = int(xy.shape[0])
-    if n <= 1:
+    if n <= 1 or not np.isfinite(r_km) or r_km <= 0:
         return set()
-    k_eff = int(min(max(2, k + 1), n))
     tree = cKDTree(xy)
-    _, idx = tree.query(xy, k=k_eff)
-    edges: set[Tuple[int, int]] = set()
-    for i in range(n):
-        for j in idx[i, 1:]:  # skip self
-            edges.add(_edge_key(i, int(j)))
-    return edges
+    pairs = tree.query_pairs(r=float(r_km))
+    return {(_edge_key(int(i), int(j))) for (i, j) in pairs}
 
 
-def _prune_to_k_max(
-    edges: Dict[Tuple[int, int], Dict[str, Any]],
+def _prune_radius_edges(
+    radius_edges: set[Tuple[int, int]],
     *,
+    dist_km: Dict[Tuple[int, int], float],
     n_nodes: int,
     k_max: int,
 ) -> int:
@@ -79,7 +75,7 @@ def _prune_to_k_max(
         return 0
 
     adj: Dict[int, set[int]] = {i: set() for i in range(n_nodes)}
-    for (i, j) in edges.keys():
+    for (i, j) in radius_edges:
         adj[i].add(j)
         adj[j].add(i)
 
@@ -95,20 +91,10 @@ def _prune_to_k_max(
             neighbors = list(adj[i])
             if not neighbors:
                 continue
-            # Drop kNN-only edges first; never remove Delaunay edges.
-            knn_only = [
-                j
-                for j in neighbors
-                if edges[_edge_key(i, j)].get("knn", False)
-                and (not edges[_edge_key(i, j)].get("delaunay", False))
-            ]
-            if not knn_only:
-                continue
-            farthest = max(knn_only, key=lambda j: edges[_edge_key(i, j)]["dist_km"])
-
+            farthest = max(neighbors, key=lambda j: dist_km.get(_edge_key(i, j), 0.0))
             key = _edge_key(i, farthest)
-            if key in edges:
-                del edges[key]
+            if key in radius_edges:
+                radius_edges.remove(key)
                 removed += 1
                 removed_this_round += 1
             adj[i].discard(farthest)
@@ -150,19 +136,26 @@ def run_step1_build_graph(
     xy = np.column_stack([x_km, y_km]).astype("float64", copy=False)
 
     delaunay_edges = build_delaunay_edges(xy)
-    k_candidates = int(max(cfg.knn_candidates, cfg.k_max * 2))
-    knn_edges = _build_knn_edges(xy, k=k_candidates)
+    radius_edges = _build_radius_edges(xy, r_km=float(cfg.r_max_km))
+    n_pruned = 0
+    if int(cfg.k_max) > 0 and radius_edges:
+        # Prune radius-only edges BEFORE union with Delaunay, so Delaunay edges are never touched.
+        src_idx = np.array([k[0] for k in radius_edges], dtype="int64")
+        dst_idx = np.array([k[1] for k in radius_edges], dtype="int64")
+        dist = haversine_km(lat[src_idx], lon[src_idx], lat[dst_idx], lon[dst_idx])
+        dist_map = {k: float(d) for (k, d) in zip(list(radius_edges), dist.tolist())}
+        n_pruned = _prune_radius_edges(radius_edges, dist_km=dist_map, n_nodes=int(len(wells)), k_max=int(cfg.k_max))
 
     edges: Dict[Tuple[int, int], Dict[str, Any]] = {}
 
     for key in delaunay_edges:
-        edges.setdefault(key, {"delaunay": True, "knn": False})
+        edges.setdefault(key, {"delaunay": True, "radius": False})
 
-    for key in knn_edges:
+    for key in radius_edges:
         if key in edges:
-            edges[key]["knn"] = True
+            edges[key]["radius"] = True
         else:
-            edges[key] = {"delaunay": False, "knn": True}
+            edges[key] = {"delaunay": False, "radius": True}
 
     # Compute distances
     if edges:
@@ -172,21 +165,16 @@ def run_step1_build_graph(
         for (k, d) in zip(list(edges.keys()), dist.tolist()):
             edges[k]["dist_km"] = float(d)
 
-    # Apply max distance cutoff
-    n_cut = 0
-    if cfg.r_max_km is not None and np.isfinite(cfg.r_max_km) and cfg.r_max_km > 0:
-        for key in list(edges.keys()):
-            if float(edges[key]["dist_km"]) > float(cfg.r_max_km):
-                del edges[key]
-                n_cut += 1
-
-    # Enforce max neighbors
-    n_pruned = _prune_to_k_max(edges, n_nodes=int(len(wells)), k_max=int(cfg.k_max))
-
     # Build edges dataframe
     rows = []
     for (i, j), meta in edges.items():
-        edge_type = "both" if (meta.get("delaunay") and meta.get("knn")) else "delaunay" if meta.get("delaunay") else "knn"
+        edge_type = (
+            "both"
+            if (meta.get("delaunay") and meta.get("radius"))
+            else "delaunay"
+            if meta.get("delaunay")
+            else "radius"
+        )
         rows.append(
             {
                 "src_id": int(i),
@@ -207,9 +195,8 @@ def run_step1_build_graph(
             "n_nodes": int(len(nodes_df)),
             "n_edges": int(len(edges_df)),
             "n_delaunay": int(sum(1 for v in edges.values() if v.get("delaunay"))),
-            "n_knn": int(sum(1 for v in edges.values() if v.get("knn"))),
-            "n_both": int(sum(1 for v in edges.values() if v.get("delaunay") and v.get("knn"))),
-            "n_cut_dist": int(n_cut),
+            "n_radius": int(sum(1 for v in edges.values() if v.get("radius"))),
+            "n_both": int(sum(1 for v in edges.values() if v.get("delaunay") and v.get("radius"))),
             "n_pruned_k": int(n_pruned),
         },
         "cfg": asdict(cfg),
@@ -228,12 +215,19 @@ def _p(path: str) -> Path:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Step1: build graph = Delaunay + kNN with max neighbors.")
+    ap = argparse.ArgumentParser(
+        description="Step1: build graph = full Delaunay + radius graph (within r-max-km), with optional pruning."
+    )
     ap.add_argument("--wells-gr", required=True, help="Path to step0 wells_gr.parquet (file or directory) or csv.")
     ap.add_argument("--out-dir", required=True, help="Output directory for graph artifacts.")
-    ap.add_argument("--k-max", type=int, default=12)
-    ap.add_argument("--r-max-km", type=float, default=8.0)
-    ap.add_argument("--knn-candidates", type=int, default=24)
+    ap.add_argument("--k-max", type=int, default=12, help="Max neighbors per node (prunes radius-only edges).")
+    ap.add_argument("--r-max-km", type=float, default=8.0, help="Radius graph cutoff in km (Delaunay is never cut).")
+    ap.add_argument(
+        "--knn-candidates",
+        type=int,
+        default=24,
+        help="Legacy flag (unused for radius graph); kept for compatibility.",
+    )
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
 

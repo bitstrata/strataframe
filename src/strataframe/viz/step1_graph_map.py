@@ -46,23 +46,36 @@ def _maybe_kansas_outline(ax, *, enabled: bool = True) -> None:
         import cartopy.io.shapereader as shpreader  # type: ignore
         import cartopy.feature as cfeature  # type: ignore
     except Exception:
+        # Fallback: rough Kansas bounding box in lon/lat
+        ks_lon = [-102.05, -94.6, -94.6, -102.05, -102.05]
+        ks_lat = [37.0, 37.0, 40.0, 40.0, 37.0]
+        ax.plot(ks_lon, ks_lat, color="black", linewidth=0.8, alpha=0.7)
         return
 
-    shp = shpreader.natural_earth(
-        resolution="50m", category="cultural", name="admin_1_states_provinces_lines"
-    )
-    reader = shpreader.Reader(shp)
-    geometries = [rec.geometry for rec in reader.records() if rec.attributes.get("name") == "Kansas"]
-    if geometries:
-        ax.add_geometries(
-            geometries,
-            crs=ccrs.PlateCarree(),
-            facecolor="none",
-            edgecolor="black",
-            linewidth=0.8,
-            alpha=0.7,
+    try:
+        shp = shpreader.natural_earth(
+            resolution="50m", category="cultural", name="admin_1_states_provinces_lines"
         )
-        ax.add_feature(cfeature.BORDERS, linewidth=0.3, alpha=0.4)
+        reader = shpreader.Reader(shp)
+        geometries = [rec.geometry for rec in reader.records() if rec.attributes.get("name") == "Kansas"]
+        if geometries:
+            ax.add_geometries(
+                geometries,
+                crs=ccrs.PlateCarree(),
+                facecolor="none",
+                edgecolor="black",
+                linewidth=0.8,
+                alpha=0.7,
+            )
+            ax.add_feature(cfeature.BORDERS, linewidth=0.3, alpha=0.4)
+            return
+    except Exception:
+        pass
+
+    # Fallback: rough Kansas bounding box in lon/lat
+    ks_lon = [-102.05, -94.6, -94.6, -102.05, -102.05]
+    ks_lat = [37.0, 37.0, 40.0, 40.0, 37.0]
+    ax.plot(ks_lon, ks_lat, color="black", linewidth=0.8, alpha=0.7)
 
 
 def _build_delaunay_edges(lat: np.ndarray, lon: np.ndarray) -> np.ndarray:
@@ -103,6 +116,8 @@ def plot_graph_map(
     show_outline: bool = True,
     raw_delaunay: bool = False,
     composite_mode: bool = False,
+    draw_nodes: bool = True,
+    node_size: float = 3.0,
 ) -> None:
     nodes = _load_nodes(nodes_csv)
     edges = _load_edges(edges_csv)
@@ -111,8 +126,8 @@ def plot_graph_map(
         et = str(edge_type).strip().lower()
         if et == "delaunay":
             edges = edges[edges["edge_type"].astype(str).isin(["delaunay", "both"])].copy()
-        elif et == "knn":
-            edges = edges[edges["edge_type"].astype(str).isin(["knn", "both"])].copy()
+        elif et == "knn" or et == "radius":
+            edges = edges[edges["edge_type"].astype(str).isin(["knn", "radius", "both"])].copy()
         else:
             edges = edges[edges["edge_type"].astype(str) == str(edge_type)].copy()
 
@@ -133,7 +148,7 @@ def plot_graph_map(
             edges_d = edges[dmask].copy()
             edges_d["edge_type"] = "delaunay"
 
-            edges_k = edges[edges["edge_type"].astype(str) == "knn"].copy()
+            edges_k = edges[edges["edge_type"].astype(str).isin(["knn", "radius"])].copy()
             if len(edges_k) > max_edges:
                 edges_k = edges_k.sample(n=max_edges, random_state=42)
             edges_k["edge_type"] = "knn"
@@ -141,7 +156,7 @@ def plot_graph_map(
             edges = pd.concat([edges_k, edges_d], ignore_index=True)
         else:
             if len(edges) > max_edges:
-                edges = edges.sample(n=max_edges, random_state=42)
+                edges = edges.sample(n=max_edges, random_state=42).reset_index(drop=True)
 
     src_lon = node_idx.loc[edges["src_id"].values, "lon"].to_numpy()
     src_lat = node_idx.loc[edges["src_id"].values, "lat"].to_numpy()
@@ -160,9 +175,11 @@ def plot_graph_map(
         "knn": "#F58518",
         "both": "#54A24B",
         "delaunay_raw": "#4C78A8",
+        "radius": "#F58518",
+        "edge": "#4C78A8",
     }
 
-    draw_order = ["knn", "both", "delaunay", "delaunay_raw"]
+    draw_order = ["knn", "radius", "both", "delaunay", "delaunay_raw", "edge"]
     for etype in draw_order:
         group = edges[edges["edge_type"].astype(str) == etype]
         if group.empty:
@@ -181,7 +198,8 @@ def plot_graph_map(
         lc = LineCollection(segs, colors=col, linewidths=lw, alpha=alpha, rasterized=False)
         ax.add_collection(lc)
 
-    ax.scatter(nodes["lon"], nodes["lat"], s=3, c="black", alpha=0.8, rasterized=False)
+    if draw_nodes:
+        ax.scatter(nodes["lon"], nodes["lat"], s=float(node_size), c="black", alpha=0.8, rasterized=False)
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")
     title = "Step1 Graph (Delaunay + kNN)"
@@ -194,10 +212,11 @@ def plot_graph_map(
 
     present = set(edges["edge_type"].astype(str).unique().tolist())
     handles = []
-    if "delaunay_raw" in present or "delaunay" in present:
+    if "delaunay_raw" in present or "delaunay" in present or "edge" in present:
         handles.append(Line2D([0], [0], color=colors["delaunay"], lw=1.2, label="Delaunay"))
-    if "knn" in present:
-        handles.append(Line2D([0], [0], color=colors["knn"], lw=1.2, label="kNN"))
+    if "knn" in present or "radius" in present:
+        label = "Radius" if ("radius" in present and "knn" not in present) else "kNN"
+        handles.append(Line2D([0], [0], color=colors["knn"], lw=1.2, label=label))
     if "both" in present:
         handles.append(Line2D([0], [0], color=colors["both"], lw=1.2, label="Both"))
     if handles:
@@ -226,6 +245,8 @@ def main() -> None:
     ap.add_argument("--write-both", action="store_true", help="Write delaunay + composite images")
     ap.add_argument("--no-outline", action="store_true", help="Disable state outline (cartopy)")
     ap.add_argument("--raw-delaunay", action="store_true", help="Draw raw Delaunay from nodes (ignores edges CSV)")
+    ap.add_argument("--no-nodes", action="store_true", help="Disable node markers")
+    ap.add_argument("--node-size", type=float, default=3.0, help="Node marker size")
     ap.add_argument("--out-ext", type=str, default="png", choices=["png", "svg", "pdf"], help="Output format")
     args = ap.parse_args()
 
@@ -239,6 +260,8 @@ def main() -> None:
             edge_type="delaunay" if not bool(args.raw_delaunay) else None,
             show_outline=not bool(args.no_outline),
             raw_delaunay=bool(args.raw_delaunay),
+            draw_nodes=not bool(args.no_nodes),
+            node_size=float(args.node_size),
         )
         plot_graph_map(
             nodes_csv=Path(args.nodes_csv),
@@ -249,6 +272,8 @@ def main() -> None:
             show_outline=not bool(args.no_outline),
             raw_delaunay=False,
             composite_mode=True,
+            draw_nodes=not bool(args.no_nodes),
+            node_size=float(args.node_size),
         )
     else:
         plot_graph_map(
@@ -259,6 +284,8 @@ def main() -> None:
             edge_type=str(args.edge_type).strip() or None,
             show_outline=not bool(args.no_outline),
             raw_delaunay=bool(args.raw_delaunay),
+            draw_nodes=not bool(args.no_nodes),
+            node_size=float(args.node_size),
         )
 
 

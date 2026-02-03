@@ -566,7 +566,7 @@ def run_step2_pairwise_correlation_dtw(
         out = [row.get(c, "") for c in edges_cols]
         edges_f.write(",".join("" if v is None else str(v) for v in out) + "\n")
 
-    for idx, e in edges.iterrows():
+    for pos, (_, e) in enumerate(edges.iterrows(), start=1):
         src_id = int(e["src_id"])
         dst_id = int(e["dst_id"])
         dist_km = _safe_float(e.get("dist_km")) or 0.0
@@ -906,9 +906,9 @@ def run_step2_pairwise_correlation_dtw(
                 + "\n"
             )
 
-        if cfg.progress_every and (idx + 1) % int(cfg.progress_every) == 0:
-            print(f"[step2] processed {idx+1}/{len(edges)} edges ok={counts['n_ok']}")
-        if cfg.gc_every and (idx + 1) % int(cfg.gc_every) == 0:
+        if cfg.progress_every and (pos % int(cfg.progress_every) == 0 or pos == len(edges)):
+            print(f"[step2] processed {pos}/{len(edges)} edges ok={counts['n_ok']}")
+        if cfg.gc_every and (pos % int(cfg.gc_every) == 0):
             gc.collect()
 
     edges_f.flush()
